@@ -9,9 +9,9 @@ class Oficio extends Model
 {
     use HasFactory;
 
-    public function membros(){
+    public function historico_oficios(){
 
-        return $this->hasMany('App\Models\Membro');
+        return $this->hasMany('App\Models\HistoricoOficio');
     }
 
 }

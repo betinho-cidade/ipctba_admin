@@ -11,6 +11,8 @@ use App\Models\MeioAdmissao;
 use App\Models\MeioDemissao;
 use App\Models\Oficio;
 use App\Models\SituacaoMembro;
+use App\Models\Ministerio;
+use App\Models\MembroMinisterio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
@@ -72,40 +74,23 @@ class MembroController extends Controller
 
         $situacao_membros = SituacaoMembro::orderBy('nome')->get();
 
+        $ministerios = Ministerio::orderBy('nome')->get();
 
-        return view('painel.cadastro.membro.create', compact('user', 'local_congregas', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros'));
+        $perfis = Role::all();
+
+
+        return view('painel.cadastro.membro.create', compact('user', 'local_congregas', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis'));
     }
 
 
-/*
+
     public function store(CreateRequest $request)
     {
-        if(Gate::denies('view_administrador')){
+        if(Gate::denies('create_membro')){
             abort('403', 'Página não disponível');
         }
 
         $user = Auth()->User();
-
-        $roles = $user->roles;
-
-        if (!$roles->contains('name', 'Gestor')){
-            abort('403', 'Página não disponível');
-            //return redirect()->back();
-        }
-
-        $k9emails = K9Email::pluck('dominio')->toArray();
-        $index_pos = strripos($request->email, '@');
-        $dominio = substr($request->email, $index_pos);
-
-        if ($request->assinatura == 'F') {
-            if(in_array($dominio, $k9emails)){
-                return redirect()->route('usuario.create')->withInput()->withErrors('Esse domínio de e-mail não é permitido para assinantes FAMALI.');
-            }
-        } elseif ($request->assinatura == 'K'){
-            if(!in_array($dominio, $k9emails)){
-                return redirect()->route('usuario.create')->withInput()->withErrors('Esse domínio de e-mail não é permitido para assinantes K9.');
-            }
-        }
 
         $message = '';
 
@@ -113,57 +98,101 @@ class MembroController extends Controller
 
             DB::beginTransaction();
 
-            $usuario = new User();
+            $membro = new Membro();
 
-            $usuario->name = $request->nome;
-            $usuario->email = $request->email;
-            $usuario->password = bcrypt($request->password);
+            $membro->local_congrega_id = ($request->local_congrega) ? $request->local_congrega : '';
+            $membro->meio_admissao_id = ($request->meio_admissao) ? $request->meio_admissao : '';
+            $membro->meio_demissao_id = ($request->meio_demissao) ? $request->meio_demissao : '';
+            $membro->is_pastor = ($request->is_pastor) ? 'S' : 'N';
+            $membro->is_disciplina = ($request->is_disciplina) ? 'S' : 'N';
+            $membro->nome = $request->nome;
+            $membro->email = $request->email_membro;
+            $membro->cpf = $request->cpf;
+            $membro->sexo = $request->sexo;
+            $membro->celular = $request->celular;
+            $membro->data_nascimento = $request->data_nascimento;
+            $membro->naturalidade = $request->naturalidade;
+            $membro->status = $request->situacao_membro;
+            $membro->conjuge = $request->conjuge;
+            $membro->data_casamento = $request->data_casamento;
+            $membro->profissao = $request->profissao;
+            $membro->nome_pai = $request->nome_pai;
+            $membro->nome_mae = $request->nome_mae;
+            $membro->end_cep = $request->end_cep;
+            $membro->end_cidade = $request->end_cidade;
+            $membro->end_uf = $request->end_uf;
+            $membro->end_logradouro = $request->end_logradouro;
+            $membro->end_numero = $request->end_numero;
+            $membro->end_bairro = $request->end_bairro;
+            $membro->end_complemento = $request->end_complemento;
+            $membro->estado_civil = $request->estado_civil;
+            $membro->escolaridade = $request->escolaridade;
+            $membro->numero_rol = $request->numero_rol;
+            $membro->tipo_membro = $request->tipo_membro;
+            $membro->data_batismo = $request->data_batismo;
+            $membro->pastor_batismo = $request->pastor_batismo;
+            $membro->igreja_batismo = $request->igreja_batismo;
+            $membro->data_profissao_fe = $request->data_profissao_fe;
+            $membro->pastor_profissao_fe = $request->pastor_profissao_fe;
+            $membro->igreja_profissao_fe = $request->igreja_profissao_fe;
+            $membro->numero_ata = $request->numero_ata;
+            $membro->data_admissao = $request->data_admissao;
+            $membro->data_demissao = $request->data_demissao;
+            $membro->aptidao = $request->aptidao;
 
-            $usuario->cpf = $request->cpf;
-            $usuario->data_nascimento = $request->data_nascimento;
-            $usuario->telefone = $request->telefone;
-            $usuario->telefone_ddd = $request->telefone_ddd;
-            $usuario->end_cep = $request->end_cep;
-            $usuario->end_cidade = $request->end_cidade;
-            $usuario->end_uf = $request->end_uf;
-            $usuario->end_logradouro = $request->end_logradouro;
-            $usuario->end_numero = $request->end_numero;
-            $usuario->end_bairro = $request->end_bairro;
-            $usuario->end_complemento = $request->end_complemento;
-            $usuario->parceiro_id = $request->parceiro;
+            $membro->save();
 
-            $usuario->save();
+            if($request->ministerio){
+                foreach($request->ministerio as $key => $value){
+                    $membro_ministerio = new MembroMinisterio();
+                    $membro_ministerio->membro_id = $membro->id;
+                    $membro_ministerio->ministerio_id = $value;
+                    $membro_ministerio->save();
+                }
+            }
 
-            if($request->path_avatar){
-                $img_avatar = 'avatar_'.$usuario->id.'_'.time().'.'.$request->path_avatar->extension();
+            if($request->path_imagem){
+                $img_avatar = 'avatar_'.$membro->id.'_'.time().'.'.$request->path_imagem->extension();
                 $path_avatar = 'images/avatar';
 
-                $usuario->path_avatar = $img_avatar;
+                $membro->path_imagem = $img_avatar;
 
                 if(!\File::isDirectory(public_path('images/avatar'))){
                     \File::makeDirectory('images/avatar');
                 }
 
-                $img = Image::make($request->path_avatar)->orientate();
+                $img = Image::make($request->path_imagem)->orientate();
 
                 $img->resize(1024, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($path_avatar.'/'.$img_avatar, 80);
                 //$img->save($path_evidencia, 60);
 
-                $usuario->save();
+                $membro->save();
             }
 
-            $usuario->rolesAll()->attach($request->perfil);
+            if($request->situacao && $request->perfil && $request->email && $request->password) {
 
-            $status = $usuario->rolesAll()
-                              ->withPivot(['status', 'assinatura'])
-                              ->first()
-                              ->pivot;
+                $user = new User();
 
-            $status['status'] = $request->situacao;
-            $status['assinatura'] = $request->assinatura;
-            $status->save();
+                $user->name = $request->nome;
+                $user->email = $request->email;
+                $user->password = bcrypt($request->password);
+                $user->save();
+
+                $membro->user_id = $user->id;
+                $membro->save();
+
+                $user->rolesAll()->attach($request->perfil);
+
+                $status = $user->rolesAll()
+                               ->withPivot(['status'])
+                               ->first()
+                               ->pivot;
+
+                $status['status'] = $request->situacao;
+                $status->save();
+            }
 
             DB::commit();
 
@@ -179,14 +208,14 @@ class MembroController extends Controller
             $request->session()->flash('message.content', $message);
         } else {
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'O Usuário <code class="highlighter-rouge">'. $request->nome .'</code> foi criado com sucesso');
+            $request->session()->flash('message.content', 'O Membro <code class="highlighter-rouge">'. $request->nome .'</code> foi criado com sucesso');
         }
 
-        return redirect()->route('usuario.index');
+        return redirect()->route('membro.index');
     }
 
 
-
+/*
     public function show(User $usuario)
     {
 
@@ -327,68 +356,62 @@ class MembroController extends Controller
         return redirect()->route('usuario.index');
     }
 
+*/
 
-
-    public function destroy(User $usuario, Request $request)
+    public function destroy(Membro $membro, Request $request)
     {
-        if(Gate::denies('view_administrador')){
+        if(Gate::denies('delete_membro')){
             abort('403', 'Página não disponível');
         }
 
         $user = Auth()->User();
 
-        $roles = $user->roles;
-
-        if (!$roles->contains('name', 'Gestor')){
-            abort('403', 'Página não disponível');
-            //return redirect()->back();
-        }
-
         $message = '';
-        $usuario_nome = $usuario->name;
+        $membro_nome = $membro->nome;
 
-        if(($usuario->id != $user->id)) {
-            try {
-                DB::beginTransaction();
+        try {
+            DB::beginTransaction();
 
-                DB::table('role_user')->where('user_id', '=', $usuario->id)->delete();
+            $usuario = User::find($membro->user_id);
 
-                $usuario->delete();
+            DB::table('role_user')->where('user_id', '=', $usuario->id)->delete();
 
-                $path_avatar = 'images/avatar';
+            DB::table('membro_ministerios')->where('membro_id', '=', $membro->id)->delete();
 
-                if(\File::exists(public_path($path_avatar.'/'.$usuario->path_avatar))){
-                    \File::delete(public_path($path_avatar.'/'.$usuario->path_avatar));
-                }
+            $membro->delete();
 
-                DB::commit();
+            $usuario->delete();
 
-            } catch (Exception $ex){
+            $path_imagem = 'images/avatar';
 
-                DB::rollBack();
-
-                if(strpos($ex->getMessage(), 'sIntegrity constraint violation') !== false){
-                    $message = "Não foi possível excluir o registro, pois existem referências ao mesmo em outros processos.";
-                } else{
-                    $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();
-                }
-
+            if(\File::exists(public_path($path_imagem.'/'.$membro->path_imagem))){
+                \File::delete(public_path($path_imagem.'/'.$membro->path_imagem));
             }
-        } else {
-            $message = "Não é possível excluir o usuário logado.";
-        }
 
+            DB::commit();
+
+        } catch (Exception $ex){
+
+            DB::rollBack();
+
+            if(strpos($ex->getMessage(), 'sIntegrity constraint violation') !== false){
+                $message = "Não foi possível excluir o registro, pois existem referências ao mesmo em outros processos.";
+            } else{
+                $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();
+            }
+
+        }
 
         if ($message && $message !='') {
             $request->session()->flash('message.level', 'danger');
             $request->session()->flash('message.content', $message);
         } else {
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'O Usuário <code class="highlighter-rouge">'. $usuario_nome .'</code> foi excluído com sucesso');
+            $request->session()->flash('message.content', 'O Membro <code class="highlighter-rouge">'. $membro_nome .'</code> foi excluído com sucesso');
         }
 
-        return redirect()->route('usuario.index');
+        return redirect()->route('membro.index');
     }
-*/
+
 
 }

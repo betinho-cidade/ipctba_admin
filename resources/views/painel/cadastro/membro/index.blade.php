@@ -61,7 +61,7 @@
                             <th>ROL</th>
                             <th>Nome</th>
                             <th>Situação Membro</th>
-                            <th style="text-align:center;">Perfil</th>
+                            <th>Ofício</th>
                             <th style="text-align:center;">Ações</th>
                         </tr>
                         </thead>
@@ -69,11 +69,11 @@
                         <tbody>
                         @forelse($membros_AT as $membro)
                         <tr>
-                            <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->avatar}}" alt=""></td>
+                            <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></td>
                             <td>{{$membro->numero_rol}}</td>
                             <td>{{$membro->nome}}</td>
-                            <td>{{$membro->situacao_membro->nome}}</td>
-                            <td style="text-align:center;">{{$membro->perfil}}</td>
+                            <td>{{$membro->situacao_membro->nome ?? ''}}</td>
+                            <td>{{$membro->historico_oficio_atual}}</td>
                             <td style="text-align:center;">
 
                             @can('edit_membro')
@@ -117,7 +117,7 @@
                             <th>ROL</th>
                             <th>Nome</th>
                             <th>Situação Membro</th>
-                            <th style="text-align:center;">Perfil</th>
+                            <th>Ofício</th>
                             <th style="text-align:center;">Ações</th>
                         </tr>
                         </thead>
@@ -125,11 +125,11 @@
                         <tbody>
                         @forelse($membros_IN as $membro)
                         <tr>
-                            <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->avatar}}" alt=""></td>
+                            <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></td>
                             <td>{{$membro->numero_rol}}</td>
                             <td>{{$membro->nome}}</td>
-                            <td>{{$membro->situacao_membro->nome}}</td>
-                            <td style="text-align:center;">{{$membro->perfil}}</td>
+                            <td>{{$membro->situacao_membro->nome ?? ''}}</td>
+                            <td>{{$membro->historico_oficio_atual}}</td>
                             <td style="text-align:center;">
 
                             @can('edit_membro')

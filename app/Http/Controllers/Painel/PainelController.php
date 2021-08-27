@@ -30,6 +30,7 @@ class PainelController extends Controller
         //return redirect()->route('resultado.index');
     }
 
+
     public function js_viacep(Request $request)
     {
 

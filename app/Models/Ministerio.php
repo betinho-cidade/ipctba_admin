@@ -9,6 +9,10 @@ class Ministerio extends Model
 {
     use HasFactory;
 
+    public function membro_ministerios(){
+
+        return $this->hasMany('App\Models\MembroMinisterio');
+    }
 
 }
 
