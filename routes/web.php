@@ -105,6 +105,24 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/membro/{membro}', 'MembroController@show')->name('membro.show');
                 Route::put('/membro/{membro}/update', 'MembroController@update')->name('membro.update');
                 Route::delete('/membro/{membro}/destroy', 'MembroController@destroy')->name('membro.destroy');
+
+                Route::group(['namespace' => 'HistoricoOficio'], function(){
+                    Route::get('/membro/{membro}/historico_oficio', 'HistoricoOficioController@index')->name('historico_oficio.index');
+                    Route::get('/membro/{membro}/historico_oficio/create', 'HistoricoOficioController@create')->name('historico_oficio.create');
+                    Route::post('/membro/{membro}/historico_oficio/store', 'HistoricoOficioController@store')->name('historico_oficio.store');
+                    Route::get('/membro/{membro}/historico_oficio/{historico_oficio}', 'HistoricoOficioController@show')->name('historico_oficio.show');
+                    Route::put('/membro/{membro}/historico_oficio/{historico_oficio}/update', 'HistoricoOficioController@update')->name('historico_oficio.update');
+                    Route::delete('/membro/{membro}/historico_oficio/{historico_oficio}/destroy', 'HistoricoOficioController@destroy')->name('historico_oficio.destroy');
+                });
+
+                Route::group(['namespace' => 'HistoricoSituacao'], function(){
+                    Route::get('/membro/{membro}/historico_situacao', 'HistoricoSituacaoController@index')->name('historico_situacao.index');
+                    Route::get('/membro/{membro}/historico_situacao/create', 'HistoricoSituacaoController@create')->name('historico_situacao.create');
+                    Route::post('/membro/{membro}/historico_situacao/store', 'HistoricoSituacaoController@store')->name('historico_situacao.store');
+                    Route::get('/membro/{membro}/historico_situacao/{historico_situacao}', 'HistoricoSituacaoController@show')->name('historico_situacao.show');
+                    Route::put('/membro/{membro}/historico_situacao/{historico_situacao}/update', 'HistoricoSituacaoController@update')->name('historico_situacao.update');
+                    Route::delete('/membro/{membro}/historico_situacao/{historico_situacao}/destroy', 'HistoricoSituacaoController@destroy')->name('historico_situacao.destroy');
+                });
             });
         });
 

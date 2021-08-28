@@ -19,7 +19,6 @@ class CreateMembrosTable extends Migration
             $table->unsignedBigInteger('local_congrega_id')->nullable();
             $table->unsignedBigInteger('meio_admissao_id')->nullable();
             $table->unsignedBigInteger('meio_demissao_id')->nullable();
-            $table->unsignedBigInteger('situacao_membro_id')->nullable();
             $table->string('nome', 300);
             $table->string('end_cep', 8)->nullable();
             $table->string('end_cidade', 60)->nullable();

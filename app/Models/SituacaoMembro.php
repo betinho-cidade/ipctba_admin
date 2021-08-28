@@ -9,10 +9,11 @@ class SituacaoMembro extends Model
 {
     use HasFactory;
 
-    public function membros(){
+    public function historico_situacaos(){
 
-        return $this->hasMany('App\Models\Membro');
+        return $this->hasMany('App\Models\HistoricoSituacao');
     }
+
 
 }
 

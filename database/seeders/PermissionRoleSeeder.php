@@ -222,12 +222,6 @@ class PermissionRoleSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
-                [
-                    'permission_id' => 1,
-                    'role_id' => 3,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s'),
-                ],
             ]);
         } else {
             echo "\e[31mTabela Permission_Role não está vazia. ";

@@ -13,6 +13,8 @@ use App\Models\Oficio;
 use App\Models\SituacaoMembro;
 use App\Models\Ministerio;
 use App\Models\MembroMinisterio;
+use App\Models\HistoricoOficio;
+use App\Models\HistoricoSituacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
@@ -76,7 +78,8 @@ class MembroController extends Controller
 
         $ministerios = Ministerio::orderBy('nome')->get();
 
-        $perfis = Role::all();
+        $perfis = Role::where('name', 'Membro')
+                        ->get();
 
 
         return view('painel.cadastro.membro.create', compact('user', 'local_congregas', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis'));
@@ -215,61 +218,52 @@ class MembroController extends Controller
     }
 
 
-/*
-    public function show(User $usuario)
+
+    public function show(Membro $membro)
     {
 
-        if(Gate::denies('view_administrador')){
+        if(Gate::denies('edit_membro')){
             abort('403', 'Página não disponível');
             //return redirect()->back();
         }
 
         $user = Auth()->User();
 
-        $roles = $user->roles;
+        $local_congregas = LocalCongrega::orderBy('nome')->get();
 
-        if (!$roles->contains('name', 'Gestor')){
-            abort('403', 'Página não disponível');
-            //return redirect()->back();
-        }
+        $meio_admissaos = MeioAdmissao::orderBy('nome')->get();
 
-        $perfis = Role::all();
+        $meio_demissaos = MeioDemissao::orderBy('nome')->get();
 
-        $parceiros = Parceiro::All();
+        $oficios = Oficio::orderBy('nome')->get();
 
-        return view('painel.cadastro.usuario.show', compact('user', 'usuario', 'perfis', 'parceiros'));
+        $situacao_membros = SituacaoMembro::orderBy('nome')->get();
+
+        $ministerios = Ministerio::orderBy('nome')->get();
+
+        $perfis = Role::where('name', 'Membro')
+                        ->get();
+
+        $historico_oficios = HistoricoOficio::where('membro_id', $membro->id)
+                                              ->orderBy('data_fim', 'desc')
+                                              ->get();
+
+        $historico_situacaos = HistoricoSituacao::where('membro_id', $membro->id)
+                                              ->orderBy('data_fim', 'desc')
+                                              ->get();
+
+        return view('painel.cadastro.membro.show', compact('user', 'membro', 'local_congregas', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis', 'historico_oficios', 'historico_situacaos'));
     }
 
 
 
-    public function update(UpdateRequest $request, User $usuario)
+    public function update(UpdateRequest $request, Membro $membro)
     {
-        if(Gate::denies('view_administrador')){
+        if(Gate::denies('edit_membro')){
             abort('403', 'Página não disponível');
         }
 
         $user = Auth()->User();
-
-        $roles = $user->roles;
-
-        if (!$roles->contains('name', 'Gestor')){
-            abort('403', 'Página não disponível');
-            //return redirect()->back();
-        }
-
-        $k9emails = K9Email::pluck('dominio')->toArray();
-        $index_pos = strripos($request->email, '@');
-        $dominio = substr($request->email, $index_pos);
-
-        if ($usuario->assinatura_id['assinatura'] == 'F') {
-            if(in_array($dominio, $k9emails)){
-                return redirect()->route('usuario.show', compact('usuario'))->withInput()->withErrors('Esse domínio de e-mail não é permitido para assinantes FAMALI.');
-            }
-        } elseif ($usuario->assinatura_id['assinatura'] == 'K'){
-            if(!in_array($dominio, $k9emails)){
-                return redirect()->route('usuario.show', compact('usuario'))->withInput()->withErrors('Esse domínio de e-mail não é permitido para assinantes K9.');
-            }
-        }
 
         $message = '';
 
@@ -277,64 +271,125 @@ class MembroController extends Controller
 
             DB::beginTransaction();
 
-            $usuario->name = $request->nome;
-            $usuario->email = $request->email;
+            $membro->local_congrega_id = $request->local_congrega;
+            $membro->meio_admissao_id = $request->meio_admissao;
+            $membro->meio_demissao_id = $request->meio_demissao;
+            $membro->is_pastor = ($request->is_pastor) ? 'S' : 'N';
+            $membro->is_disciplina = ($request->is_disciplina) ? 'S' : 'N';
+            $membro->nome = $request->nome;
+            $membro->email = $request->email_membro;
+            $membro->cpf = $request->cpf;
+            $membro->sexo = $request->sexo;
+            $membro->celular = $request->celular;
+            $membro->data_nascimento = $request->data_nascimento;
+            $membro->naturalidade = $request->naturalidade;
+            $membro->status = $request->situacao_membro;
+            $membro->conjuge = $request->conjuge;
+            $membro->data_casamento = $request->data_casamento;
+            $membro->profissao = $request->profissao;
+            $membro->nome_pai = $request->nome_pai;
+            $membro->nome_mae = $request->nome_mae;
+            $membro->end_cep = $request->end_cep;
+            $membro->end_cidade = $request->end_cidade;
+            $membro->end_uf = $request->end_uf;
+            $membro->end_logradouro = $request->end_logradouro;
+            $membro->end_numero = $request->end_numero;
+            $membro->end_bairro = $request->end_bairro;
+            $membro->end_complemento = $request->end_complemento;
+            $membro->estado_civil = $request->estado_civil;
+            $membro->escolaridade = $request->escolaridade;
+            $membro->numero_rol = $request->numero_rol;
+            $membro->tipo_membro = $request->tipo_membro;
+            $membro->data_batismo = $request->data_batismo;
+            $membro->pastor_batismo = $request->pastor_batismo;
+            $membro->igreja_batismo = $request->igreja_batismo;
+            $membro->data_profissao_fe = $request->data_profissao_fe;
+            $membro->pastor_profissao_fe = $request->pastor_profissao_fe;
+            $membro->igreja_profissao_fe = $request->igreja_profissao_fe;
+            $membro->numero_ata = $request->numero_ata;
+            $membro->data_admissao = $request->data_admissao;
+            $membro->data_demissao = $request->data_demissao;
+            $membro->aptidao = $request->aptidao;
 
-            $usuario->cpf = $request->cpf;
-            $usuario->data_nascimento = $request->data_nascimento;
-            $usuario->telefone = $request->telefone;
-            $usuario->telefone_ddd = $request->telefone_ddd;
-            $usuario->end_cep = $request->end_cep;
-            $usuario->end_cidade = $request->end_cidade;
-            $usuario->end_uf = $request->end_uf;
-            $usuario->end_logradouro = $request->end_logradouro;
-            $usuario->end_numero = $request->end_numero;
-            $usuario->end_bairro = $request->end_bairro;
-            $usuario->end_complemento = $request->end_complemento;
-            $usuario->parceiro_id = $request->parceiro;
+            $membro->save();
 
-            if($request->password){
-                $usuario->password = bcrypt($request->password);
+            $membro->membro_ministerios()->delete();
+
+            if($request->ministerio){
+                foreach($request->ministerio as $key => $value){
+                    $membro_ministerio = new MembroMinisterio();
+                    $membro_ministerio->membro_id = $membro->id;
+                    $membro_ministerio->ministerio_id = $value;
+                    $membro_ministerio->save();
+                }
             }
 
-            $usuario->save();
+            if($request->path_imagem){
+                $img_avatar = 'avatar_'.$membro->id.'_'.time().'.'.$request->path_imagem->extension();
+                $path_imagem = 'images/avatar';
 
-            if($request->path_avatar){
-                $img_avatar = 'avatar_'.$usuario->id.'_'.time().'.'.$request->path_avatar->extension();
-                $path_avatar = 'images/avatar';
+                $imageOld = $membro->path_imagem;
+                $membro->path_imagem = $img_avatar;
 
-                $imageOld = $usuario->path_avatar;
-                $usuario->path_avatar = $img_avatar;
-
-                if(!\File::isDirectory(public_path('images/avatar'))){
-                    \File::makeDirectory('images/avatar');
+                if(!\File::isDirectory(public_path($path_imagem))){
+                    \File::makeDirectory($path_imagem);
                 }
 
-                if(\File::exists(public_path($path_avatar.'/'.$imageOld))){
-                    \File::delete(public_path($path_avatar.'/'.$imageOld));
+                if(\File::exists(public_path($path_imagem.'/'.$imageOld))){
+                    \File::delete(public_path($path_imagem.'/'.$imageOld));
                 }
 
-                $img = Image::make($request->path_avatar)->orientate();
+                $img = Image::make($request->path_imagem)->orientate();
 
                 $img->resize(1024, null, function ($constraint) {
                     $constraint->aspectRatio();
-                })->save($path_avatar.'/'.$img_avatar, 80);
+                })->save($path_imagem.'/'.$img_avatar, 80);
                 //$img->save($path_evidencia, 60);
 
-                $usuario->save();
+                $membro->save();
             }
 
-            $assinatura_status = $usuario->assinatura_and_status;
+            if(!$membro->user && $request->situacao && $request->perfil && $request->email && $request->password) {
 
-            if($request->situacao && ($request->situacao != $assinatura_status['status']) && ($usuario->id != $user->id)){
-                $assinatura_status['status'] = $request->situacao;
-                $assinatura_status->save();
+                $user = new User();
+
+                $user->name = $request->nome;
+                $user->email = $request->email;
+                $user->password = bcrypt($request->password);
+                $user->save();
+
+                $membro->user_id = $user->id;
+                $membro->save();
+
+                $user->rolesAll()->attach($request->perfil);
+
+                $status = $user->rolesAll()
+                               ->withPivot(['status'])
+                               ->first()
+                               ->pivot;
+
+                $status['status'] = $request->situacao;
+                $status->save();
+
+            } else if($membro->user) {
+
+                $membro->user->name = $request->nome;
+                $membro->user->email = $request->email;
+
+                $status = $membro->user->rolesAll()
+                            ->withPivot(['status'])
+                            ->first()
+                            ->pivot;
+
+                $status['status'] = $request->situacao;
+                $status->save();
+
+                if($request->password){
+                    $membro->user->password = bcrypt($request->password);
+                }
+
+                $membro->user->save();
             }
-
-            // if($request->assinatura && ($request->assinatura != $assinatura_status['assinatura']) && $usuario->perfil != 'Gestor'){
-            //     $assinatura_status['assinatura'] = $request->assinatura;
-            //     $assinatura_status->save();
-            // }
 
             DB::commit();
 
@@ -350,13 +405,13 @@ class MembroController extends Controller
             $request->session()->flash('message.content', $message);
         } else {
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'O Usuário <code class="highlighter-rouge">'. $usuario->name .'</code> foi alterado com sucesso');
+            $request->session()->flash('message.content', 'O Membro <code class="highlighter-rouge">'. $membro->nome .'</code> foi alterado com sucesso');
         }
 
-        return redirect()->route('usuario.index');
+        return redirect()->route('membro.index');
     }
 
-*/
+
 
     public function destroy(Membro $membro, Request $request)
     {

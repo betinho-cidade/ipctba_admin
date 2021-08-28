@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 
-class HistoricoOficio extends Model
+class HistoricoSituacao extends Model
 {
     use HasFactory;
 
@@ -16,9 +16,9 @@ class HistoricoOficio extends Model
         return $this->belongsTo('App\Models\Membro');
     }
 
-    public function oficio(){
+    public function situacao_membro(){
 
-        return $this->belongsTo('App\Models\Oficio');
+        return $this->belongsTo('App\Models\SituacaoMembro');
     }
 
     public function getDataInicioFormatadaAttribute()

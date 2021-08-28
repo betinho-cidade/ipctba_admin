@@ -18,7 +18,7 @@ class CreateHistoricoSituacaosTable extends Migration
             $table->unsignedBigInteger('membro_id');
             $table->unsignedBigInteger('situacao_membro_id');
             $table->date('data_inicio');
-            $table->date('data_fim');
+            $table->date('data_fim')->nullable();
             $table->longText('comentario')->nullable();
             $table->timestamps();
             $table->foreign('membro_id')->references('id')->on('membros');

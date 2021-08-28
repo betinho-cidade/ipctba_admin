@@ -72,7 +72,7 @@
                             <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></td>
                             <td>{{$membro->numero_rol}}</td>
                             <td>{{$membro->nome}}</td>
-                            <td>{{$membro->situacao_membro->nome ?? ''}}</td>
+                            <td>{{$membro->historico_situacao_atual}}</td>
                             <td>{{$membro->historico_oficio_atual}}</td>
                             <td style="text-align:center;">
 
@@ -128,7 +128,7 @@
                             <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></td>
                             <td>{{$membro->numero_rol}}</td>
                             <td>{{$membro->nome}}</td>
-                            <td>{{$membro->situacao_membro->nome ?? ''}}</td>
+                            <td>{{$membro->historico_situacao_atual}}</td>
                             <td>{{$membro->historico_oficio_atual}}</td>
                             <td style="text-align:center;">
 
