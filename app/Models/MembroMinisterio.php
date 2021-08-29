@@ -11,12 +11,12 @@ class MembroMinisterio extends Model
 
     public function membro()
     {
-        return $this->belongsTo('App\Model\Membro');
+        return $this->belongsTo('App\Models\Membro');
     }
 
     public function ministerio()
     {
-        return $this->belongsTo('App\Model\Ministerio');
+        return $this->belongsTo('App\Models\Ministerio');
     }
 
 }

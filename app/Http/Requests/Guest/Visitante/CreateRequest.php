@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Cadastro\Membro;
+namespace App\Http\Requests\Guest\Visitante;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
@@ -35,7 +35,6 @@ class CreateRequest extends FormRequest
             'celular' => 'required|max:11',
             'data_nascimento' => 'required|date',
             'naturalidade' => 'required|max:300',
-            'situacao_membro' => 'required',
             'conjuge' => 'max:300',
             'data_casamento' => 'nullable|date',
             'profissao' => 'max:300',
@@ -48,21 +47,12 @@ class CreateRequest extends FormRequest
             'end_numero' => 'max:20',
             'end_bairro' => 'max:60',
             'end_complemento' => '|max:40',
-            'numero_rol' => 'nullable|max:50|unique:membros,numero_rol',
-            'tipo_membro' => 'required',
             'data_batismo' => 'nullable|date',
             'pastor_batismo' => 'max:300',
             'igreja_batismo' => 'max:300',
             'data_profissao_fe' => 'nullable|date',
             'pastor_profissao_fe' => 'max:300',
             'igreja_profissao_fe' => 'max:300',
-            'numero_ata' => 'max:50',
-            'data_admissao' => 'nullable|date',
-            'data_demissao' => 'nullable|date',
-            'path_imagem' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-            'email' => 'max:300|unique:users,email', //Login de Acesso
-            'password' => 'nullable|min:8',
-            'password_confirm' => 'same:password',
         ];
     }
 
@@ -83,7 +73,6 @@ class CreateRequest extends FormRequest
             'data_nascimento.date' => 'A data de nascimento é inválida',
             'naturalidade.required' => 'A naturalidade é requerida',
             'naturalidade.max' => 'O tamanho permitido para a naturalidade é de 300 caracteres',
-            'situacao_membro.required' => 'A situação do membro é requerido',
             'conjuge.max' => 'O tamanho permitido para o cônjuge é de 300 caracteres',
             'data_casamento.date' => 'A data de casamento é inválida',
             'profissao.max' => 'O tamanho permitido para a profissão é de 300 caracteres',
@@ -97,25 +86,12 @@ class CreateRequest extends FormRequest
             'end_numero.max' => 'O tamanho permitido para o número é de 20 caracteres',
             'end_bairro.max' => 'O tamanho permitido para o bairro é de 60 caracteres',
             'end_complemento.max' => 'O tamanho permitido para o complemento é de 40 caracteres',
-            'numero_rol.max' => 'O tamanho permitido para o número do ROL é de 50 caracteres',
-            'numero_rol.unique' => 'O número do ROL informado já existe',
-            'tipo_membro.required' => 'O tipo de membro requerido',
             'data_batismo.date' => 'A data de batismo é inválida',
             'pastor_batismo.max' => 'O tamanho permitido para o Pastor de Batismo é de 300 caracteres',
             'igreja_batismo.max' => 'O tamanho permitido para a Igreja de Batismo é de 300 caracteres',
             'data_profissao_fe.date' => 'A data de profissão de fé é inválida',
             'pastor_profissao_fe.max' => 'O tamanho permitido para o pastor da profissão de fé é de 300 caracteres',
             'igreja_profissao_fe.max' => 'O tamanho permitido para a Igreja da profissão de fé é de 300 caracteres',
-            'numero_ata.max' => 'O tamanho permitido para o Número da Ata é de 50 caracteres',
-            'data_admissao.date' => 'A data de admissão é inválida',
-            'data_demissao.date' => 'A data de demissão é inválida',
-            'path_imagem.image' => 'Somente arquivo do tipo imagens pode ser anexada para a Imagem do Membro',
-            'path_imagem.mimes' => 'Somente imagens do tipo JPEG|JPG|PNG|GIF|SVG são permitidas para a Imagem do Membro',
-            'path_imagem.max' => 'O tamanho máximo permitido para a Imagem do Membro é de 1Mb.',
-            'email.max' => 'O tamanho permitido para o Login de Acesso é de 300 caracteres',
-            'email.unique' => 'O Login de Acesso informado já existe',
-            'password.min' => 'O tamanho MÍNIMO permitido para a senha é de 8 caracteres',
-            'password_confirm.same' => 'A Senha de Confirmação deve ser igual a Senha',
         ];
     }
 }

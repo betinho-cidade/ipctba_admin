@@ -11,10 +11,13 @@ use App\Models\MeioAdmissao;
 use App\Models\MeioDemissao;
 use App\Models\Oficio;
 use App\Models\SituacaoMembro;
+use App\Models\TIpoSolicitacao;
 use App\Models\Ministerio;
 use App\Models\MembroMinisterio;
 use App\Models\HistoricoOficio;
 use App\Models\HistoricoSituacao;
+use App\Models\HistoricoSolicitacao;
+use App\Models\MembroFamilia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
@@ -22,8 +25,11 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Cadastro\Membro\CreateRequest;
 use App\Http\Requests\Cadastro\Membro\UpdateRequest;
+use App\Exports\MembrosExport;
 use Image;
 use Carbon\Carbon;
+use Excel;
+use PDF;
 
 
 class MembroController extends Controller
@@ -103,9 +109,9 @@ class MembroController extends Controller
 
             $membro = new Membro();
 
-            $membro->local_congrega_id = ($request->local_congrega) ? $request->local_congrega : '';
-            $membro->meio_admissao_id = ($request->meio_admissao) ? $request->meio_admissao : '';
-            $membro->meio_demissao_id = ($request->meio_demissao) ? $request->meio_demissao : '';
+            $membro->local_congrega_id = ($request->local_congrega) ? $request->local_congrega : null;
+            $membro->meio_admissao_id = ($request->meio_admissao) ? $request->meio_admissao : null;
+            $membro->meio_demissao_id = ($request->meio_demissao) ? $request->meio_demissao : null;
             $membro->is_pastor = ($request->is_pastor) ? 'S' : 'N';
             $membro->is_disciplina = ($request->is_disciplina) ? 'S' : 'N';
             $membro->nome = $request->nome;
@@ -252,7 +258,14 @@ class MembroController extends Controller
                                               ->orderBy('data_fim', 'desc')
                                               ->get();
 
-        return view('painel.cadastro.membro.show', compact('user', 'membro', 'local_congregas', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis', 'historico_oficios', 'historico_situacaos'));
+        $historico_solicitacaos = HistoricoSolicitacao::where('membro_id', $membro->id)
+                                              ->orderBy('data_realizacao', 'desc')
+                                              ->get();
+
+        $membro_familias = MembroFamilia::where('membro_id', $membro->id)
+                                          ->get();
+
+        return view('painel.cadastro.membro.show', compact('user', 'membro', 'local_congregas', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis', 'historico_oficios', 'historico_situacaos', 'historico_solicitacaos', 'membro_familias'));
     }
 
 
@@ -429,13 +442,16 @@ class MembroController extends Controller
 
             $usuario = User::find($membro->user_id);
 
-            DB::table('role_user')->where('user_id', '=', $usuario->id)->delete();
-
-            DB::table('membro_ministerios')->where('membro_id', '=', $membro->id)->delete();
-
             $membro->delete();
 
-            $usuario->delete();
+            if($usuario){
+                DB::table('role_user')->where('user_id', '=', $usuario->id)->delete();
+
+                DB::table('membro_ministerios')->where('membro_id', '=', $membro->id)->delete();
+
+                $usuario->delete();
+            }
+
 
             $path_imagem = 'images/avatar';
 
@@ -449,7 +465,7 @@ class MembroController extends Controller
 
             DB::rollBack();
 
-            if(strpos($ex->getMessage(), 'sIntegrity constraint violation') !== false){
+            if(strpos($ex->getMessage(), 'Integrity constraint violation') !== false){
                 $message = "Não foi possível excluir o registro, pois existem referências ao mesmo em outros processos.";
             } else{
                 $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();
@@ -466,6 +482,35 @@ class MembroController extends Controller
         }
 
         return redirect()->route('membro.index');
+    }
+
+
+    public function pdf(Membro $membro)
+    {
+        if(Gate::denies('view_membro')){
+            abort('403', 'Página não disponível');
+        }
+
+        $user = Auth()->User();
+
+        $download = '';
+        $dompdf = PDF::loadView('painel.cadastro.membro.report', compact('user', 'membro'));
+        //$dompdf->setPaper('city', 'landscape');
+
+        // download PDF file with download method
+        return $dompdf->download('Membro.pdf');
+    }
+
+    public function excell()
+    {
+        if(Gate::denies('view_membro')){
+            abort('403', 'Página não disponível');
+            //return redirect()->back();
+        }
+
+        $user = Auth()->User();
+
+        return Excel::download(new MembrosExport, 'membros.xlsx');
     }
 
 

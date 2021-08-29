@@ -9,6 +9,10 @@ class TipoSolicitacao extends Model
 {
     use HasFactory;
 
+    public function historico_solicitacaos(){
+
+        return $this->hasMany('App\Models\HistoricoSolicitacao');
+    }
 
 }
 

@@ -30,7 +30,7 @@ class UpdateRequest extends FormRequest
         return [
             'nome' => 'required|max:300',
             'email_membro' => 'nullable|email|max:500',
-            'cpf' => 'max:11',
+            'cpf' => 'nullable|max:11|unique:membros,cpf,'.$this->membro->id,
             'sexo' => 'required',
             'celular' => 'required|max:11',
             'data_nascimento' => 'required|date',
@@ -48,7 +48,7 @@ class UpdateRequest extends FormRequest
             'end_numero' => 'max:20',
             'end_bairro' => 'max:60',
             'end_complemento' => '|max:40',
-            'numero_rol' => 'max:50|unique:membros,numero_rol,'.$this->membro->id,
+            'numero_rol' => 'nullable|max:50|unique:membros,numero_rol,'.$this->membro->id,
             'tipo_membro' => 'required',
             'data_batismo' => 'nullable|date',
             'pastor_batismo' => 'max:300',
@@ -60,7 +60,7 @@ class UpdateRequest extends FormRequest
             'data_admissao' => 'nullable|date',
             'data_demissao' => 'nullable|date',
             'path_imagem' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-            'email' => 'max:300|unique:users,email,'.$this->membro->user->id, //Login de Acesso
+            'email' => 'max:300|unique:users,email,'.$this->membro->user_id, //Login de Acesso
             'password' => 'nullable|min:8',
             'password_confirm' => 'same:password',
         ];
@@ -75,6 +75,7 @@ class UpdateRequest extends FormRequest
             'email_membro.email' => 'O E-mail do Membro é inválido',
             'email_membro.max' => 'O tamanho permitido para o E-mail d Membro é de 500 caracteres',
             'cpf.max' => 'O tamanho permitido para o CPF d Membro é de 11 dígitos',
+            'cpf.unique' => 'O CPF informado já existe',
             'sexo.required' => 'O sexo é requerido',
             'celular.required' => 'O celular é requerido',
             'celular.max' => 'O tamanho permitido para o celular é de 11 dígitos',

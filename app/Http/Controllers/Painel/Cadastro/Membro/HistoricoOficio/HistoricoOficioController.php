@@ -30,7 +30,7 @@ class HistoricoOficioController extends Controller
 
     public function create(Membro $membro)
     {
-        if(Gate::denies('create_membro')){
+        if(Gate::denies('create_historico')){
             abort('403', 'Página não disponível');
         }
 
@@ -45,7 +45,7 @@ class HistoricoOficioController extends Controller
 
     public function store(Membro $membro, CreateRequest $request)
     {
-        if(Gate::denies('create_membro')){
+        if(Gate::denies('create_historico')){
             abort('403', 'Página não disponível');
         }
 
@@ -92,7 +92,7 @@ class HistoricoOficioController extends Controller
     public function show(Membro $membro, HistoricoOficio $historico_oficio)
     {
 
-        if(Gate::denies('edit_membro')){
+        if(Gate::denies('edit_historico')){
             abort('403', 'Página não disponível');
             //return redirect()->back();
         }
@@ -106,7 +106,7 @@ class HistoricoOficioController extends Controller
 
     public function update(UpdateRequest $request, Membro $membro, HistoricoOficio $historico_oficio)
     {
-        if(Gate::denies('edit_membro')){
+        if(Gate::denies('edit_historico')){
             abort('403', 'Página não disponível');
         }
 
@@ -147,7 +147,7 @@ class HistoricoOficioController extends Controller
 
     public function destroy(Membro $membro, HistoricoOficio $historico_oficio, Request $request)
     {
-        if(Gate::denies('delete_membro')){
+        if(Gate::denies('delete_historico')){
             abort('403', 'Página não disponível');
         }
 
@@ -167,7 +167,7 @@ class HistoricoOficioController extends Controller
 
             DB::rollBack();
 
-            if(strpos($ex->getMessage(), 'sIntegrity constraint violation') !== false){
+            if(strpos($ex->getMessage(), 'Integrity constraint violation') !== false){
                 $message = "Não foi possível excluir o registro, pois existem referências ao mesmo em outros processos.";
             } else{
                 $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();

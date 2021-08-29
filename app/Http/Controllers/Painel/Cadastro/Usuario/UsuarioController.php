@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel\Cadastro\Usuario;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Membro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
@@ -207,6 +208,14 @@ class UsuarioController extends Controller
             try {
                 DB::beginTransaction();
 
+                $membro = Membro::where('user_id', '=', $usuario->id)
+                                  ->first();
+
+                if($membro){
+                    $membro->user_id = null;
+                    $membro->save();
+                }
+
                 DB::table('role_user')->where('user_id', '=', $usuario->id)->delete();
 
                 $usuario->delete();
@@ -217,7 +226,7 @@ class UsuarioController extends Controller
 
                 DB::rollBack();
 
-                if(strpos($ex->getMessage(), 'sIntegrity constraint violation') !== false){
+                if(strpos($ex->getMessage(), 'Integrity constraint violation') !== false){
                     $message = "Não foi possível excluir o registro, pois existem referências ao mesmo em outros processos.";
                 } else{
                     $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();

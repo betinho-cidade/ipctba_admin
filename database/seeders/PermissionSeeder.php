@@ -272,6 +272,34 @@ class PermissionSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
+                [
+                    'id' => 38,
+                    'name' => 'view_historico',
+                    'description' => 'Acessar as informações dos Históricos do Membro',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 39,
+                    'name' => 'edit_historico',
+                    'description' => 'Alterar as informações dos Históricos do Membro',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 40,
+                    'name' => 'create_historico',
+                    'description' => 'Criar um novo Histórico do Membro',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 41,
+                    'name' => 'delete_historico',
+                    'description' => 'Excluir um Histórico do Membro',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
             ]);
         } else {
             echo "\e[31mTabela Permissions não está vazia. ";

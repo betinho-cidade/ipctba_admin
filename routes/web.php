@@ -100,6 +100,8 @@ Route::middleware(['auth'])->group(function () {
             });
             Route::group(['namespace' => 'Membro'], function(){
                 Route::get('/membro', 'MembroController@index')->name('membro.index');
+                Route::get('/membro/{membro}/pdf', 'MembroController@pdf')->name('membro.pdf');
+                Route::get('/membro/excell', 'MembroController@excell')->name('membro.excell');
                 Route::get('/membro/create', 'MembroController@create')->name('membro.create');
                 Route::post('/membro/store', 'MembroController@store')->name('membro.store');
                 Route::get('/membro/{membro}', 'MembroController@show')->name('membro.show');
@@ -107,7 +109,6 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/membro/{membro}/destroy', 'MembroController@destroy')->name('membro.destroy');
 
                 Route::group(['namespace' => 'HistoricoOficio'], function(){
-                    Route::get('/membro/{membro}/historico_oficio', 'HistoricoOficioController@index')->name('historico_oficio.index');
                     Route::get('/membro/{membro}/historico_oficio/create', 'HistoricoOficioController@create')->name('historico_oficio.create');
                     Route::post('/membro/{membro}/historico_oficio/store', 'HistoricoOficioController@store')->name('historico_oficio.store');
                     Route::get('/membro/{membro}/historico_oficio/{historico_oficio}', 'HistoricoOficioController@show')->name('historico_oficio.show');
@@ -116,13 +117,27 @@ Route::middleware(['auth'])->group(function () {
                 });
 
                 Route::group(['namespace' => 'HistoricoSituacao'], function(){
-                    Route::get('/membro/{membro}/historico_situacao', 'HistoricoSituacaoController@index')->name('historico_situacao.index');
                     Route::get('/membro/{membro}/historico_situacao/create', 'HistoricoSituacaoController@create')->name('historico_situacao.create');
                     Route::post('/membro/{membro}/historico_situacao/store', 'HistoricoSituacaoController@store')->name('historico_situacao.store');
                     Route::get('/membro/{membro}/historico_situacao/{historico_situacao}', 'HistoricoSituacaoController@show')->name('historico_situacao.show');
                     Route::put('/membro/{membro}/historico_situacao/{historico_situacao}/update', 'HistoricoSituacaoController@update')->name('historico_situacao.update');
                     Route::delete('/membro/{membro}/historico_situacao/{historico_situacao}/destroy', 'HistoricoSituacaoController@destroy')->name('historico_situacao.destroy');
                 });
+
+                Route::group(['namespace' => 'HistoricoSolicitacao'], function(){
+                    Route::get('/membro/{membro}/historico_solicitacao/create', 'HistoricoSolicitacaoController@create')->name('historico_solicitacao.create');
+                    Route::post('/membro/{membro}/historico_solicitacao/store', 'HistoricoSolicitacaoController@store')->name('historico_solicitacao.store');
+                    Route::get('/membro/{membro}/historico_solicitacao/{historico_solicitacao}', 'HistoricoSolicitacaoController@show')->name('historico_solicitacao.show');
+                    Route::put('/membro/{membro}/historico_solicitacao/{historico_solicitacao}/update', 'HistoricoSolicitacaoController@update')->name('historico_solicitacao.update');
+                    Route::delete('/membro/{membro}/historico_solicitacao/{historico_solicitacao}/destroy', 'HistoricoSolicitacaoController@destroy')->name('historico_solicitacao.destroy');
+                });
+
+                Route::group(['namespace' => 'MembroFamilia'], function(){
+                    Route::get('/membro/{membro}/membro_familia/create', 'MembroFamiliaController@create')->name('membro_familia.create');
+                    Route::post('/membro/{membro}/membro_familia/store', 'MembroFamiliaController@store')->name('membro_familia.store');
+                    Route::delete('/membro/{membro}/membro_familia/{membro_familia}/destroy', 'MembroFamiliaController@destroy')->name('membro_familia.destroy');
+                });
+
             });
         });
 
@@ -133,10 +148,10 @@ Route::middleware(['auth'])->group(function () {
 //** Páginas de Acesso pelo Portal, para cadastro de novos Membros **/
 Route::group(['namespace' => 'Guest'], function(){
 
-    Route::group(['namespace' => 'Cadastro\Proposta'], function(){
-        Route::get('/proposta', 'PropostaController@create')->name('proposta.create');
-        Route::post('/proposta/create', 'PropostaController@store')->name('proposta.store');
-        Route::get('/proposta/bemvindo', 'PropostaController@bemvindo')->name('proposta.bemvindo');
+    Route::group(['namespace' => 'Cadastro\Visitante'], function(){
+        Route::get('/visitante', 'VisitanteController@create')->name('visitante.create');
+        Route::post('/visitante/store', 'VisitanteController@store')->name('visitante.store');
+        Route::post('/visitante/js_viacep', 'VisitanteController@js_viacep')->name('visitante.js_viacep');
     });
 });
 

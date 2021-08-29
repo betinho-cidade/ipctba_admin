@@ -533,7 +533,25 @@
                         <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
                         <span class="d-none d-sm-block">
                             <i onClick="location.href='{{route('historico_situacao.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Histórico da Situação do Membro"></i>
-                            Histórico da Situação do Membro ( <code class="highlighter-rouge">{{ $historico_situacaos->count() }}</code> )
+                            Histórico das Situações ( <code class="highlighter-rouge">{{ $historico_situacaos->count() }}</code> )
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#historico_solicitacaos" role="tab">
+                        <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
+                        <span class="d-none d-sm-block">
+                            <i onClick="location.href='{{route('historico_solicitacao.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Histórico de Solicitação do Membro"></i>
+                            Histórico de Solicitações ( <code class="highlighter-rouge">{{ $historico_solicitacaos->count() }}</code> )
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#membro_familias" role="tab">
+                        <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
+                        <span class="d-none d-sm-block">
+                            <i onClick="location.href='{{route('membro_familia.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Vínculo Familiar"></i>
+                            Vínculos Familires ( <code class="highlighter-rouge">{{ $membro_familias->count() }}</code> )
                         </span>
                     </a>
                 </li>
@@ -569,12 +587,12 @@
                                     <td>{{ $historico_oficio->comentario_abreviado }}</td>
                                     <td style="text-align:center;">
 
-                                        @can('edit_membro')
+                                        @can('edit_historico')
                                             <a href="{{route('historico_oficio.show', compact('membro', 'historico_oficio'))}}"><i class="fa fa-edit"
                                                     style="color: goldenrod" title="Editar o Histórico do Ofício"></i></a>
                                         @endcan
 
-                                        @can('delete_membro')
+                                        @can('delete_historico')
                                             <a href="javascript:;" data-toggle="modal"
                                             onclick="deleteData('historico_oficio', '{{$membro->id}}', '{{$historico_oficio->id}}');"
                                                 data-target="#modal-delete"><i class="fa fa-minus-circle"
@@ -617,12 +635,12 @@
                                     <td>{{ $historico_situacao->comentario_abreviado }}</td>
                                     <td style="text-align:center;">
 
-                                        @can('edit_membro')
+                                        @can('edit_historico')
                                             <a href="{{route('historico_situacao.show', compact('membro', 'historico_situacao'))}}"><i class="fa fa-edit"
                                                     style="color: goldenrod" title="Editar o Histórico da Situação do Membro"></i></a>
                                         @endcan
 
-                                        @can('delete_membro')
+                                        @can('delete_historico')
                                             <a href="javascript:;" data-toggle="modal"
                                             onclick="deleteData('historico_situacao', '{{$membro->id}}', '{{$historico_situacao->id}}');"
                                                 data-target="#modal-delete"><i class="fa fa-minus-circle"
@@ -639,6 +657,93 @@
                     </table>
                 </div>
                 <!-- Nav tabs - LISTA HISTORICO SITUACAO MEMBRO - FIM -->
+
+                <!-- Nav tabs - HISTORICO SOLICITACAO MEMBRO - INI -->
+                <div class="tab-pane" id="historico_solicitacaos" role="tabpanel">
+                    <table id="dt_historico_solicitacaos" class="table table-striped table-bordered dt-responsive nowrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Ordenação</th>
+                                <th>Solicitação</th>
+                                <th>Líder</th>
+                                <th>Data Solicitação</th>
+                                <th>Data Realização</th>
+                                <th>Comentário</th>
+                                <th style="text-align:center;">Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @forelse($historico_solicitacaos as $historico_solicitacao)
+                                <tr>
+                                    <td>{{ $historico_solicitacao->data_realizacao_ordenacao }}</td>
+                                    <td>{{ $historico_solicitacao->tipo_solicitacao->nome }}</td>
+                                    <td>{{ $historico_solicitacao->lider->nome }}</td>
+                                    <td>{{ $historico_solicitacao->data_solicitacao_formatada }}</td>
+                                    <td>{{ $historico_solicitacao->data_realizacao_formatada }}</td>
+                                    <td>{{ $historico_solicitacao->comentario_abreviado }}</td>
+                                    <td style="text-align:center;">
+
+                                        @can('edit_historico')
+                                            <a href="{{route('historico_solicitacao.show', compact('membro', 'historico_solicitacao'))}}"><i class="fa fa-edit"
+                                                    style="color: goldenrod" title="Editar o Histórico da Solicitação do Membro"></i></a>
+                                        @endcan
+
+                                        @can('delete_historico')
+                                            <a href="javascript:;" data-toggle="modal"
+                                            onclick="deleteData('historico_solicitacao', '{{$membro->id}}', '{{$historico_solicitacao->id}}');"
+                                                data-target="#modal-delete"><i class="fa fa-minus-circle"
+                                                    style="color: crimson" title="Excluir o Histórico da Solicitação do Membro"></i></a>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7">Nenhum registro encontrado</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Nav tabs - LISTA HISTORICO SOLICITACAO MEMBRO - FIM -->
+
+                <!-- Nav tabs - VINCULO FAMILIAR - INI -->
+                <div class="tab-pane" id="membro_familias" role="tabpanel">
+                    <table id="dt_membro_familias" class="table table-striped table-bordered dt-responsive nowrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Vínculo</th>
+                                <th>Membro da Família</th>
+                                <th style="text-align:center;">Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @forelse($membro_familias as $membro_familia)
+                                <tr>
+                                    <td>{{ $membro_familia->vinculo_familiar }}</td>
+                                    <td>{{ $membro_familia->membro_familia->nome }}</td>
+                                    <td style="text-align:center;">
+
+                                        @can('delete_membro')
+                                            <a href="javascript:;" data-toggle="modal"
+                                            onclick="deleteData('membro_familia', '{{$membro->id}}', '{{$membro_familia->id}}');"
+                                                data-target="#modal-delete"><i class="fa fa-minus-circle"
+                                                    style="color: crimson" title="Excluir o Vínculo Familiar do Membro"></i></a>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3">Nenhum registro encontrado</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Nav tabs - LISTA VINCULO FAMILIAR - FIM -->
 
             </div>
             <!-- Tab panes - FIM -->
@@ -729,6 +834,38 @@
         </script>
     @endif
 
+    @if ($historico_solicitacaos->count() > 0)
+        <script>
+            var table_hist_solicitacao = $('#dt_historico_solicitacaos').DataTable({
+                order: [
+                    [0, "desc"]
+                ],
+                columnDefs: [
+                    {
+                        targets: [ 0 ],
+                        visible: false,
+                    },
+                ],
+                language: {
+                    url: '{{ asset('nazox/assets/localisation/pt_br.json') }}'
+                }
+            });
+        </script>
+    @endif
+
+    @if ($membro_familias->count() > 0)
+        <script>
+            var table_membro_familia = $('#dt_membro_familias').DataTable({
+                order: [
+                    [1, "desc"]
+                ],
+                language: {
+                    url: '{{ asset('nazox/assets/localisation/pt_br.json') }}'
+                }
+            });
+        </script>
+    @endif
+
     <script>
 		$(document).ready(function(){
 			$('.mask_cep').inputmask('99.999-999');
@@ -797,6 +934,10 @@
                 deleteHistoricoOficio(data);
             }else if(action == 'historico_situacao'){
                 deleteHistoricoSituacao(data);
+            }else if(action == 'historico_solicitacao'){
+                deleteHistoricoSolicitacao(data);
+            }else if(action == 'membro_familia'){
+                deleteMembroFamilia(data);
             }
         }
 
@@ -817,6 +958,26 @@
             var url = '{{ route('historico_situacao.destroy', [':membro', ':situacao']) }}';
             url = url.replace(':membro', membro);
             url = url.replace(':situacao', situacao);
+            $("#deleteForm").attr('action', url);
+        }
+
+        function deleteHistoricoSolicitacao(data) {
+            var membro = data[0];
+            var solicitacao = data[1];
+
+            var url = '{{ route('historico_solicitacao.destroy', [':membro', ':solicitacao']) }}';
+            url = url.replace(':membro', membro);
+            url = url.replace(':solicitacao', solicitacao);
+            $("#deleteForm").attr('action', url);
+        }
+
+        function deleteMembroFamilia(data) {
+            var membro = data[0];
+            var membro_familia = data[1];
+
+            var url = '{{ route('membro_familia.destroy', [':membro', ':membro_familia']) }}';
+            url = url.replace(':membro', membro);
+            url = url.replace(':membro_familia', membro_familia);
             $("#deleteForm").attr('action', url);
         }
 

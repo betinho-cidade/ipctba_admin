@@ -8,6 +8,7 @@
             <h4 class="mb-0">Membros</h4>
 
             <div class="page-title-right">
+                <a href="{{route("membro.excell")}}" class="btn btn-outline-secondary waves-effect">Exportar Excel <i class="fa fa-download color: goldenrod" title="Exportar Membros para Excell"></i></a>
                 <a href="{{route("membro.create")}}" class="btn btn-outline-secondary waves-effect">Novo Membro</a>
             </div>
         </div>
@@ -37,7 +38,8 @@
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#ativa" role="tab">
                             <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                            <span class="d-none d-sm-block">Membros Ativos ( <code class="highlighter-rouge">{{$membros_AT->count()}}</code> )</span>
+                            <span class="d-none d-sm-block">Membros Ativos ( <code class="highlighter-rouge">{{$membros_AT->count()}}</code> )
+                            </span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -75,6 +77,10 @@
                             <td>{{$membro->historico_situacao_atual}}</td>
                             <td>{{$membro->historico_oficio_atual}}</td>
                             <td style="text-align:center;">
+
+                            @can('view_membro')
+                                <a href="{{route('membro.pdf', compact('membro'))}}"><i class="fa fa-download color: goldenrod" title="Gerar PDF do Membro"></i></a>
+                            @endcan
 
                             @can('edit_membro')
                                 <a href="{{route('membro.show', compact('membro'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar o Membro"></i></a>
@@ -131,6 +137,10 @@
                             <td>{{$membro->historico_situacao_atual}}</td>
                             <td>{{$membro->historico_oficio_atual}}</td>
                             <td style="text-align:center;">
+
+                            @can('view_membro')
+                                <a href="{{route('membro.pdf', compact('membro'))}}"><i class="fa fa-download color: goldenrod" title="Gerar PDF do Membro"></i></a>
+                            @endcan
 
                             @can('edit_membro')
                                 <a href="{{route('membro.show', compact('membro'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar o Membro"></i></a>

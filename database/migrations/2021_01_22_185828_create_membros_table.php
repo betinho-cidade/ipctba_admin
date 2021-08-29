@@ -33,7 +33,7 @@ class CreateMembrosTable extends Migration
             $table->date('data_nascimento');
             $table->string('naturalidade', 300);
             $table->enum('sexo', ['M', 'F']);  //M->Masculino   F->Feminino
-            $table->string('cpf', 11)->nullable();
+            $table->string('cpf', 11)->unique('membro_cpf_uk')->nullable();
             $table->enum('estado_civil', ['SL', 'CS' ,'SP', 'DV', 'VI', 'UE'])->nullable();  //SL->Solteiro  CS->Casado  SP->Separado  DV->Divorciado  VI->Viúvo  UE->União Estável
             $table->string('conjuge', 300)->nullable();
             $table->date('data_casamento')->nullable();
@@ -61,8 +61,6 @@ class CreateMembrosTable extends Migration
             $table->foreign('local_congrega_id')->references('id')->on('local_congregas');
             $table->foreign('meio_admissao_id')->references('id')->on('meio_admissaos');
             $table->foreign('meio_demissao_id')->references('id')->on('meio_demissaos');
-            $table->foreign('oficio_id')->references('id')->on('oficios');
-            $table->foreign('situacao_membro_id')->references('id')->on('situacao_membros');
         });
     }
 
