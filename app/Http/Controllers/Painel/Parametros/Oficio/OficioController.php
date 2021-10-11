@@ -174,7 +174,7 @@ class OficioController extends Controller
 
             DB::rollBack();
 
-            if(strpos($ex->getMessage(), 'sIntegrity constraint violation') !== false){
+            if(strpos($ex->getMessage(), 'Integrity constraint violation') !== false){
                 $message = "Não foi possível excluir o registro, pois existem referências ao mesmo em outros processos.";
             } else{
                 $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();

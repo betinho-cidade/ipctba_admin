@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Informações do Local de Congregação</h4>
+            <h4 class="mb-0">Informações do Status de Participação</h4>
         </div>
     </div>
 </div>
@@ -41,23 +41,23 @@
             <div class="card-body">
             <!-- FORMULÁRIO - INICIO -->
 
-            <h4 class="card-title">Formulário de Atualização - Local de Congregação</h4>
-            <p class="card-title-desc">O Local de Congregação cadastrado será utilizado na classificação do cadastro do Membro.</p>
+            <h4 class="card-title">Formulário de Atualização - Status de Participação</h4>
+            <p class="card-title-desc">O Status de Participação cadastrado será utilizado na classificação do cadastro do Membro.</p>
 
-            <form name="edit_local_congrega" method="POST" action="{{route('local_congrega.update', compact('local_congrega'))}}"  class="needs-validation" novalidate>
+            <form name="edit_status_participacao" method="POST" action="{{route('status_participacao.update', compact('status_participacao'))}}"  class="needs-validation" novalidate>
                 @csrf
                 @method('PUT')
 
                 <!-- Dados Pessoais - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
-                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Local de Congregação</h5>
+                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Status de Participação</h5>
                 </div>
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="nome">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome" value="{{$local_congrega->nome}}" placeholder="Local de Congregação" required>
+                                <input type="text" class="form-control" id="nome" name="nome" value="{{$status_participacao->nome}}" placeholder="Status de Participação" required>
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>

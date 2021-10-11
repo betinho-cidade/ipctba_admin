@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Membro;
-use App\Models\LocalCongrega;
+use App\Models\StatusParticipacao;
 use App\Models\MeioAdmissao;
 use App\Models\MeioDemissao;
 use App\Models\Oficio;
@@ -72,7 +72,7 @@ class MembroController extends Controller
 
         $user = Auth()->User();
 
-        $local_congregas = LocalCongrega::orderBy('nome')->get();
+        $status_participacaos = StatusParticipacao::orderBy('nome')->get();
 
         $meio_admissaos = MeioAdmissao::orderBy('nome')->get();
 
@@ -84,11 +84,11 @@ class MembroController extends Controller
 
         $ministerios = Ministerio::orderBy('nome')->get();
 
-        $perfis = Role::where('name', 'Membro')
+        $perfis = Role::whereIn('name', ['Membro','Lider'])
                         ->get();
 
 
-        return view('painel.cadastro.membro.create', compact('user', 'local_congregas', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis'));
+        return view('painel.cadastro.membro.create', compact('user', 'status_participacaos', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis'));
     }
 
 
@@ -109,14 +109,13 @@ class MembroController extends Controller
 
             $membro = new Membro();
 
-            $membro->local_congrega_id = ($request->local_congrega) ? $request->local_congrega : null;
+            $membro->status_participacao_id = ($request->status_participacao) ? $request->status_participacao : null;
             $membro->meio_admissao_id = ($request->meio_admissao) ? $request->meio_admissao : null;
             $membro->meio_demissao_id = ($request->meio_demissao) ? $request->meio_demissao : null;
-            $membro->is_pastor = ($request->is_pastor) ? 'S' : 'N';
             $membro->is_disciplina = ($request->is_disciplina) ? 'S' : 'N';
             $membro->nome = $request->nome;
             $membro->email = $request->email_membro;
-            $membro->cpf = $request->cpf;
+            $membro->cpf = ($request->cpf) ? $request->cpf : null;
             $membro->sexo = $request->sexo;
             $membro->celular = $request->celular;
             $membro->data_nascimento = $request->data_nascimento;
@@ -144,6 +143,10 @@ class MembroController extends Controller
             $membro->data_profissao_fe = $request->data_profissao_fe;
             $membro->pastor_profissao_fe = $request->pastor_profissao_fe;
             $membro->igreja_profissao_fe = $request->igreja_profissao_fe;
+            $membro->igreja_old_nome = $request->igreja_old_nome;
+            $membro->igreja_old_cidade = $request->igreja_old_cidade;
+            $membro->igreja_old_pastor = $request->igreja_old_pastor;
+            $membro->igreja_old_pastor_email = $request->igreja_old_pastor_email;
             $membro->numero_ata = $request->numero_ata;
             $membro->data_admissao = $request->data_admissao;
             $membro->data_demissao = $request->data_demissao;
@@ -182,19 +185,19 @@ class MembroController extends Controller
 
             if($request->situacao && $request->perfil && $request->email && $request->password) {
 
-                $user = new User();
+                $user_new = new User();
 
-                $user->name = $request->nome;
-                $user->email = $request->email;
-                $user->password = bcrypt($request->password);
-                $user->save();
+                $user_new->name = $request->nome;
+                $user_new->email = $request->email;
+                $user_new->password = bcrypt($request->password);
+                $user_new->save();
 
-                $membro->user_id = $user->id;
+                $membro->user_id = $user_new->id;
                 $membro->save();
 
-                $user->rolesAll()->attach($request->perfil);
+                $user_new->rolesAll()->attach($request->perfil);
 
-                $status = $user->rolesAll()
+                $status = $user_new->rolesAll()
                                ->withPivot(['status'])
                                ->first()
                                ->pivot;
@@ -228,14 +231,14 @@ class MembroController extends Controller
     public function show(Membro $membro)
     {
 
-        if(Gate::denies('edit_membro')){
+        if(Gate::denies('view_membro')){
             abort('403', 'Página não disponível');
             //return redirect()->back();
         }
 
         $user = Auth()->User();
 
-        $local_congregas = LocalCongrega::orderBy('nome')->get();
+        $status_participacaos = StatusParticipacao::orderBy('nome')->get();
 
         $meio_admissaos = MeioAdmissao::orderBy('nome')->get();
 
@@ -247,7 +250,7 @@ class MembroController extends Controller
 
         $ministerios = Ministerio::orderBy('nome')->get();
 
-        $perfis = Role::where('name', 'Membro')
+        $perfis = Role::whereIn('name', ['Membro','Lider'])
                         ->get();
 
         $historico_oficios = HistoricoOficio::where('membro_id', $membro->id)
@@ -265,7 +268,7 @@ class MembroController extends Controller
         $membro_familias = MembroFamilia::where('membro_id', $membro->id)
                                           ->get();
 
-        return view('painel.cadastro.membro.show', compact('user', 'membro', 'local_congregas', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis', 'historico_oficios', 'historico_situacaos', 'historico_solicitacaos', 'membro_familias'));
+        return view('painel.cadastro.membro.show', compact('user', 'membro', 'status_participacaos', 'meio_admissaos', 'meio_demissaos', 'oficios', 'situacao_membros', 'ministerios', 'perfis', 'historico_oficios', 'historico_situacaos', 'historico_solicitacaos', 'membro_familias'));
     }
 
 
@@ -284,14 +287,13 @@ class MembroController extends Controller
 
             DB::beginTransaction();
 
-            $membro->local_congrega_id = $request->local_congrega;
+            $membro->status_participacao_id = $request->status_participacao;
             $membro->meio_admissao_id = $request->meio_admissao;
             $membro->meio_demissao_id = $request->meio_demissao;
-            $membro->is_pastor = ($request->is_pastor) ? 'S' : 'N';
             $membro->is_disciplina = ($request->is_disciplina) ? 'S' : 'N';
             $membro->nome = $request->nome;
             $membro->email = $request->email_membro;
-            $membro->cpf = $request->cpf;
+            $membro->cpf = ($request->cpf) ? $request->cpf : null;
             $membro->sexo = $request->sexo;
             $membro->celular = $request->celular;
             $membro->data_nascimento = $request->data_nascimento;
@@ -319,10 +321,18 @@ class MembroController extends Controller
             $membro->data_profissao_fe = $request->data_profissao_fe;
             $membro->pastor_profissao_fe = $request->pastor_profissao_fe;
             $membro->igreja_profissao_fe = $request->igreja_profissao_fe;
+            $membro->igreja_old_nome = $request->igreja_old_nome;
+            $membro->igreja_old_cidade = $request->igreja_old_cidade;
+            $membro->igreja_old_pastor = $request->igreja_old_pastor;
+            $membro->igreja_old_pastor_email = $request->igreja_old_pastor_email;
             $membro->numero_ata = $request->numero_ata;
             $membro->data_admissao = $request->data_admissao;
             $membro->data_demissao = $request->data_demissao;
             $membro->aptidao = $request->aptidao;
+
+            if($request->data_demissao){
+                $membro->status = 'I';
+            }
 
             $membro->save();
 
@@ -362,21 +372,21 @@ class MembroController extends Controller
                 $membro->save();
             }
 
-            if(!$membro->user && $request->situacao && $request->perfil && $request->email && $request->password) {
+            if(!$membro->user && !$request->data_demissao && $request->situacao && $request->perfil && $request->email && $request->password) {
 
-                $user = new User();
+                $user_new = new User();
 
-                $user->name = $request->nome;
-                $user->email = $request->email;
-                $user->password = bcrypt($request->password);
-                $user->save();
+                $user_new->name = $request->nome;
+                $user_new->email = $request->email;
+                $user_new->password = bcrypt($request->password);
+                $user_new->save();
 
-                $membro->user_id = $user->id;
+                $membro->user_id = $user_new->id;
                 $membro->save();
 
-                $user->rolesAll()->attach($request->perfil);
+                $user_new->rolesAll()->attach($request->perfil);
 
-                $status = $user->rolesAll()
+                $status = $user_new->rolesAll()
                                ->withPivot(['status'])
                                ->first()
                                ->pivot;
@@ -389,12 +399,20 @@ class MembroController extends Controller
                 $membro->user->name = $request->nome;
                 $membro->user->email = $request->email;
 
+                $membro->user->rolesAll()->detach();
+                $membro->user->rolesAll()->attach($request->perfil);
+
                 $status = $membro->user->rolesAll()
                             ->withPivot(['status'])
                             ->first()
                             ->pivot;
 
-                $status['status'] = $request->situacao;
+
+                if($request->data_demissao){
+                    $status['status'] = 'I';
+                } else {
+                    $status['status'] = $request->situacao;
+                }
                 $status->save();
 
                 if($request->password){
@@ -436,27 +454,37 @@ class MembroController extends Controller
 
         $message = '';
         $membro_nome = $membro->nome;
+        $membro_path_imagem = $membro->path_imagem;
 
         try {
             DB::beginTransaction();
 
+            if($user->id == $membro->user_id){
+                $message = 'Não é possível excluir o membro do usuário que está logado';
+                $request->session()->flash('message.level', 'danger');
+                $request->session()->flash('message.content', $message);
+
+                return redirect()->route('membro.index');
+            }
+
             $usuario = User::find($membro->user_id);
 
-            $membro->delete();
+            if($membro->cadastro_inicial){
+                DB::table('historico_situacaos')->where('membro_id', '=', $membro->id)->delete();
+                DB::table('membro_ministerios')->where('membro_id', '=', $membro->id)->delete();
+            }
 
             if($usuario){
                 DB::table('role_user')->where('user_id', '=', $usuario->id)->delete();
-
-                DB::table('membro_ministerios')->where('membro_id', '=', $membro->id)->delete();
-
                 $usuario->delete();
             }
 
+            $membro->delete();
 
             $path_imagem = 'images/avatar';
 
-            if(\File::exists(public_path($path_imagem.'/'.$membro->path_imagem))){
-                \File::delete(public_path($path_imagem.'/'.$membro->path_imagem));
+            if(\File::exists(public_path($path_imagem.'/'.$membro_path_imagem))){
+                \File::delete(public_path($path_imagem.'/'.$membro_path_imagem));
             }
 
             DB::commit();
@@ -511,6 +539,55 @@ class MembroController extends Controller
         $user = Auth()->User();
 
         return Excel::download(new MembrosExport, 'membros.xlsx');
+    }
+
+
+    public function search(Request $request)
+    {
+        if(Gate::denies('view_membro')){
+            abort('403', 'Página não disponível');
+            //return redirect()->back();
+        }
+
+        $user = Auth()->User();
+
+
+        $membros_AT = Membro::where(function($query) use ($request){
+                        if ($request->is_disciplina) {
+                            $query->where('is_disciplina', 'S');
+                        }
+                        if ($request->nome) {
+                            $query->where('nome', 'like', '%'.$request->nome.'%');
+                        }
+                        if ($request->tipo_membro) {
+                            $query->where('tipo_membro', $request->tipo_membro);
+                        }
+                    })
+                    ->where('status', 'A')
+                    ->orderBy('nome', 'desc')
+                    ->get();
+
+
+        $membros_IN = Membro::where(function($query) use ($request){
+                        if ($request->is_disciplina) {
+                            $query->where('is_disciplina', 'S');
+                        }
+                        if ($request->nome) {
+                            $query->where('nome', 'like', '%'.$request->nome.'%');
+                        }
+                        if ($request->tipo_membro) {
+                            $query->where('tipo_membro', $request->tipo_membro);
+                        }
+                    })
+                    ->where('status', 'I')
+                    ->orderBy('nome', 'desc')
+                    ->get();
+
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Registros Encontrados: Ativos <code class="highlighter-rouge">'. $membros_AT->count() .'</code> Inativos <code class="highlighter-rouge">'. $membros_IN->count() .'</code>');
+
+        return view('painel.cadastro.membro.index', compact('user', 'membros_AT', 'membros_IN'));
     }
 
 

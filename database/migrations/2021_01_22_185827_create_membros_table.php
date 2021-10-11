@@ -16,7 +16,7 @@ class CreateMembrosTable extends Migration
         Schema::create('membros', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('local_congrega_id')->nullable();
+            $table->unsignedBigInteger('status_participacao_id')->nullable();
             $table->unsignedBigInteger('meio_admissao_id')->nullable();
             $table->unsignedBigInteger('meio_demissao_id')->nullable();
             $table->string('nome', 300);
@@ -42,23 +42,26 @@ class CreateMembrosTable extends Migration
             $table->string('nome_pai', 300)->nullable();
             $table->string('nome_mae', 300);
             $table->string('numero_rol', 50)->unique('membro_rol_uk')->nullable();
-            $table->enum('tipo_membro', ['CM', 'NC', 'NM']);  //CM->Comungante  NC->Não Comungante  NM->Não Membro
+            $table->enum('tipo_membro', ['CM', 'NC', 'NM', 'PS']);  //CM->Comungante  NC->Não Comungante  NM->Não Membro  PS->Pastor
             $table->date('data_batismo')->nullable();
             $table->string('pastor_batismo', 300)->nullable();
             $table->string('igreja_batismo', 300)->nullable();
             $table->date('data_profissao_fe')->nullable();
             $table->string('pastor_profissao_fe', 300)->nullable();
             $table->string('igreja_profissao_fe', 300)->nullable();
+            $table->string('igreja_old_nome', 300)->nullable();
+            $table->string('igreja_old_cidade', 200)->nullable();
+            $table->string('igreja_old_pastor', 300)->nullable();
+            $table->string('igreja_old_pastor_email', 191)->nullable();
             $table->string('numero_ata', 50)->nullable();
             $table->date('data_admissao')->nullable();
             $table->date('data_demissao')->nullable();
             $table->enum('status', ['A', 'I']);  //A->Ativo  I->Inativo
             $table->enum('is_disciplina', ['S', 'N']);  //S->Sim  N->Não
-            $table->enum('is_pastor', ['S', 'N']);  //S->Sim  N->Não
             $table->longText('aptidao')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('local_congrega_id')->references('id')->on('local_congregas');
+            $table->foreign('status_participacao_id')->references('id')->on('status_participacaos');
             $table->foreign('meio_admissao_id')->references('id')->on('meio_admissaos');
             $table->foreign('meio_demissao_id')->references('id')->on('meio_demissaos');
         });

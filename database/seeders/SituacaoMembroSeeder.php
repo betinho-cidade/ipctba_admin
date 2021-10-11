@@ -20,6 +20,12 @@ class SituacaoMembroSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
+                [
+                    'id' => 2,
+                    'nome' => 'Tempo de Igreja',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
             ]);
 
         } else { echo "\e[31mTabela situacao_membros não está vazia. "; }

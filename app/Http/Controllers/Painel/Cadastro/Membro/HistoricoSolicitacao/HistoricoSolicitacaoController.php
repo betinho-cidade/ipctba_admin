@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Cadastro\Membro\HistoricoSolicitacao\CreateRequest;
 use App\Http\Requests\Cadastro\Membro\HistoricoSolicitacao\UpdateRequest;
 use Image;
+use Carbon\Carbon;
 
 
 
@@ -30,7 +31,7 @@ class HistoricoSolicitacaoController extends Controller
 
     public function create(Membro $membro)
     {
-        if(Gate::denies('create_historico')){
+        if(Gate::denies('create_historico_solicitacao')){
             abort('403', 'Página não disponível');
         }
 
@@ -47,7 +48,7 @@ class HistoricoSolicitacaoController extends Controller
 
     public function store(Membro $membro, CreateRequest $request)
     {
-        if(Gate::denies('create_historico')){
+        if(Gate::denies('create_historico_solicitacao')){
             abort('403', 'Página não disponível');
         }
 
@@ -64,8 +65,7 @@ class HistoricoSolicitacaoController extends Controller
             $historico_solicitacao->membro_id = $membro->id;
             $historico_solicitacao->lider_id = $request->lider;
             $historico_solicitacao->tipo_solicitacao_id = $request->tipo_solicitacao;
-            $historico_solicitacao->data_solicitacao = $request->data_solicitacao;
-            $historico_solicitacao->data_realizacao = $request->data_realizacao;
+            $historico_solicitacao->data_agendamento = $request->data_agendamento;
             $historico_solicitacao->comentario = $request->comentario;
 
             $historico_solicitacao->save();
@@ -95,7 +95,7 @@ class HistoricoSolicitacaoController extends Controller
     public function show(Membro $membro, HistoricoSolicitacao $historico_solicitacao)
     {
 
-        if(Gate::denies('edit_historico')){
+        if(Gate::denies('view_historico_solicitacao')){
             abort('403', 'Página não disponível');
             //return redirect()->back();
         }
@@ -111,7 +111,7 @@ class HistoricoSolicitacaoController extends Controller
 
     public function update(UpdateRequest $request, Membro $membro, HistoricoSolicitacao $historico_solicitacao)
     {
-        if(Gate::denies('edit_historico')){
+        if(Gate::denies('edit_historico_solicitacao')){
             abort('403', 'Página não disponível');
         }
 
@@ -126,8 +126,29 @@ class HistoricoSolicitacaoController extends Controller
             $historico_solicitacao->lider_id = $request->lider;
             $historico_solicitacao->data_realizacao = $request->data_realizacao;
             $historico_solicitacao->comentario = $request->comentario;
+            $historico_solicitacao->data_realizacao = $request->data_realizacao;
 
             $historico_solicitacao->save();
+
+            if($historico_solicitacao->data_realizacao){
+                if($request->repetir_solicitacao <> 0){
+
+                    $data_agendamento = Carbon::now();
+                    $data_agendamento->addDays($request->repetir_solicitacao)->format('Y-m-d');
+
+                    $historico_solicitacao_new = new HistoricoSolicitacao();
+
+                    $historico_solicitacao_new->membro_id = $historico_solicitacao->membro_id;
+                    $historico_solicitacao_new->lider_id = $historico_solicitacao->lider_id;
+                    $historico_solicitacao_new->tipo_solicitacao_id = $historico_solicitacao->tipo_solicitacao_id;
+                    $historico_solicitacao_new->data_agendamento = $data_agendamento;
+                    $historico_solicitacao_new->comentario = $historico_solicitacao->comentario;
+
+                    $historico_solicitacao_new->save();
+
+
+                }
+            }
 
             DB::commit();
 
@@ -153,7 +174,7 @@ class HistoricoSolicitacaoController extends Controller
 
     public function destroy(Membro $membro, HistoricoSolicitacao $historico_solicitacao, Request $request)
     {
-        if(Gate::denies('delete_historico')){
+        if(Gate::denies('delete_historico_solicitacao')){
             abort('403', 'Página não disponível');
         }
 

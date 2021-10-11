@@ -26,14 +26,14 @@ class HistoricoSolicitacao extends Model
         return $this->belongsTo('App\Models\TipoSolicitacao');
     }
 
-    public function getDataSolicitacaoFormatadaAttribute()
+    public function getDataAgendamentoFormatadaAttribute()
     {
-        return ($this->data_solicitacao) ? date('d-m-Y', strtotime($this->data_solicitacao)): '';
+        return ($this->data_agendamento) ? date('d-m-Y', strtotime($this->data_agendamento)): '';
     }
 
-    public function getDataSolicitacaoAjustadaAttribute()
+    public function getDataAgendamentoAjustadaAttribute()
     {
-        return ($this->data_solicitacao) ? date('Y-m-d', strtotime($this->data_solicitacao)) : '';
+        return ($this->data_agendamento) ? date('Y-m-d', strtotime($this->data_agendamento)) : '';
     }
 
     public function getDataRealizacaoFormatadaAttribute()

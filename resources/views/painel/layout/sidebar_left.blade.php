@@ -21,7 +21,7 @@
                                     <span>Parametrizações</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{ route('local_congrega.index') }}">Locais de Congregação</a></li>
+                                    <li><a href="{{ route('status_participacao.index') }}">Status de Participação</a></li>
                                     <li><a href="{{ route('meio_admissao.index') }}">Meios de Admissão</a></li>
                                     <li><a href="{{ route('meio_demissao.index') }}">Meios de Demissão</a></li>
                                     <li><a href="{{ route('oficio.index') }}">Ofícios</a></li>
@@ -39,6 +39,7 @@
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('usuario.index') }}">Usuários</a></li>
                                     <li><a href="{{ route('membro.index') }}">Membros</a></li>
+                                    <li><a href="{{ route('membro_ficha.index') }}">FIcha de Atualização</a></li>
                                 </ul>
                             </li>
                             {{--  <li>
@@ -48,6 +49,25 @@
                                 </a>
                             </li>  --}}
                             <!-- Menus Relacioandos a administração - Acesso somente para GESTOR - FIM-->
+                            @endif
+
+
+                            @if($user->roles->contains('name', 'Lider'))
+                            <!-- Menus Relacioandos as Lider - Acesso somente para LIDER - INICIO-->
+
+                            <li class="menu-title">GESTÃO ORGANIZACIONAL</li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-store-2-line"></i>
+                                    <span>Cadastros</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('membro.index') }}">Membros</a></li>
+                                    <li><a href="{{ route('membro_ficha.index') }}">FIcha de Atualização</a></li>
+                                </ul>
+                            </li>
+                            <!-- Menus Relacioandos as Lider - Acesso somente para LIDER - FIM-->
                             @endif
 
                         </ul>

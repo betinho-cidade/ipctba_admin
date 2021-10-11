@@ -30,7 +30,7 @@ class HistoricoOficioController extends Controller
 
     public function create(Membro $membro)
     {
-        if(Gate::denies('create_historico')){
+        if(Gate::denies('create_historico_oficio')){
             abort('403', 'Página não disponível');
         }
 
@@ -45,7 +45,7 @@ class HistoricoOficioController extends Controller
 
     public function store(Membro $membro, CreateRequest $request)
     {
-        if(Gate::denies('create_historico')){
+        if(Gate::denies('create_historico_oficio')){
             abort('403', 'Página não disponível');
         }
 
@@ -92,7 +92,7 @@ class HistoricoOficioController extends Controller
     public function show(Membro $membro, HistoricoOficio $historico_oficio)
     {
 
-        if(Gate::denies('edit_historico')){
+        if(Gate::denies('view_historico_oficio')){
             abort('403', 'Página não disponível');
             //return redirect()->back();
         }
@@ -106,7 +106,7 @@ class HistoricoOficioController extends Controller
 
     public function update(UpdateRequest $request, Membro $membro, HistoricoOficio $historico_oficio)
     {
-        if(Gate::denies('edit_historico')){
+        if(Gate::denies('edit_historico_oficio')){
             abort('403', 'Página não disponível');
         }
 
@@ -147,7 +147,7 @@ class HistoricoOficioController extends Controller
 
     public function destroy(Membro $membro, HistoricoOficio $historico_oficio, Request $request)
     {
-        if(Gate::denies('delete_historico')){
+        if(Gate::denies('delete_historico_oficio')){
             abort('403', 'Página não disponível');
         }
 

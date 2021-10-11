@@ -31,13 +31,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', 'PainelController@index')->name('painel');
 
         Route::group(['namespace' => 'Parametros'], function(){
-            Route::group(['namespace' => 'LocalCongrega'], function(){
-                Route::get('/local_congrega', 'LocalCongregaController@index')->name('local_congrega.index');
-                Route::get('/local_congrega/create', 'LocalCongregaController@create')->name('local_congrega.create');
-                Route::post('/local_congrega/store', 'LocalCongregaController@store')->name('local_congrega.store');
-                Route::get('/local_congrega/{local_congrega}', 'LocalCongregaController@show')->name('local_congrega.show');
-                Route::put('/local_congrega/{local_congrega}/update', 'LocalCongregaController@update')->name('local_congrega.update');
-                Route::delete('/local_congrega/{local_congrega}/destroy', 'LocalCongregaController@destroy')->name('local_congrega.destroy');
+            Route::group(['namespace' => 'StatusParticipacao'], function(){
+                Route::get('/status_participacao', 'StatusParticipacaoController@index')->name('status_participacao.index');
+                Route::get('/status_participacao/create', 'StatusParticipacaoController@create')->name('status_participacao.create');
+                Route::post('/status_participacao/store', 'StatusParticipacaoController@store')->name('status_participacao.store');
+                Route::get('/status_participacao/{status_participacao}', 'StatusParticipacaoController@show')->name('status_participacao.show');
+                Route::put('/status_participacao/{status_participacao}/update', 'StatusParticipacaoController@update')->name('status_participacao.update');
+                Route::delete('/status_participacao/{status_participacao}/destroy', 'StatusParticipacaoController@destroy')->name('status_participacao.destroy');
             });
             Route::group(['namespace' => 'MeioAdmissao'], function(){
                 Route::get('/meio_admissao', 'MeioAdmissaoController@index')->name('meio_admissao.index');
@@ -100,13 +100,14 @@ Route::middleware(['auth'])->group(function () {
             });
             Route::group(['namespace' => 'Membro'], function(){
                 Route::get('/membro', 'MembroController@index')->name('membro.index');
-                Route::get('/membro/{membro}/pdf', 'MembroController@pdf')->name('membro.pdf');
+                Route::post('/membro/search', 'MembroController@search')->name('membro.search');
                 Route::get('/membro/excell', 'MembroController@excell')->name('membro.excell');
                 Route::get('/membro/create', 'MembroController@create')->name('membro.create');
                 Route::post('/membro/store', 'MembroController@store')->name('membro.store');
                 Route::get('/membro/{membro}', 'MembroController@show')->name('membro.show');
                 Route::put('/membro/{membro}/update', 'MembroController@update')->name('membro.update');
                 Route::delete('/membro/{membro}/destroy', 'MembroController@destroy')->name('membro.destroy');
+                Route::get('/membro/{membro}/pdf', 'MembroController@pdf')->name('membro.pdf');
 
                 Route::group(['namespace' => 'HistoricoOficio'], function(){
                     Route::get('/membro/{membro}/historico_oficio/create', 'HistoricoOficioController@create')->name('historico_oficio.create');
@@ -139,19 +140,40 @@ Route::middleware(['auth'])->group(function () {
                 });
 
             });
+
+            Route::group(['namespace' => 'MembroFicha'], function(){
+                Route::get('/membro_ficha', 'MembroFichaController@index')->name('membro_ficha.index');
+                Route::get('/membro_ficha/create', 'MembroFichaController@create')->name('membro_ficha.create');
+                Route::post('/membro_ficha/store', 'MembroFichaController@store')->name('membro_ficha.store');
+                Route::get('/membro_ficha/{membro_ficha}', 'MembroFichaController@show')->name('membro_ficha.show');
+                Route::put('/membro_ficha/{membro_ficha}/update', 'MembroFichaController@update')->name('membro_ficha.update');
+                Route::delete('/membro_ficha/{membro_ficha}/destroy', 'MembroFichaController@destroy')->name('membro_ficha.destroy');
+            });
         });
 
     });
 
 });
 
-//** Páginas de Acesso pelo Portal, para cadastro de novos Membros **/
+//** Páginas de Acesso pelo Portal, para cadastro de novos Membros / Ficha de Atualização **/
 Route::group(['namespace' => 'Guest'], function(){
 
-    Route::group(['namespace' => 'Cadastro\Visitante'], function(){
-        Route::get('/visitante', 'VisitanteController@create')->name('visitante.create');
-        Route::post('/visitante/store', 'VisitanteController@store')->name('visitante.store');
-        Route::post('/visitante/js_viacep', 'VisitanteController@js_viacep')->name('visitante.js_viacep');
+    Route::group(['namespace' => 'Cadastro'], function(){
+
+        Route::group(['namespace' => 'Visitante'], function(){
+            Route::get('/visitante', 'VisitanteController@create')->name('visitante.create');
+            Route::post('/visitante/store', 'VisitanteController@store')->name('visitante.store');
+            Route::post('/visitante/js_viacep', 'VisitanteController@js_viacep')->name('visitante.js_viacep');
+            Route::get('/visitante/bemvindo', 'VisitanteController@bemvindo')->name('visitante.bemvindo');
+        });
+
+        Route::group(['namespace' => 'FichaCadastro'], function(){
+            Route::get('/ficha_cadastro', 'FichaCadastroController@create')->name('ficha_cadastro.create');
+            Route::post('/ficha_cadastro/store', 'FichaCadastroController@store')->name('ficha_cadastro.store');
+            Route::post('/ficha_cadastro/js_viacep', 'FichaCadastroController@js_viacep')->name('ficha_cadastro.js_viacep');
+            Route::get('/ficha_cadastro/ok', 'FichaCadastroController@ok')->name('ficha_cadastro.ok');
+        });
     });
+
 });
 

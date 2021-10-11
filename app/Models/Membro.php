@@ -27,9 +27,9 @@ class Membro extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function local_congrega(){
+    public function status_participacao(){
 
-        return $this->belongsTo('App\Models\LocalCongrega');
+        return $this->belongsTo('App\Models\StatusParticipacao');
     }
 
     public function meio_admissao(){
@@ -88,6 +88,11 @@ class Membro extends Model
     public function historico_solicitacaos(){
 
         return $this->hasMany('App\Models\HistoricoSolicitacao');
+    }
+
+    public function membro_fichas(){
+
+        return $this->hasMany('App\Models\MembroFicha');
     }
 
 
@@ -335,29 +340,6 @@ class Membro extends Model
     }
 
 
-    public function getDescricaoIsPastorAttribute(){
-
-        $descricao = '';
-
-        switch($this->is_pastor){
-
-            case 'S' : {
-                $descricao = 'Sim';
-                break;
-            }
-            case 'N' : {
-                $descricao = 'Não';
-                break;
-            }
-            default : {
-                $descricao = '---';
-                break;
-            }
-        }
-
-        return $descricao;
-    }
-
     public function getDescricaoIsDisciplinaAttribute(){
 
         $descricao = '';
@@ -379,6 +361,23 @@ class Membro extends Model
         }
 
         return $descricao;
+    }
+
+    public function getCadastroInicialAttribute()
+    {
+
+        $cadastro_inicial = false;
+
+        $historico_oficio = ($this->historico_oficios->count() == 0) ? true : false;
+        $historico_solicitacao = ($this->historico_solicitacaos->count() == 0) ? true : false;
+        $membro_familia = ($this->membro_familias->count() == 0) ? true : false;
+        $historico_situacao = ($this->historico_situacaos->count() <= 1) ? true : false;
+
+        if($historico_oficio && $historico_solicitacao && $membro_familia && $historico_situacao){
+            $cadastro_inicial = true;
+        }
+
+        return $cadastro_inicial;
     }
 
 }

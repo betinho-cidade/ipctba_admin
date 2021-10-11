@@ -67,7 +67,7 @@
                             <li>
                                 <a href="index.html" class="waves-effect" style="cursor: default;color: #ffffff;pointer-events: none;">
                                     <i class="ri-lock-line" style="color: #ffffff;"></i><span class="badge badge-pill badge-success float-right"></span>
-                                    <span>Solicitação de Cadastro</span>
+                                    <span>Solicitação de Atualização de Ficha Cadastral</span>
                                 </a>
                             </li>
                             <li>
@@ -136,7 +136,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0">Solicitação de Cadastro - REALIZADA COM SUCESSO</h4>
+                                    <h4 class="mb-0">Solicitação de Atualização Cadastral - REALIZADA COM SUCESSO</h4>
                                 </div>
                             </div>
                         </div>
@@ -147,8 +147,8 @@
                                     <div class="card-body">
                                     <!-- FORMULÁRIO - INICIO -->
 
-                                    <h4 class="card-title">Formulário de Solicitação de Cadastro - ENVIADO</h4>
-                                    <p class="card-title-desc">A solicitação de cadastro informado foi enviada para nossa equipe de análise. Agradecemos o preenchimento.</p>
+                                    <h4 class="card-title">Formulário de Solicitação de Atualização de Ficha Cadastral - ENVIADA</h4>
+                                    <p class="card-title-desc">A solicitação de atualização de cadastro foi enviada para nossa equipe de análise. Agradecemos o preenchimento.</p>
 
                                     <!-- FORMULÁRIO - FIM -->
                                     </div>

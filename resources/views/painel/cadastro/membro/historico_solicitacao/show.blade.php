@@ -76,8 +76,8 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="data_inicio">Data Solicitação</label>
-                                <input type="date" disabled class="form-control" value="{{$historico_solicitacao->data_solicitacao_ajustada}}">
+                                <label for="data_agendamento">Data Agendamento</label>
+                                <input type="date" disabled class="form-control" value="{{$historico_solicitacao->data_agendamento_ajustada}}">
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -91,10 +91,24 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <div class="form-group">
                                 <label for="comentario">Comentários</label>
                                 <textarea class="form-control" rows="3" id="comentario" name="comentario" placeholder="Comentários...">{{ $historico_solicitacao->comentario }}</textarea>
+                                <div class="valid-feedback">ok!</div>
+                                <div class="invalid-feedback">Inválido!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="repetir_solicitacao">Repetir Solicitação</label>
+                                <select id="repetir_solicitacao" name="repetir_solicitacao" class="form-control">
+                                    <option value="">---</option>
+                                    <option value="0">Não Repetir</option>
+                                    <option value="7">7 dias</option>
+                                    <option value="15">15 dias</option>
+                                    <option value="30">30 dias</option>
+                                </select>
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>

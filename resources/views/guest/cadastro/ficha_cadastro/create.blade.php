@@ -67,12 +67,12 @@
                                 <li>
                                     <a href="index.html" class="waves-effect" style="cursor: default;color: #ffffff;pointer-events: none;">
                                         <i class="ri-lock-line" style="color: #ffffff;"></i><span class="badge badge-pill badge-success float-right"></span>
-                                        <span>Solicitação de Cadastro</span>
+                                        <span>Solicitação de Atualização de Ficha Cadastral</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a style="padding: .625rem 1rem;  color: #b7b7b7;cursor: default;pointer-events: none;">
-                                        <span><p>Deseja se tornar um membro da IPCTBA ?</p> Por gentileza, preencha o formulário ao lado e aguarda o contato de um dos nossos responsáveis.</span>
+                                        <span><p>Deseja solicitar uma alteração dos Dados Cadastrais ?</p> Por gentileza, preencha o formulário ao lado e aguarda o contato de um dos nossos responsáveis.</span>
                                     </a>
                                 </li>
 
@@ -133,9 +133,9 @@
                 <div class="card-body">
                 <!-- FORMULÁRIO - INICIO -->
 
-                <h4 class="card-title">Formulário de Solicitação de Cadastro - Novo Membro</h4>
-                <p class="card-title-desc">A solicitação de cadastro será enviada aos responsáveis para análise e efetivação.</p>
-                <form name="create_visitante" method="POST" action="{{route('visitante.store')}}"  class="needs-validation"  novalidate>
+                <h4 class="card-title">Formulário de Solicitação de Atualização - Dados Cadastrais</h4>
+                <p class="card-title-desc">A solicitação de atualização de ficha cadastral será enviada aos responsáveis para análise e efetivação.</p>
+                <form name="create_ficha_cadastro" method="POST" action="{{route('ficha_cadastro.store')}}"  class="needs-validation"  novalidate>
                     @csrf
 
                     <!-- Dados Pessoais - INI -->
@@ -144,47 +144,36 @@
                     </div>
 
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nome">Nome</label>
-                                    <input type="text" class="form-control" id="nome" name="nome" value="{{old('nome')}}" placeholder="Nome" required>
+                                    <input type="text" class="form-control" id="nome" name="nome" value="{{old('nome')}}" required>
                                     <div class="valid-feedback">ok!</div>
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email_membro">E-mail</label>
-                                    <input type="email" class="form-control" id="email_membro" name="email_membro" value="{{old('email_membro')}}" placeholder="E-mail">
+                                    <input type="email" class="form-control" id="email_membro" name="email_membro" value="{{old('email_membro')}}">
                                     <div class="valid-feedback">ok!</div>
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <label for="sexo">Sexo</label>
-                                <select id="sexo" name="sexo" class="form-control" required>
-                                    <option value="">---</option>
-                                    <option value="M" {{(old('sexo') == 'M') ? 'selected' : '' }}>Masculino</option>
-                                    <option value="F" {{(old('sexo') == 'F') ? 'selected' : '' }}>Feminino</option>
-                                </select>
-                                <div class="valid-feedback">ok!</div>
-                                <div class="invalid-feedback">Inválido!</div>
                             </div>
                         </div>
                         <p></p>
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="celular">Telefone Celular</label>
-                                <input type="text" name="celular" id="celular" class="form-control mask_celular" value="{{old('celular')}}" placeholder="(99) 99999-9999" required>
+                                <input type="text" name="celular" id="celular" class="form-control mask_celular" value="{{old('celular')}}" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="data_nascimento">Data Nascimento</label>
-                                <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="{{old('data_nascimento')}}" required>
+                                <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="{{old('data_nascimento')}}">
                             </div>
                             <div class="col-md-4">
                                 <label for="naturalidade">Naturalidade</label>
-                                <input type="text" name="naturalidade" id="naturalidade" class="form-control" value="{{old('naturalidade')}}" required>
+                                <input type="text" name="naturalidade" id="naturalidade" class="form-control" value="{{old('naturalidade')}}">
                             </div>
                         </div>
                         <p></p>
@@ -215,7 +204,7 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="conjuge">Nome Cônjuge</label>
-                                    <input type="text" class="form-control" id="conjuge" name="conjuge" value="{{old('conjuge')}}" placeholder="Nome">
+                                    <input type="text" class="form-control" id="conjuge" name="conjuge" value="{{old('conjuge')}}">
                                     <div class="valid-feedback">ok!</div>
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
@@ -248,15 +237,15 @@
 
                             <div class="col-md-3">
                                 <label for="profissao">Profissão</label>
-                                <input type="text" name="profissao" id="profissao" class="form-control" value="{{old('profissao')}}" placeholder="Profissão">
+                                <input type="text" name="profissao" id="profissao" class="form-control" value="{{old('profissao')}}">
                             </div>
                             <div class="col-md-3">
                                 <label for="nome_pai">Nome do Pai</label>
-                                <input type="text" name="nome_pai" id="nome_pai" class="form-control" value="{{old('nome_pai')}}" placeholder="Nome do Pai">
+                                <input type="text" name="nome_pai" id="nome_pai" class="form-control" value="{{old('nome_pai')}}">
                             </div>
                             <div class="col-md-3">
                                 <label for="nome_mae">Nome da Mãe</label>
-                                <input type="text" name="nome_mae" id="nome_mae" class="form-control" value="{{old('nome_mae')}}" placeholder="Nome da Mãe" required>
+                                <input type="text" name="nome_mae" id="nome_mae" class="form-control" value="{{old('nome_mae')}}">
                             </div>
                         </div>
                         <p></p>
@@ -270,7 +259,7 @@
                             <div class="col-md-2">
                                 <label for="end_cep">CEP</label>
                                 <img src="{{asset('images/loading.gif')}}" id="img-loading-cep" style="display:none;max-width: 17%; margin-left: 26px;">
-                                <input type="text" name="end_cep" id="end_cep" class="form-control dynamic_cep mask_cep" value="{{old('end_cep')}}" placeholder="99.999-999">
+                                <input type="text" name="end_cep" id="end_cep" class="form-control dynamic_cep mask_cep" value="{{old('end_cep')}}">
                             </div>
 
                             <div class="col-md-4">
@@ -308,112 +297,6 @@
                         <p></p>
                     <!-- Dados Endereço - FIM -->
 
-
-                    <!-- Dados Eclesiásticos - INI -->
-                    <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
-                        <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Eclesiásticos</h5>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="tempo_igreja">Há quanto tempo você frequenta a Igreja Presbiteriana de Curitiba</label>
-                            <input type="text" name="tempo_igreja" id="tempo_igreja" class="form-control" value="{{old('tempo_igreja')}}" required>
-                        </div>
-                    </div>
-                    <p></p>
-
-                        <fieldset class="border p-3">
-                            <legend class="w-auto" style="font-size: 18px">Batismo</legend>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="data_batismo">Data</label>
-                                    <input type="date" name="data_batismo" id="data_batismo" class="form-control" value="{{old('data_batismo')}}">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="pastor_batismo">Pastor</label>
-                                    <input type="text" name="pastor_batismo" id="pastor_batismo" class="form-control" value="{{old('pastor_batismo')}}" placeholder="Pastor Batismo">
-                                </div>
-                                <div class="col-md-5">
-                                    <label for="igreja_batismo">Igreja</label>
-                                    <input type="text" name="igreja_batismo" id="igreja_batismo" class="form-control" value="{{old('igreja_batismo')}}" placeholder="Igreja Batismo">
-                                </div>
-                            </div>
-                        </fieldset>
-                        <p></p>
-                        <fieldset class="border p-3">
-                            <legend class="w-auto" style="font-size: 18px">Profissão de Fé</legend>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="data_profissao_fe">Data</label>
-                                    <input type="date" name="data_profissao_fe" id="data_profissao_fe" class="form-control" value="{{old('data_profissao_fe')}}">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="pastor_profissao_fe">Pastor</label>
-                                    <input type="text" name="pastor_profissao_fe" id="pastor_profissao_fe" class="form-control" value="{{old('pastor_profissao_fe')}}" placeholder="Pastor Profissão Fé">
-                                </div>
-                                <div class="col-md-5">
-                                    <label for="igreja_profissao_fe">Igreja</label>
-                                    <input type="text" name="igreja_profissao_fe" id="igreja_profissao_fe" class="form-control" value="{{old('igreja_profissao_fe')}}" placeholder="Igreja Profissão Fé">
-                                </div>
-                            </div>
-                        </fieldset>
-                        <p></p>
-
-                        <fieldset class="border p-3">
-                            <legend class="w-auto" style="font-size: 18px">Igreja Anterior</legend>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="igreja_old_nome">Nome Igreja</label>
-                                        <input type="text" class="form-control" id="igreja_old_nome" name="igreja_old_nome" value="{{old('igreja_old_nome')}}" placeholder="Nome Igreja Anterior">
-                                        <div class="valid-feedback">ok!</div>
-                                        <div class="invalid-feedback">Inválido!</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="igreja_old_cidade">Cidade/Estado</label>
-                                        <input type="text" class="form-control" id="igreja_old_cidade" name="igreja_old_cidade" value="{{old('igreja_old_cidade')}}" placeholder="Nome Igreja Anterior">
-                                        <div class="valid-feedback">ok!</div>
-                                        <div class="invalid-feedback">Inválido!</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="igreja_old_pastor">Pastor</label>
-                                        <input type="text" class="form-control" id="igreja_old_pastor" name="igreja_old_pastor" value="{{old('igreja_old_pastor')}}" placeholder="Nome Igreja Anterior">
-                                        <div class="valid-feedback">ok!</div>
-                                        <div class="invalid-feedback">Inválido!</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="igreja_old_pastor_email">E-mail Pastor</label>
-                                        <input type="email" class="form-control" id="igreja_old_pastor_email" name="igreja_old_pastor_email" value="{{old('igreja_old_pastor_email')}}" placeholder="Nome Igreja Anterior">
-                                        <div class="valid-feedback">ok!</div>
-                                        <div class="invalid-feedback">Inválido!</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                        <p></p>
-
-                        <!-- Dados Ministeriais -- INI -->
-                        <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
-                            <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Ministeriais</h5>
-                        </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="aptidao">Descrição das Aptidões</label>
-                                        <textarea class="form-control" id="aptidao" name="aptidao" placeholder="Aptidões" rows="3">{{ old('aptidao')}}</textarea>
-                                        <div class="valid-feedback">ok!</div>
-                                        <div class="invalid-feedback">Inválido!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p></p>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">

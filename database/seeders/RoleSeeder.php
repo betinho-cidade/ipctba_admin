@@ -23,6 +23,13 @@ class RoleSeeder extends Seeder
                 ],
                 [
                     'id' => 2,
+                    'name' => 'Lider',
+                    'description' => 'Lider do Ipctba',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 3,
                     'name' => 'Membro',
                     'description' => 'Membro do Ipctba',
                     'created_at' => date('Y-m-d H:i:s'),

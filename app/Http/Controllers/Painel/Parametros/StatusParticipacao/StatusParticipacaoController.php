@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Painel\Parametros\LocalCongrega;
+namespace App\Http\Controllers\Painel\Parametros\StatusParticipacao;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
-use App\Models\LocalCongrega;
+use App\Models\StatusParticipacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Parametros\LocalCongrega\CreateRequest;
-use App\Http\Requests\Parametros\LocalCongrega\UpdateRequest;
+use App\Http\Requests\Parametros\StatusParticipacao\CreateRequest;
+use App\Http\Requests\Parametros\StatusParticipacao\UpdateRequest;
 use Image;
 
 
 
-class LocalCongregaController extends Controller
+class StatusParticipacaoController extends Controller
 {
 
     public function __construct(Request $request)
@@ -28,36 +28,36 @@ class LocalCongregaController extends Controller
 
     public function index()
     {
-        if(Gate::denies('view_local_congrega')){
+        if(Gate::denies('view_status_participacao')){
             abort('403', 'Página não disponível');
             //return redirect()->back();
         }
 
         $user = Auth()->User();
 
-        $local_congregas = LocalCongrega::all();
+        $status_participacaos = StatusParticipacao::all();
 
-        return view('painel.parametros.local_congrega.index', compact('user', 'local_congregas'));
+        return view('painel.parametros.status_participacao.index', compact('user', 'status_participacaos'));
     }
 
 
 
     public function create()
     {
-        if(Gate::denies('create_local_congrega')){
+        if(Gate::denies('create_status_participacao')){
             abort('403', 'Página não disponível');
         }
 
         $user = Auth()->User();
 
-        return view('painel.parametros.local_congrega.create', compact('user'));
+        return view('painel.parametros.status_participacao.create', compact('user'));
     }
 
 
 
     public function store(CreateRequest $request)
     {
-        if(Gate::denies('create_local_congrega')){
+        if(Gate::denies('create_status_participacao')){
             abort('403', 'Página não disponível');
         }
 
@@ -69,11 +69,11 @@ class LocalCongregaController extends Controller
 
             DB::beginTransaction();
 
-            $local_congrega = new LocalCongrega();
+            $status_participacao = new StatusParticipacao();
 
-            $local_congrega->nome = $request->nome;
+            $status_participacao->nome = $request->nome;
 
-            $local_congrega->save();
+            $status_participacao->save();
 
             DB::commit();
 
@@ -89,32 +89,32 @@ class LocalCongregaController extends Controller
             $request->session()->flash('message.content', $message);
         } else {
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'O Local de Congregação <code class="highlighter-rouge">'. $local_congrega->nome .'</code> foi criado com sucesso');
+            $request->session()->flash('message.content', 'O Status de Participação <code class="highlighter-rouge">'. $status_participacao->nome .'</code> foi criado com sucesso');
         }
 
-        return redirect()->route('local_congrega.index');
+        return redirect()->route('status_participacao.index');
     }
 
 
 
-    public function show(LocalCongrega $local_congrega)
+    public function show(StatusParticipacao $status_participacao)
     {
 
-        if(Gate::denies('edit_local_congrega')){
+        if(Gate::denies('edit_status_participacao')){
             abort('403', 'Página não disponível');
             //return redirect()->back();
         }
 
         $user = Auth()->User();
 
-        return view('painel.parametros.local_congrega.show', compact('user', 'local_congrega'));
+        return view('painel.parametros.status_participacao.show', compact('user', 'status_participacao'));
     }
 
 
 
-    public function update(UpdateRequest $request, LocalCongrega $local_congrega)
+    public function update(UpdateRequest $request, StatusParticipacao $status_participacao)
     {
-        if(Gate::denies('edit_local_congrega')){
+        if(Gate::denies('edit_status_participacao')){
             abort('403', 'Página não disponível');
         }
 
@@ -126,9 +126,9 @@ class LocalCongregaController extends Controller
 
             DB::beginTransaction();
 
-            $local_congrega->nome = $request->nome;
+            $status_participacao->nome = $request->nome;
 
-            $local_congrega->save();
+            $status_participacao->save();
 
             DB::commit();
 
@@ -144,29 +144,29 @@ class LocalCongregaController extends Controller
             $request->session()->flash('message.content', $message);
         } else {
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'O Local de Congregação <code class="highlighter-rouge">'. $local_congrega->nome .'</code> foi alterado com sucesso');
+            $request->session()->flash('message.content', 'O Status de Participação <code class="highlighter-rouge">'. $status_participacao->nome .'</code> foi alterado com sucesso');
         }
 
-        return redirect()->route('local_congrega.index');
+        return redirect()->route('status_participacao.index');
     }
 
 
 
-    public function destroy(LocalCongrega $local_congrega, Request $request)
+    public function destroy(StatusParticipacao $status_participacao, Request $request)
     {
-        if(Gate::denies('delete_local_congrega')){
+        if(Gate::denies('delete_status_participacao')){
             abort('403', 'Página não disponível');
         }
 
         $user = Auth()->User();
 
         $message = '';
-        $local_congrega_nome = $local_congrega->nome;
+        $status_participacao_nome = $status_participacao->nome;
 
         try {
             DB::beginTransaction();
 
-            $local_congrega->delete();
+            $status_participacao->delete();
 
             DB::commit();
 
@@ -174,7 +174,7 @@ class LocalCongregaController extends Controller
 
             DB::rollBack();
 
-            if(strpos($ex->getMessage(), 'sIntegrity constraint violation') !== false){
+            if(strpos($ex->getMessage(), 'Integrity constraint violation') !== false){
                 $message = "Não foi possível excluir o registro, pois existem referências ao mesmo em outros processos.";
             } else{
                 $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();
@@ -187,10 +187,10 @@ class LocalCongregaController extends Controller
             $request->session()->flash('message.content', $message);
         } else {
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'O Local de Congregação <code class="highlighter-rouge">'. $local_congrega_nome .'</code> foi excluído com sucesso');
+            $request->session()->flash('message.content', 'O Status de Participação <code class="highlighter-rouge">'. $status_participacao_nome .'</code> foi excluído com sucesso');
         }
 
-        return redirect()->route('local_congrega.index');
+        return redirect()->route('status_participacao.index');
     }
 
 }

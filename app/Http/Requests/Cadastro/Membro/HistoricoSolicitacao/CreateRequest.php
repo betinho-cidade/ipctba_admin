@@ -19,8 +19,7 @@ class CreateRequest extends FormRequest
         return [
             'tipo_solicitacao' => 'required',
             'lider' => 'required',
-            'data_solicitacao' => 'required|date',
-            'data_realizacao' => 'nullable|date',
+            'data_agendamento' => 'required|date',
         ];
     }
 
@@ -29,9 +28,8 @@ class CreateRequest extends FormRequest
         return [
             'tipo_solicitacao.required' => 'O Tipo de Solicitação é requerido',
             'lider.required' => 'O Líder é requerido',
-            'data_solicitacao.required' => 'A Data Solicitação é requerida',
-            'data_solicitacao.date' => 'A Data Solicitação é inválida',
-            'data_realizacao.date' => 'A Data Realização é inválida',
+            'data_agendamento.required' => 'A Data de Agendamento é requerida',
+            'data_agendamento.date' => 'A Data de Agendamento é inválida',
         ];
     }
 }

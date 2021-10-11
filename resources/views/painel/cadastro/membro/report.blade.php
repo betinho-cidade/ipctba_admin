@@ -181,11 +181,6 @@
                 <hr class="mt-2 mb-3"/>
             </div>
 
-            @if($membro->is_pastor)
-                <div>
-                    <b>É Pastor ?: </b>{{ $membro->descricao_is_pastor}}<br>
-                </div>
-            @endif
             @if($membro->numero_rol)
                 <div>
                     <b>ROL: </b>{{ $membro->numero_rol}}<br>
@@ -196,9 +191,9 @@
                     <b>Tipo de Membro: </b>{{ $membro->descricao_tipo_membro}}<br>
                 </div>
             @endif
-            @if($membro->local_congrega_id)
+            @if($membro->status_participacao_id)
                 <div>
-                    <b>Local Congrega: </b>{{ $membro->local_congrega->nome}}<br>
+                    <b>Status de Participação: </b>{{ $membro->status_participacao->nome}}<br>
                 </div>
             @endif
             @if($membro->is_disciplina)
@@ -234,6 +229,26 @@
             @if($membro->igreja_profissao_fe)
                 <div>
                     <b>Igreja Profissão de Fé: </b>{{ $membro->igreja_profissao_fe}}<br>
+                </div>
+            @endif
+            @if($membro->igreja_old_nome)
+                <div>
+                    <b>Igreja Anterior: </b>{{ $membro->igreja_old_nome}}<br>
+                </div>
+            @endif
+            @if($membro->igreja_old_cidade)
+                <div>
+                    <b>Cidade/UF Igreja Anterior: </b>{{ $membro->igreja_old_cidade}}<br>
+                </div>
+            @endif
+            @if($membro->igreja_old_pastor)
+                <div>
+                    <b>Pastor Igreja Anterior: </b>{{ $membro->igreja_old_pastor}}<br>
+                </div>
+            @endif
+            @if($membro->igreja_old_pastor_email)
+                <div>
+                    <b>E-mail Pastor Igreja Anterior: </b>{{ $membro->igreja_old_pastor_email}}<br>
                 </div>
             @endif
             @if($membro->numero_ata)

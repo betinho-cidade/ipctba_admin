@@ -19,6 +19,7 @@ class UpdateRequest extends FormRequest
         return [
             'lider' => 'required',
             'data_realizacao' => 'nullable|date',
+            'repetir_solicitacao' => 'required_with:data_realizacao',
         ];
     }
 
@@ -27,6 +28,7 @@ class UpdateRequest extends FormRequest
         return [
             'lider.required' => 'O Líder é requerido',
             'data_realizacao.date' => 'A Data Realização é inválida',
+            'repetir_solicitacao.required_with' => 'O campo Repetir Soliticação deve ser preenchido se a Data de Realização for preenchida',
         ];
     }
 

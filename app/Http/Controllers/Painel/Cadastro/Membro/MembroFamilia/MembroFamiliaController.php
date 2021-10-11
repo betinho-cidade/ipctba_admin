@@ -28,7 +28,7 @@ class MembroFamiliaController extends Controller
 
     public function create(Membro $membro)
     {
-        if(Gate::denies('create_membro')){
+        if(Gate::denies('create_historico_familiar')){
             abort('403', 'Página não disponível');
         }
 
@@ -45,7 +45,7 @@ class MembroFamiliaController extends Controller
 
     public function store(Membro $membro, CreateRequest $request)
     {
-        if(Gate::denies('create_membro')){
+        if(Gate::denies('create_historico_familiar')){
             abort('403', 'Página não disponível');
         }
 
@@ -93,7 +93,7 @@ class MembroFamiliaController extends Controller
 
     public function destroy(Membro $membro, MembroFamilia $membro_familia, Request $request)
     {
-        if(Gate::denies('delete_membro')){
+        if(Gate::denies('delete_historico_familiar')){
             abort('403', 'Página não disponível');
         }
 

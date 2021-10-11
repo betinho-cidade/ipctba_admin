@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Parametros\LocalCongrega;
+namespace App\Http\Requests\Parametros\StatusParticipacao;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
 
-class CreateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
 
     public function authorize()
@@ -28,4 +28,5 @@ class CreateRequest extends FormRequest
             'nome.max' => 'O tamanho permitido para o nome é de 500 caracteres',
         ];
     }
+
 }

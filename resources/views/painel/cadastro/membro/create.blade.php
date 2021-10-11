@@ -163,7 +163,6 @@
                         <div class="col-md-3">
                             <label for="escolaridade">Escolaridade</label>
                             <select id="escolaridade" name="escolaridade" class="form-control">
-                                'EF','EM','EP','ES','MS','DO','PD','NA','AL','NI'
                                 <option value="">---</option>
                                 <option value="EF" {{(old('escolaridade') == 'EF') ? 'selected' : '' }}>Ensino Fundamental</option>
                                 <option value="EM" {{(old('escolaridade') == 'EM') ? 'selected' : '' }}>Ensino Médio</option>
@@ -249,17 +248,7 @@
                 </div>
 
                     <div class="row">
-                        <div class="col-md-1">
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="checkbox" id="is_pastor">
-                                <label class="form-check-label" for="is_pastor">
-                                    Pastor
-                                </label>
-                            </div>
-                            <div class="valid-feedback">ok!</div>
-                            <div class="invalid-feedback">Inválido!</div>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="numero_rol">Número ROL</label>
                                 <input type="text" class="form-control" id="numero_rol" name="numero_rol" value="{{old('numero_rol')}}" placeholder="Número ROL">
@@ -275,6 +264,7 @@
                                 <option value="CM" {{(old('tipo_membro') == 'CM') ? 'selected' : '' }}>Comungante</option>
                                 <option value="NC" {{(old('tipo_membro') == 'NC') ? 'selected' : '' }}>Não Comungante</option>
                                 <option value="NM" {{(old('tipo_membro') == 'NM') ? 'selected' : '' }}>Não Membro</option>
+                                <option value="CM" {{(old('tipo_membro') == 'PS') ? 'selected' : '' }}>Pastor</option>
                             </select>
                             <div class="valid-feedback">ok!</div>
                             <div class="invalid-feedback">Inválido!</div>
@@ -282,11 +272,11 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="local_congrega">Onde Congrega</label>
-                                <select id="local_congrega" name="local_congrega" class="form-control">
+                                <label for="status_participacao">Status de Participação</label>
+                                <select id="status_participacao" name="status_participacao" class="form-control">
                                     <option value="">---</option>
-                                    @foreach($local_congregas as $local_congrega)
-                                        <option value="{{$local_congrega->id}}" {{($local_congrega->id == old('local_congrega')) ? 'selected' : '' }}>{{$local_congrega->nome}}</option>
+                                    @foreach($status_participacaos as $status_participacao)
+                                        <option value="{{$status_participacao->id}}" {{($status_participacao->id == old('status_participacao')) ? 'selected' : '' }}>{{$status_participacao->nome}}</option>
                                     @endforeach
                                 </select>
                                 <div class="valid-feedback">ok!</div>
@@ -307,7 +297,7 @@
                     </div>
                     <p></p>
                     <fieldset class="border p-3">
-                        <legend class="w-auto">Batismo</legend>
+                        <legend class="w-auto" style="font-size: 18px">Batismo</legend>
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="data_batismo">Data</label>
@@ -325,7 +315,7 @@
                     </fieldset>
                     <p></p>
                     <fieldset class="border p-3">
-                        <legend class="w-auto">Profissão de Fé</legend>
+                        <legend class="w-auto" style="font-size: 18px">Profissão de Fé</legend>
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="data_profissao_fe">Data</label>
@@ -344,7 +334,46 @@
                     <p></p>
 
                     <fieldset class="border p-3">
-                        <legend class="w-auto">Admissão/Demissão</legend>
+                        <legend class="w-auto" style="font-size: 18px">Igreja Anterior</legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="igreja_old_nome">Nome Igreja</label>
+                                    <input type="text" class="form-control" id="igreja_old_nome" name="igreja_old_nome" value="{{old('igreja_old_nome')}}" placeholder="Nome Igreja Anterior">
+                                    <div class="valid-feedback">ok!</div>
+                                    <div class="invalid-feedback">Inválido!</div>
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="igreja_old_cidade">Cidade/Estado</label>
+                                    <input type="text" class="form-control" id="igreja_old_cidade" name="igreja_old_cidade" value="{{old('igreja_old_cidade')}}" placeholder="Nome Igreja Anterior">
+                                    <div class="valid-feedback">ok!</div>
+                                    <div class="invalid-feedback">Inválido!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="igreja_old_pastor">Pastor</label>
+                                    <input type="text" class="form-control" id="igreja_old_pastor" name="igreja_old_pastor" value="{{old('igreja_old_pastor')}}" placeholder="Nome Igreja Anterior">
+                                    <div class="valid-feedback">ok!</div>
+                                    <div class="invalid-feedback">Inválido!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="igreja_old_pastor_email">E-mail Pastor</label>
+                                    <input type="email" class="form-control" id="igreja_old_pastor_email" name="igreja_old_pastor_email" value="{{old('igreja_old_pastor_email')}}" placeholder="Nome Igreja Anterior">
+                                    <div class="valid-feedback">ok!</div>
+                                    <div class="invalid-feedback">Inválido!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <p></p>
+
+                    <fieldset class="border p-3">
+                        <legend class="w-auto" style="font-size: 18px">Admissão/Demissão</legend>
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">

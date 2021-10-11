@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocalCongregasTable extends Migration
+class CreateStatusParticipacaosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLocalCongregasTable extends Migration
      */
     public function up()
     {
-        Schema::create('local_congregas', function (Blueprint $table) {
+        Schema::create('status_participacaos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome', 500);
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateLocalCongregasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('local_congregas');
+        Schema::dropIfExists('status_participacaos');
     }
 }
