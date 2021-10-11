@@ -41,7 +41,6 @@ class VisitanteController extends Controller
 
             $membro->nome = $request->nome;
             $membro->email = $request->email_membro;
-            $membro->cpf = $request->cpf;
             $membro->sexo = $request->sexo;
             $membro->celular = $request->celular;
             $membro->data_nascimento = $request->data_nascimento;
@@ -68,24 +67,42 @@ class VisitanteController extends Controller
             $membro->data_profissao_fe = $request->data_profissao_fe;
             $membro->pastor_profissao_fe = $request->pastor_profissao_fe;
             $membro->igreja_profissao_fe = $request->igreja_profissao_fe;
+            $membro->igreja_old_nome = $request->igreja_old_nome;
+            $membro->igreja_old_cidade = $request->igreja_old_cidade;
+            $membro->igreja_old_pastor = $request->igreja_old_pastor;
+            $membro->igreja_old_pastor_email = $request->igreja_old_pastor_email;
             $membro->aptidao = $request->aptidao;
-            $membro->is_pastor = 'N';
             $membro->is_disciplina = 'N';
 
             $membro->save();
 
-            $situacao_membro = SituacaoMembro::where('nome', 'Cadastro Site')->first();
+            $situacao_membro_1 = SituacaoMembro::where('nome', 'Tempo de Igreja')->first();
 
-            if($situacao_membro) {
+            $situacao_membro_2 = SituacaoMembro::where('nome', 'Cadastro Site')->first();
+
+            if($situacao_membro_1) {
                 $historico_situacao = new HistoricoSituacao();
 
                 $historico_situacao->membro_id = $membro->id;
-                $historico_situacao->situacao_membro_id = $situacao_membro->id;
+                $historico_situacao->situacao_membro_id = $situacao_membro_1->id;
+                $historico_situacao->data_inicio = Carbon::now();
+                $historico_situacao->data_fim = $historico_situacao->data_inicio;
+                $historico_situacao->comentario = $request->tempo_igreja;;
+
+                $historico_situacao->save();
+            }
+
+            if($situacao_membro_2) {
+                $historico_situacao = new HistoricoSituacao();
+
+                $historico_situacao->membro_id = $membro->id;
+                $historico_situacao->situacao_membro_id = $situacao_membro_2->id;
                 $historico_situacao->data_inicio = Carbon::now();
                 $historico_situacao->comentario = 'Cadastro realizado pelo Site';
 
                 $historico_situacao->save();
             }
+
 
             DB::commit();
 
@@ -100,11 +117,29 @@ class VisitanteController extends Controller
             $request->session()->flash('message.level', 'danger');
             $request->session()->flash('message.content', $message);
         } else {
+            $request->session()->flash('message.token', $request->_token);
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'A solicitação de cadastro foi criada com sucesso');
         }
 
-        return view('guest.cadastro.visitante.bemvindo');
+
+        return redirect()->route('visitante.bemvindo', ['token' => $request->_token]);
+
+    }
+
+
+    public function bemvindo(Request $request)
+    {
+
+        if($request->token && session()->has('message.token') && ($request->token === session('message.token'))){
+
+            return view('guest.cadastro.visitante.bemvindo');
+
+        } else{
+
+            Auth()->logout();
+            return redirect()->route('login');
+        }
     }
 
 
