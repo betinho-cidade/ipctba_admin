@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Gate;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Parametros\MeioAdmissao\CreateRequest;
-use App\Http\Requests\Parametros\MeioAdmissao\UpdateRequest;
 use Image;
 
 

@@ -23,6 +23,9 @@
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('agenda.index') }}">Agenda</a></li>
                                 </ul>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
+                                </ul>
                             </li>
 
                             <li>
@@ -49,7 +52,7 @@
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('usuario.index') }}">Usuários</a></li>
                                     <li><a href="{{ route('membro.index') }}">Membros</a></li>
-                                    <li><a href="{{ route('membro_ficha.index') }}">FIcha de Atualização</a></li>
+                                    <li><a href="{{ route('membro_ficha.index') }}">Ficha de Atualização</a></li>
                                 </ul>
                             </li>
                             {{--  <li>
@@ -66,6 +69,18 @@
                             <!-- Menus Relacioandos as Lider - Acesso somente para LIDER - INICIO-->
 
                             <li class="menu-title">GESTÃO ORGANIZACIONAL</li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-store-2-line"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('agenda.index') }}">Agenda</a></li>
+                                </ul>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
+                                </ul>
+                            </li>
 
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -74,7 +89,7 @@
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('membro.index') }}">Membros</a></li>
-                                    <li><a href="{{ route('membro_ficha.index') }}">FIcha de Atualização</a></li>
+                                    <li><a href="{{ route('membro_ficha.index') }}">Ficha de Atualização</a></li>
                                 </ul>
                             </li>
                             <!-- Menus Relacioandos as Lider - Acesso somente para LIDER - FIM-->

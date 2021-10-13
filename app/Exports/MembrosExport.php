@@ -7,14 +7,20 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class MembrosExport implements FromCollection, WithMapping, WithHeadings
 {
 
+    protected $params;
 
-    public function __construct()
+    public function __construct(Array $params)
     {
+        $this->params = $params;
     }
+
 
     public function headings(): array
     {
@@ -123,8 +129,39 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
     public function collection()
     {
 
-        $membros = Membro::get();
+        $excel_params = $this->params;
+
+        $membros = Membro::where(function($query) use ($excel_params){
+            if ($excel_params['is_disciplina']) {
+                $query->where('is_disciplina', 'S');
+            }
+            if ($excel_params['tipo_membro']) {
+                $query->where('tipo_membro', $excel_params['tipo_membro']);
+            }
+            if ($excel_params['sexo']) {
+                $query->where('sexo', $excel_params['sexo']);
+            }
+            if($excel_params['idade_inicial'] && $excel_params['idade_final']){
+                $minDate = Carbon::today()->subYears($excel_params['idade_final']);
+                $maxDate = Carbon::today()->subYears($excel_params['idade_inicial'])->endOfDay();
+                $query->whereBetween('data_nascimento', [$minDate, $maxDate]);
+            }
+            if($excel_params['data_admissao_ini'] && $excel_params['data_admissao_fim']){
+                $minDate = $excel_params['data_admissao_ini'];
+                $maxDate = $excel_params['data_admissao_fim'];
+                $query->whereBetween('data_admissao', [$minDate, $maxDate]);
+            }
+            if($excel_params['data_demissao_ini'] && $excel_params['data_demissao_fim']){
+                $minDate = $excel_params['data_demissao_ini'];
+                $maxDate = $excel_params['data_demissao_fim'];
+                $query->whereBetween('data_demissao', [$minDate, $maxDate]);
+            }
+
+        })
+        ->orderBy('nome', 'desc')
+        ->get();
 
         return $membros;
     }
+
 }

@@ -363,16 +363,18 @@ class MembroController extends Controller
 
             $membro->membro_filhos()->delete();
 
-            foreach($filhos_nome as $filho) {
-                $newMembroFilho = new MembroFilho();
+            if($filhos_nome){
+                foreach($filhos_nome as $filho) {
+                    $newMembroFilho = new MembroFilho();
 
-                $newMembroFilho->membro_id = $membro->id;
-                $newMembroFilho->nome = $filho;
-                $newMembroFilho->data_nascimento = $filhos_data_nascimento[$count];
-                $newMembroFilho->sexo = $filhos_sexo[$count];
+                    $newMembroFilho->membro_id = $membro->id;
+                    $newMembroFilho->nome = $filho;
+                    $newMembroFilho->data_nascimento = $filhos_data_nascimento[$count];
+                    $newMembroFilho->sexo = $filhos_sexo[$count];
 
-                $newMembroFilho->save();
-                $count = $count + 1;
+                    $newMembroFilho->save();
+                    $count = $count + 1;
+                }
             }
 
             $membro->membro_ministerios()->delete();
@@ -579,57 +581,9 @@ class MembroController extends Controller
 
         $user = Auth()->User();
 
-        return Excel::download(new MembrosExport, 'membros.xlsx');
+        $params = [];
+
+        return Excel::download(new MembrosExport($params), 'membros.xlsx');
     }
-
-
-    public function search(Request $request)
-    {
-        if(Gate::denies('view_membro')){
-            abort('403', 'Página não disponível');
-            //return redirect()->back();
-        }
-
-        $user = Auth()->User();
-
-
-        $membros_AT = Membro::where(function($query) use ($request){
-                        if ($request->is_disciplina) {
-                            $query->where('is_disciplina', 'S');
-                        }
-                        if ($request->nome) {
-                            $query->where('nome', 'like', '%'.$request->nome.'%');
-                        }
-                        if ($request->tipo_membro) {
-                            $query->where('tipo_membro', $request->tipo_membro);
-                        }
-                    })
-                    ->where('status', 'A')
-                    ->orderBy('nome', 'desc')
-                    ->get();
-
-
-        $membros_IN = Membro::where(function($query) use ($request){
-                        if ($request->is_disciplina) {
-                            $query->where('is_disciplina', 'S');
-                        }
-                        if ($request->nome) {
-                            $query->where('nome', 'like', '%'.$request->nome.'%');
-                        }
-                        if ($request->tipo_membro) {
-                            $query->where('tipo_membro', $request->tipo_membro);
-                        }
-                    })
-                    ->where('status', 'I')
-                    ->orderBy('nome', 'desc')
-                    ->get();
-
-
-        $request->session()->flash('message.level', 'success');
-        $request->session()->flash('message.content', 'Registros Encontrados: Ativos <code class="highlighter-rouge">'. $membros_AT->count() .'</code> Inativos <code class="highlighter-rouge">'. $membros_IN->count() .'</code>');
-
-        return view('painel.cadastro.membro.index', compact('user', 'membros_AT', 'membros_IN'));
-    }
-
 
 }

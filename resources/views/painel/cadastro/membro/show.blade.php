@@ -520,6 +520,7 @@
                     <p></p>
                 <!-- Dados Ministeriais -- FIM -->
 
+                @can('edit_membro')
                 <!-- Dados Acesso -- INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Acesso (módulos futuros)</h5>
@@ -580,6 +581,7 @@
                         </div>
                     </div>
                 <!-- Dados Pessoais -- FIM -->
+                @endcan
 
                 @can('edit_membro')
                     <button class="btn btn-primary" type="submit">Atualizar Cadastro</button>

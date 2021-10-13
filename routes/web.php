@@ -100,7 +100,6 @@ Route::middleware(['auth'])->group(function () {
             });
             Route::group(['namespace' => 'Membro'], function(){
                 Route::get('/membro', 'MembroController@index')->name('membro.index');
-                Route::post('/membro/search', 'MembroController@search')->name('membro.search');
                 Route::get('/membro/excell', 'MembroController@excell')->name('membro.excell');
                 Route::get('/membro/create', 'MembroController@create')->name('membro.create');
                 Route::post('/membro/store', 'MembroController@store')->name('membro.store');
@@ -156,6 +155,12 @@ Route::middleware(['auth'])->group(function () {
 
             Route::group(['namespace' => 'Agenda'], function(){
                 Route::get('/agenda', 'AgendaController@index')->name('agenda.index');
+            });
+
+            Route::group(['namespace' => 'Relatorio'], function(){
+                Route::get('/relatorio', 'RelatorioController@index')->name('relatorio.index');
+                Route::post('/relatorio/search', 'RelatorioController@search')->name('relatorio.search');
+                Route::get('/relatorio/excell', 'RelatorioController@excell')->name('relatorio.excell');
             });
         });
 

@@ -12,66 +12,6 @@
                 @can('create_membro')
                     <a href="{{route("membro.create")}}" class="btn btn-outline-secondary waves-effect">Novo Membro</a>
                 @endcan
-                <a href="{{route("membro.create")}}" class="btn btn-outline-secondary waves-effect"  data-toggle="modal" data-target="#staticBackdrop">Filtros</a>
-
-                <!-- FILTROS DE PESQUISA - INI -->
-
-                <form name="search_membro" method="POST" action="{{route('membro.search')}}"  class="needs-validation" novalidate>
-                 @csrf
-
-                <div class="col-sm-6 col-md-4 col-xl-3">
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Selecione o filtro desejado</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- CAMPOS DE BUSCA - INI -->
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-check mb-1">
-                                                <input class="form-check-input" type="checkbox" id="is_disciplina" name="is_disciplina">
-                                                <label class="form-check-label" for="is_disciplina">
-                                                Em Disciplina
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p></p>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="nome" name="nome" value="{{old('nome')}}" placeholder="Informe o nome do membro">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <select id="tipo_membro" name="tipo_membro" class="form-control" required>
-                                                <option value="">Escolha o Tipo de Membro</option>
-                                                <option value="CM" {{(old('tipo_membro') == 'CM') ? 'selected' : '' }}>Comungante</option>
-                                                <option value="NC" {{(old('tipo_membro') == 'NC') ? 'selected' : '' }}>Não Comungante</option>
-                                                <option value="NM" {{(old('tipo_membro') == 'NM') ? 'selected' : '' }}>Não Membro</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- CAMPOS DE BUSCA - FIM -->
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Filtrar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </form>
-
-                <!-- FILTROS DE PESQUISA - FIM -->
 
             </div>
         </div>
