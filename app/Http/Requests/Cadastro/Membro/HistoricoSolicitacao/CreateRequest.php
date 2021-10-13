@@ -20,6 +20,7 @@ class CreateRequest extends FormRequest
             'tipo_solicitacao' => 'required',
             'lider' => 'required',
             'data_agendamento' => 'required|date',
+            'hora_agendamento' => 'required',
         ];
     }
 
@@ -28,8 +29,9 @@ class CreateRequest extends FormRequest
         return [
             'tipo_solicitacao.required' => 'O Tipo de Solicitação é requerido',
             'lider.required' => 'O Líder é requerido',
-            'data_agendamento.required' => 'A Data de Agendamento é requerida',
-            'data_agendamento.date' => 'A Data de Agendamento é inválida',
+            'data_agendamento.required' => 'A Data do Agendamento é requerida',
+            'data_agendamento.date' => 'A Data do Agendamento é inválida',
+            'hora_agendamento.required' => 'A Hora do Agendamento é requerida',
         ];
     }
 }

@@ -54,7 +54,7 @@
                 </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="tipo_solicitacao">Tipo de Solicitação</label>
                                 <select id="tipo_solicitacao" name="tipo_solicitacao" class="form-control" required>
@@ -67,7 +67,7 @@
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="lider">Líder</label>
                                 <select id="lider" name="lider" class="form-control" required>
@@ -83,7 +83,17 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="data_agendamento">Data Agendamento</label>
-                                <input type="date" class="form-control" id="data_agendamento" name="data_agendamento" value="{{old('data_agendamento')}}" required>
+                                <input type="date" class="form-control" id="data_agendamento" name="data_agendamento"
+                                    value="{{ old('data_agendamento')}}" required>
+                                <div class="valid-feedback">ok!</div>
+                                <div class="invalid-feedback">Inválido!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="hora_agendamento">Hora Agendamento</label>
+                                <input type="time" class="form-control" id="hora_agendamento" name="hora_agendamento"
+                                    value="{{ old('hora_agendamento') }}" required>
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>

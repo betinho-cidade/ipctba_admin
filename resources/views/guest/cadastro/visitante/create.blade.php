@@ -19,6 +19,8 @@
             <link href="{{asset('nazox/assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
             <!-- Cityinbag - CSS -->
             <link href="{{asset('css/cityinbag.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+            <link href="{{asset('nazox/assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+            <link href="{{asset('css/drag_drop.css')}}" id="app-style" rel="stylesheet" type="text/css" />
 
         </head>
 
@@ -260,6 +262,19 @@
                             </div>
                         </div>
                         <p></p>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card bg-soft-primary">
+                                    <div class="card-body itens-drag-drog">
+                                        <h4 class="card-title"><button id="addRow" type="button" class="btn btn-secondary" style="font-size: xx-small;">+</button> Filhos</h4>
+                                        <div class="newRow list-group" id="player-list">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     <!-- Dados Complementares - FIM -->
 
                     <!-- Dados Endereço - INI -->
@@ -456,17 +471,19 @@
     <!-- END layout-wrapper -->
 
     <!-- JAVASCRIPT -->
-    <script src="http://localhost:8000/nazox/assets/libs/jquery/jquery.min.js"></script>
-    <script src="http://localhost:8000/nazox/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="http://localhost:8000/nazox/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="{{asset('nazox/assets/libs/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('nazox/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('nazox/assets/libs/metismenu/metisMenu.min.js')}}"></script>
 
-    <script src="http://localhost:8000/nazox/assets/js/app.js"></script>
-    <script src="http://localhost:8000/nazox/assets/js/pages/form-validation.init.js"></script>
-    <script src="http://localhost:8000/nazox/assets/libs/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-    <script src="http://localhost:8000/nazox/assets/js/pages/form-element.init.js"></script>
-    <script src="http://localhost:8000/nazox/assets/libs/select2/js/select2.min.js"></script>
+    <script src="{{asset('nazox/assets/js/app.js')}}"></script>
+    <script src="{{asset('nazox/assets/js/pages/form-validation.init.js')}}"></script>
+    <script src="{{asset('nazox/assets/libs/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{asset('nazox/assets/js/pages/form-element.init.js')}}"></script>
+    <script src="{{asset('nazox/assets/libs/select2/js/select2.min.js')}}"></script>
     <!-- form mask -->
-    <script src="http://localhost:8000/nazox/assets/libs/inputmask/jquery.inputmask.min.js"></script>
+    <script src="{{asset('nazox/assets/libs/inputmask/jquery.inputmask.min.js')}}"></script>
+
+    <script src="{{asset('js/Sortable.js')}}"></script>
 
     <script>
         $(document).ready(function(){
@@ -518,6 +535,64 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+        $("#addRow").click(function () {
+
+            var html = '';
+            html += '<div class="row list-group-item inputNewRow">';
+
+            html += '    <div class="handle flex-center" style="font-size: xx-small;"><i class="fa fa-bars"></i></div>';
+
+            html += '        <div class="row form-group">';
+            html += '                <div class="col-md-6">';
+            html += '                    <label for="filho_nome">Nome</label>';
+            html += '                    <input type="text" name="filho_nome[]" id="filho_nome[]" class="form-control" value="{{old('nome_filho[]')}}" required>';
+            html += '                    <div class="valid-feedback">ok!</div>';
+            html += '                    <div class="invalid-feedback">Inválido!</div>';
+            html += '                </div>';
+            html += '                <div class="col-md-3">';
+            html += '                    <label for="filho_data_nascimento">Data Nascimento</label>';
+            html += '                    <input type="date" name="filho_data_nascimento[]" id="filho_data_nascimento[]" class="form-control" value="{{old('filho_data_nascimento[]')}}" required>';
+            html += '                    <div class="valid-feedback">ok!</div>';
+            html += '                    <div class="invalid-feedback">Inválido!</div>';
+            html += '                </div>';
+            html += '                <div class="col-md-3">';
+            html += '                    <label for="filho_sexo">Sexo</label>';
+            html += '                    <select id="filho_sexo[]" name="filho_sexo[]" class="form-control" required>';
+            html += '                        <option value="">---</option>';
+            html += '                        <option value="M" {{(old('filho_sexo[]]') == 'M') ? 'selected' : '' }}>Masculino</option>';
+            html += '                        <option value="F" {{(old('filho_sexo[]') == 'F') ? 'selected' : '' }}>Feminino</option>';
+            html += '                    </select>';
+            html += '                    <div class="valid-feedback">ok!</div>';
+            html += '                    <div class="invalid-feedback">Inválido!</div>';
+            html += '                </div> ';
+            html += '           <div class="valid-feedback">ok!</div>';
+            html += '           <div class="invalid-feedback">Inválido!</div>';
+            html += '        </div>';
+
+            html += '       <button id="removeRow" type="button" class="btn btn-danger" style="font-size: xx-small;">-</button>';
+
+            html += '</div>';
+
+            $('.newRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('.inputNewRow').remove();
+        });
+
+    </script>
+
+    <script>
+        let player = document.getElementById("player-list");
+        new Sortable(player,{
+                        handle:'.handle',
+                        animation:200,
+        });
+    </script>
+
 
     </body>
     </html>

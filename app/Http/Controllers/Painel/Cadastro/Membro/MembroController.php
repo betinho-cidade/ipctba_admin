@@ -18,6 +18,7 @@ use App\Models\HistoricoOficio;
 use App\Models\HistoricoSituacao;
 use App\Models\HistoricoSolicitacao;
 use App\Models\MembroFamilia;
+use App\Models\MembroFilho;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
@@ -153,6 +154,25 @@ class MembroController extends Controller
             $membro->aptidao = $request->aptidao;
 
             $membro->save();
+
+            $count = 0;
+            $filhos_nome = $request->filho_nome;
+            $filhos_data_nascimento = $request->filho_data_nascimento;
+            $filhos_sexo = $request->filho_sexo;
+
+            if($filhos_nome){
+                foreach($filhos_nome as $filho) {
+                    $newMembroFilho = new MembroFilho();
+
+                    $newMembroFilho->membro_id = $membro->id;
+                    $newMembroFilho->nome = $filho;
+                    $newMembroFilho->data_nascimento = $filhos_data_nascimento[$count];
+                    $newMembroFilho->sexo = $filhos_sexo[$count];
+
+                    $newMembroFilho->save();
+                    $count = $count + 1;
+                }
+            }
 
             if($request->ministerio){
                 foreach($request->ministerio as $key => $value){
@@ -336,6 +356,25 @@ class MembroController extends Controller
 
             $membro->save();
 
+            $count = 0;
+            $filhos_nome = $request->filho_nome;
+            $filhos_data_nascimento = $request->filho_data_nascimento;
+            $filhos_sexo = $request->filho_sexo;
+
+            $membro->membro_filhos()->delete();
+
+            foreach($filhos_nome as $filho) {
+                $newMembroFilho = new MembroFilho();
+
+                $newMembroFilho->membro_id = $membro->id;
+                $newMembroFilho->nome = $filho;
+                $newMembroFilho->data_nascimento = $filhos_data_nascimento[$count];
+                $newMembroFilho->sexo = $filhos_sexo[$count];
+
+                $newMembroFilho->save();
+                $count = $count + 1;
+            }
+
             $membro->membro_ministerios()->delete();
 
             if($request->ministerio){
@@ -421,6 +460,8 @@ class MembroController extends Controller
 
                 $membro->user->save();
             }
+
+            $membro->save();
 
             DB::commit();
 

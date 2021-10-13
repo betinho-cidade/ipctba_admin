@@ -149,6 +149,14 @@ Route::middleware(['auth'])->group(function () {
                 Route::put('/membro_ficha/{membro_ficha}/update', 'MembroFichaController@update')->name('membro_ficha.update');
                 Route::delete('/membro_ficha/{membro_ficha}/destroy', 'MembroFichaController@destroy')->name('membro_ficha.destroy');
             });
+
+        });
+
+        Route::group(['namespace' => 'Dashboard'], function(){
+
+            Route::group(['namespace' => 'Agenda'], function(){
+                Route::get('/agenda', 'AgendaController@index')->name('agenda.index');
+            });
         });
 
     });

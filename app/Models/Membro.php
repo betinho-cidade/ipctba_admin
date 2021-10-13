@@ -102,6 +102,11 @@ class Membro extends Model
     }
 
 
+    public function membro_filhos(){
+
+        return $this->hasMany('App\Models\MembroFilho');
+    }
+
     public function getImagemAttribute()
     {
         return ($this->path_imagem) ? asset('images/avatar/'.$this->path_imagem) : asset('images/avatar/avatar.png');
