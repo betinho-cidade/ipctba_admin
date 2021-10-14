@@ -24,10 +24,19 @@ class PainelController extends Controller
 
         $user = Auth()->User();
 
-        //$search_tools = 'Teste';
+        $roles = $user->roles;
 
-        return view('painel.index', compact('user'));
-        //return redirect()->route('resultado.index');
+        $role = $roles->first()->name;
+
+        if($role == 'Gestor') {
+            return redirect()->route('indicador.index');
+
+        } elseif ($role == 'Lider'){
+            return redirect()->route('agenda.index');
+            
+        }else{
+            return view('painel.index', compact('user'));
+        }
     }
 
 

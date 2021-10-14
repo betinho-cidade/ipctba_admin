@@ -133,6 +133,15 @@ class Membro extends Model
         return ($this->data_nascimento) ? date('d-m-Y', strtotime($this->data_nascimento)): '';
     }
 
+    public function getDataNascimentoDiaMesAttribute()
+    {
+        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        date_default_timezone_set('America/Sao_Paulo');
+                
+        return ($this->data_nascimento) ? ucfirst(strftime('%d/%b', strtotime($this->data_nascimento))) : '';
+        // return ($this->data_agendamento) ? $formatter->format(date('F/Y', strtotime($this->data_agendamento))) : '';
+    }
+
     public function getDataBatismoAjustadaAttribute()
     {
         return ($this->data_batismo) ? date('Y-m-d', strtotime($this->data_batismo)): '';
@@ -311,6 +320,10 @@ class Membro extends Model
                 $descricao = 'Não Membro';
                 break;
             }
+            case 'PS' : {
+                $descricao = 'Pastor';
+                break;
+            }            
             default : {
                 $descricao = '---';
                 break;

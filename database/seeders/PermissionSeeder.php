@@ -426,6 +426,13 @@ class PermissionSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
+                [
+                    'id' => 60,
+                    'name' => 'view_indicador',
+                    'description' => 'Acessar as informações dos indicadores do sistema',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
             ]);
         } else {
             echo "\e[31mTabela Permissions não está vazia. ";

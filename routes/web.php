@@ -162,6 +162,10 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/relatorio/search', 'RelatorioController@search')->name('relatorio.search');
                 Route::get('/relatorio/excell', 'RelatorioController@excell')->name('relatorio.excell');
             });
+
+            Route::group(['namespace' => 'Indicador'], function(){
+                Route::get('/indicador', 'IndicadorController@index')->name('indicador.index');
+            });
         });
 
     });
