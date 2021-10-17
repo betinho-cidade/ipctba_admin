@@ -41,7 +41,7 @@ class CreateMembrosTable extends Migration
             $table->string('profissao', 300)->nullable();
             $table->string('nome_pai', 300)->nullable();
             $table->string('nome_mae', 300);
-            $table->string('numero_rol', 50)->unique('membro_rol_uk')->nullable();
+            $table->string('numero_rol', 50)->nullable();
             $table->enum('tipo_membro', ['CM', 'NC', 'NM', 'PS']);  //CM->Comungante  NC->Não Comungante  NM->Não Membro  PS->Pastor
             $table->date('data_batismo')->nullable();
             $table->string('pastor_batismo', 300)->nullable();
@@ -64,6 +64,7 @@ class CreateMembrosTable extends Migration
             $table->foreign('status_participacao_id')->references('id')->on('status_participacaos');
             $table->foreign('meio_admissao_id')->references('id')->on('meio_admissaos');
             $table->foreign('meio_demissao_id')->references('id')->on('meio_demissaos');
+            $table->unique(['numero_rol', 'tipo_membro'], 'membro_rol_uk');
         });
     }
 

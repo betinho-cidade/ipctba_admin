@@ -48,6 +48,7 @@ class AgendaController extends Controller
                 $ano_mes = $ano_mes_proximo;
                 $count = 0;
             }
+
             $agendas[$ano_mes][$count] = [
                 'membro' => $solicitacao->membro->nome,
                 'lider' => strtok($solicitacao->lider->nome, " "),

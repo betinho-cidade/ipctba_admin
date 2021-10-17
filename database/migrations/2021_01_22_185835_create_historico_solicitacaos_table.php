@@ -18,7 +18,7 @@ class CreateHistoricoSolicitacaosTable extends Migration
             $table->unsignedBigInteger('membro_id');
             $table->unsignedBigInteger('lider_id');
             $table->unsignedBigInteger('tipo_solicitacao_id');
-            $table->datetime('data_agendamento');
+            $table->datetime('data_agendamento')->nullable();
             $table->datetime('data_realizacao')->nullable();
             $table->longText('comentario')->nullable();
             $table->timestamps();

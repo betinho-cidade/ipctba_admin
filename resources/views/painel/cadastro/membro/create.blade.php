@@ -278,7 +278,7 @@
                                 <option value="CM" {{(old('tipo_membro') == 'CM') ? 'selected' : '' }}>Comungante</option>
                                 <option value="NC" {{(old('tipo_membro') == 'NC') ? 'selected' : '' }}>Não Comungante</option>
                                 <option value="NM" {{(old('tipo_membro') == 'NM') ? 'selected' : '' }}>Não Membro</option>
-                                <option value="CM" {{(old('tipo_membro') == 'PS') ? 'selected' : '' }}>Pastor</option>
+                                <option value="PS" {{(old('tipo_membro') == 'PS') ? 'selected' : '' }}>Pastor</option>
                             </select>
                             <div class="valid-feedback">ok!</div>
                             <div class="invalid-feedback">Inválido!</div>

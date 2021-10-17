@@ -74,6 +74,7 @@
                                     <span>Dashboard</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('indicador.index') }}">Indicadores</a></li>
                                     <li><a href="{{ route('agenda.index') }}">Agenda</a></li>
                                     <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                 </ul>

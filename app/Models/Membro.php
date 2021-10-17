@@ -4,10 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Membro extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+            'nome', 'end_cep', 'end_cidade', 'end_uf', 'end_logradouro', 'end_numero',
+            'end_bairro', 'end_complemento', 'celular', 'data_nascimento', 'naturalidade',
+            'sexo', 'estado_civil', 'conjuge', 'data_casamento', 'profissao', 'nome_pai',
+            'nome_mae', 'numero_rol', 'tipo_membro', 'numero_ata', 'data_admissao', 'status',
+            'status_participacao_id', 'meio_admissao_id', 'igreja_old_nome', 'data_profissao_fe',
+            'email', 'is_disciplina'
+    ];
+
 
 
     public function getBreadcrumbAttribute()
@@ -137,10 +148,30 @@ class Membro extends Model
     {
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
-                
-        return ($this->data_nascimento) ? ucfirst(strftime('%d/%b', strtotime($this->data_nascimento))) : '';
-        // return ($this->data_agendamento) ? $formatter->format(date('F/Y', strtotime($this->data_agendamento))) : '';
+
+        if($this->data_nascimento){
+
+            $now = Carbon::now();
+
+            $nascimento = Carbon::createFromFormat('Y-m-d',  $this->data_nascimento);
+
+            $dia_atual = Carbon::createFromFormat('Y-m-d',  $now->year . '-' . $nascimento->month . '-' . $nascimento->day);
+
+            $dia_semana = strftime('%a', strtotime($dia_atual));
+
+            return $nascimento->day . '/' . ucfirst($dia_semana);
+
+        } else {
+            return '';
+        }
     }
+
+
+    public function getIdadeAttribute()
+    {
+        return ($this->data_nascimento) ? Carbon::parse($this->data_nascimento)->age . ' anos': '';
+    }
+
 
     public function getDataBatismoAjustadaAttribute()
     {
@@ -323,7 +354,7 @@ class Membro extends Model
             case 'PS' : {
                 $descricao = 'Pastor';
                 break;
-            }            
+            }
             default : {
                 $descricao = '---';
                 break;

@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label for="data_agendamento">Data Agendamento</label>
                                 <input type="date" class="form-control" id="data_agendamento" name="data_agendamento"
-                                    value="{{ old('data_agendamento')}}" required>
+                                    value="{{ old('data_agendamento')}}">
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>
@@ -93,7 +93,7 @@
                             <div class="form-group">
                                 <label for="hora_agendamento">Hora Agendamento</label>
                                 <input type="time" class="form-control" id="hora_agendamento" name="hora_agendamento"
-                                    value="{{ old('hora_agendamento') }}" required>
+                                    value="{{ old('hora_agendamento') }}">
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>

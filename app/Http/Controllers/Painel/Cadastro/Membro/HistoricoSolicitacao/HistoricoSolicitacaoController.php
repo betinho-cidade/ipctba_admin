@@ -65,7 +65,7 @@ class HistoricoSolicitacaoController extends Controller
             $historico_solicitacao->membro_id = $membro->id;
             $historico_solicitacao->lider_id = $request->lider;
             $historico_solicitacao->tipo_solicitacao_id = $request->tipo_solicitacao;
-            $historico_solicitacao->data_agendamento = $request->data_agendamento . ' ' . $request->hora_agendamento;
+            $historico_solicitacao->data_agendamento = ($request->data_agendamento) ? $request->data_agendamento . ' ' . $request->hora_agendamento : null;
             $historico_solicitacao->comentario = $request->comentario;
 
             $historico_solicitacao->save();

@@ -31,15 +31,15 @@ class HistoricoSolicitacao extends Model
     {
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
-                
-        return ($this->data_agendamento) ? ucfirst(strftime('%B/%Y', strtotime($this->data_agendamento))) : '';
+
+        return ($this->data_agendamento) ? ucfirst(strftime('%B/%Y', strtotime($this->data_agendamento))) : 'Aguardando Confirmação';
         // return ($this->data_agendamento) ? $formatter->format(date('F/Y', strtotime($this->data_agendamento))) : '';
     }
-    
+
     public function getDataAgendamentoAgendaAttribute()
     {
         return ($this->data_agendamento) ? date('d/m H:i', strtotime($this->data_agendamento)) : '';
-    }    
+    }
 
     public function getDataAgendamentoAjustadaAttribute()
     {

@@ -54,8 +54,17 @@ class MembroFichaController extends Controller
 
         $user = Auth()->User();
 
+        if(!$user->membro){
+            $message = 'Para criar uma nova ficha, é necessário que o líder seja um membro';
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.content', $message);
+            return redirect()->route('membro_ficha.index');
+
+        }
+
         $membros = Membro::whereIn('tipo_membro', ['CM', 'NC'])
                           ->where('status', 'A')
+                          ->orderBy('nome')
                           ->get();
 
         $membro = '';
@@ -144,6 +153,7 @@ class MembroFichaController extends Controller
 
         $membros = Membro::whereIn('tipo_membro', ['CM', 'NC'])
                           ->where('status', 'A')
+                          ->orderBy('nome')
                           ->get();
 
         $membro = '';

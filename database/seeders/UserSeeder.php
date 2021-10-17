@@ -24,8 +24,8 @@ class UserSeeder extends Seeder
                 ],
                 [
                     'id' => 2,
-                    'name' => 'Membro do Ipctba',
-                    'email' => 'membro',
+                    'name' => 'Lider do Ipctba',
+                    'email' => 'lider',
                     'password' => bcrypt('12345678'),
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),

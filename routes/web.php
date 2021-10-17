@@ -18,8 +18,9 @@ Auth::routes();
 Route::get('/logout', 'HomeController@logout')->name('logout')->middleware('auth');
 
 Route::post('/js_viacep', 'Painel\PainelController@js_viacep')->name('painel.js_viacep');
-//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-//Route::get('/', 'Painel\PainelController@index')->name('painel')->middleware('auth');
+
+Route::get('/import', 'ImportController@index')->name('import.index');
+Route::post('/import/membro', 'ImportController@upload')->name('import.upload');
 
 
 Route::middleware(['auth'])->group(function () {

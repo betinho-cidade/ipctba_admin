@@ -62,7 +62,7 @@
                                 <option value="CM">Comungante</option>
                                 <option value="NC">Não Comungante</option>
                                 <option value="NM">Não Membro</option>
-                                <option value="CM">Pastor</option>
+                                <option value="PS">Pastor</option>
                             </select>
                         </div>
                     </div>

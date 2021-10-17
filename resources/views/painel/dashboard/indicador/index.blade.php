@@ -29,51 +29,12 @@
 
     <div class="row">
 
-        <!-- Ativo/Inativo - INI -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Situação dos Membros</h4>
-                    <div id="div_ativo"></div>
-                    {{--  <div class="row">
-                        <div class="col-6">
-                            <div class="text-center mt-4">
-                                <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-primary font-size-10 me-1"></i> Ativos</p>
-                                <h5>42 %</h5>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center mt-4">
-                                <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-success font-size-10 me-1"></i> Inativos</p>
-                                <h5>58 %</h5>
-                            </div>
-                        </div>
-                    </div>  --}}
-                </div>
-            </div>
-        </div>
-        <!-- Ativo/Inativo - FIM -->
-
         <!-- Tipo do Membro - INI -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Tipo dos Membros</h4>
+                    <h4 class="card-title mb-4">Tipo dos Membros <code>({{$graph_total['tipo']}})</code></h4>
                     <div id="div_tipo_membro"></div>
-                    {{--  <div class="row">
-                        <div class="col-6">
-                            <div class="text-center mt-4">
-                                <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-primary font-size-10 me-1"></i> Ativos</p>
-                                <h5>42 %</h5>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center mt-4">
-                                <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-success font-size-10 me-1"></i> Inativos</p>
-                                <h5>58 %</h5>
-                            </div>
-                        </div>
-                    </div>  --}}
                 </div>
             </div>
         </div>
@@ -83,30 +44,27 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Status de Participação</h4>
+                    <h4 class="card-title mb-4">Status de Participação <code>({{ $graph_total['participacao'] }})</code></h4>
                     <div id="div_status_participacao"></div>
-                    {{--  <div class="row">
-                        <div class="col-6">
-                            <div class="text-center mt-4">
-                                <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-primary font-size-10 me-1"></i> Ativos</p>
-                                <h5>42 %</h5>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center mt-4">
-                                <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-success font-size-10 me-1"></i> Inativos</p>
-                                <h5>58 %</h5>
-                            </div>
-                        </div>
-                    </div>  --}}
                 </div>
             </div>
         </div>
         <!-- Status Participação - FIM -->
 
+        <!-- Ativo/Inativo - INI -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Cadastros Ativos/Inativos <code>({{ $graph_total['ativo'] }})</code></h4>
+                    <div id="div_ativo"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Ativo/Inativo - FIM -->
+
     </div>
 
-   
+
     <!-- Carrosel - Aniversariantes - INI -->
     <div class="row">
         <div class="col-lg-12">
@@ -135,13 +93,14 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$membro->data_nascimento_dia_mes}}</h5>
+                                    <span class="float-right" style="font-size: 12px; color: gray">{{$membro->idade}}</span>
+                                    <h5 class="card-title">{{utf8_encode($membro->data_nascimento_dia_mes)}}</h5>
                                     <p class="card-text">{{$membro->nome}}</p>
                                 </div>
                             </div>
                         </div>
-                    </div>      
-                    </a>              
+                    </div>
+                    </a>
 
                 </div>
             </div>
@@ -180,7 +139,8 @@
           chartArea:{left:5,top:20,width:'100%',height:'100%'},
           is3D:true,
           fontSize:12,
-          legend:{position: 'top', textStyle:{fontSize:12}},
+          pieSliceText: 'value',
+          legend:{position: 'right', textStyle:{fontSize:12}},
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('div_ativo'));
@@ -198,15 +158,16 @@
             ['{{$graph_tipo['tipo']}}', {{$graph_tipo['qtde']}}],
             @endforeach
           ]);
-  
+
           var options = {
             pieHole: 0.4,
             chartArea:{left:5,top:20,width:'100%',height:'100%'},
             is3D:true,
             fontSize:12,
-            legend:{position: 'top', textStyle:{fontSize:12}},
+            pieSliceText: 'value',
+            legend:{position: 'right', textStyle:{fontSize:12}},
           };
-  
+
           var chart = new google.visualization.PieChart(document.getElementById('div_tipo_membro'));
           chart.draw(data, options);
         }
@@ -222,15 +183,16 @@
               ['{{$graph_participacao['participacao']}}', {{$graph_participacao['qtde']}}],
               @endforeach
             ]);
-    
+
             var options = {
               pieHole: 0.4,
               chartArea:{left:5,top:20,width:'100%',height:'100%'},
               is3D:true,
               fontSize:12,
-              legend:{position: 'top', textStyle:{fontSize:12}},
+              pieSliceText: 'value',
+              legend:{position: 'right', textStyle:{fontSize:12}},
             };
-    
+
             var chart = new google.visualization.PieChart(document.getElementById('div_status_participacao'));
             chart.draw(data, options);
           }
