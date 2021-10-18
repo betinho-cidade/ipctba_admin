@@ -98,6 +98,50 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label for="idade_inicial">Dia/Mês Aniversário</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <select id="dia_niver_ini" name="dia_niver_ini" class="form-control">
+                                            <option value="">Dia I</option>
+                                            @for($i=1;$i<=31;$i++)
+                                                <option value="{{ str_pad($i, 2, "0", STR_PAD_LEFT) }}">{{ str_pad($i, 2, "0", STR_PAD_LEFT) }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select id="mes_niver_ini" name="mes_niver_ini" class="form-control">
+                                            <option value="">Mês I</option>
+                                            @for($i=1;$i<=12;$i++)
+                                            <option value="{{ str_pad($i, 2, "0", STR_PAD_LEFT) }}">{{ str_pad($i, 2, "0", STR_PAD_LEFT) }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div><p></p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <select id="dia_niver_fim" name="dia_niver_fim" class="form-control">
+                                            <option value="">Dia F</option>
+                                            @for($i=1;$i<=31;$i++)
+                                                <option value="{{ str_pad($i, 2, "0", STR_PAD_LEFT) }}">{{ str_pad($i, 2, "0", STR_PAD_LEFT) }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select id="mes_niver_fim" name="mes_niver_fim" class="form-control">
+                                            <option value="">Mês F</option>
+                                            @for($i=1;$i<=12;$i++)
+                                            <option value="{{ str_pad($i, 2, "0", STR_PAD_LEFT) }}">{{ str_pad($i, 2, "0", STR_PAD_LEFT) }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label for="data_admissao">Data Admissão</label>
                                 <div class="row">
                                     <div class="col-md-2">
@@ -193,7 +237,7 @@
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item" title="Lista de Membros">
                                         <a class="nav-link active" data-toggle="tab" href="#lista_membros" role="tab">
-                                            <span class="d-sm-block">Membros ( <code class="highlighter-rouge">{{$membros->count()}}</code> )</span>
+                                            <span class="d-sm-block">Membros ( <code class="highlighter-rouge">{{($membros) ? $membros->count() : 0}}</code> )</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -216,25 +260,29 @@
                                                 </thead>
 
                                                 <tbody>
-                                                @forelse($membros as $membro)
-                                                <tr>
-                                                    <td>
-                                                        @if(Gate::check('view_membro'))
-                                                            <a href="{{route('membro.show', compact('membro'))}}"><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></a>
-                                                        @else
-                                                            <img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt="">
-                                                        @endif
-                                                    </td>
-                                                    <td>{{$membro->numero_rol}}</td>
-                                                    <td>{{$membro->nome}}</td>
-                                                    <td>{{$membro->historico_situacao_atual}}</td>
-                                                    <td>{{$membro->historico_oficio_atual}}</td>
-                                                </tr>
-                                                @empty
-                                                <tr>
-                                                    <td colspan="5">Nenhum registro encontrado</td>
-                                                </tr>
-                                                @endforelse
+                                                @if($membros)
+                                                    @forelse($membros as $membro)
+                                                    <tr>
+                                                        <td>
+                                                            @if(Gate::check('view_membro'))
+                                                                <a href="{{route('membro.show', compact('membro'))}}"><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></a>
+                                                            @else
+                                                                <img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt="">
+                                                            @endif
+                                                        </td>
+                                                        <td>{{$membro->numero_rol}}</td>
+                                                        <td>{{$membro->nome}}</td>
+                                                        <td>{{$membro->historico_situacao_atual}}</td>
+                                                        <td>{{$membro->historico_oficio_atual}}</td>
+                                                    </tr>
+                                                    @empty
+                                                    <tr>
+                                                        <td colspan="5">Nenhum registro encontrado</td>
+                                                    </tr>
+                                                    @endforelse
+                                                @else
+                                                    <td colspan="5">Utilize o filtro ao lado para realizar a busca.</td>
+                                                @endif
                                                 </tbody>
                                             </table>
                                         </ul>
@@ -271,7 +319,7 @@
     <!-- Datatable init js -->
     <script src="{{asset('nazox/assets/js/pages/datatables.init.js')}}"></script>
 
-    @if($membros->count() > 0)
+    @if($membros && $membros->count() > 0)
     <script>
         var table_IN = $('#dt_lista_membros').DataTable({
             language: {

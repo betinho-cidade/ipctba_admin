@@ -133,7 +133,7 @@
                             @forelse($membro_fichas->where('status', 'AL') as $membro_ficha)
                             <tr>
                                 <td>{{$membro_ficha->data_solicitacao_ordenacao}}</td>
-                                <td>{{$membro_ficha->nome}}</td>
+                                <td>{{$membro_ficha->nome ?? $membro_ficha->membro->nome}}</td>
                                 <td>{{$membro_ficha->celular}}</td>
                                 <td>{{$membro_ficha->data_solicitacao}}</td>
                                 <td style="text-align:center;">
@@ -186,7 +186,7 @@
                             @forelse($membro_fichas->where('status', 'C') as $membro_ficha)
                             <tr>
                                 <td>{{$membro_ficha->data_solicitacao_ordenacao}}</td>
-                                <td>{{$membro_ficha->nome}}</td>
+                                <td>{{$membro_ficha->nome ?? $membro_ficha->membro->nome}}</td>
                                 <td>{{$membro_ficha->celular}}</td>
                                 <td>{{$membro_ficha->data_solicitacao}}</td>
                                 <td style="text-align:center;">

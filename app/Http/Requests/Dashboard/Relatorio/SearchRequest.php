@@ -23,7 +23,10 @@ class SearchRequest extends FormRequest
             'data_admissao_fim' => 'nullable|required_with:data_admissao_ini|date',
             'data_demissao_ini' => 'nullable|required_with:data_demissao_fim|date',
             'data_demissao_fim' => 'nullable|required_with:data_demissao_ini|date',
-
+            'dia_niver_ini' => 'nullable|required_with:dia_niver_fim|required_with:mes_niver_ini|required_with:mes_niver_fim',
+            'dia_niver_fim' => 'nullable|required_with:dia_niver_ini|required_with:mes_niver_ini|required_with:mes_niver_fim',
+            'mes_niver_ini' => 'nullable|required_with:dia_niver_ini|required_with:dia_niver_fim|required_with:mes_niver_fim',
+            'mes_niver_fim' => 'nullable|required_with:dia_niver_ini|required_with:dia_niver_fim|required_with:mes_niver_ini',
         ];
     }
 
@@ -42,6 +45,11 @@ class SearchRequest extends FormRequest
             'data_demissao_ini.required_with' => 'A data de demissão deve ter os intervalos Inicial e Final informados',
             'data_demissao_fim.date' => 'A data de demissão final é inválida',
             'data_demissao_fim.required_with' => 'A data de demissão deve ter os intervalos Inicial e Final informados',
+            'dia_niver_ini.required_with' => 'O Dia/Mês Aniversário precisa estar cmo todos os campos preenchidos',
+            'dia_niver_fim.required_with' => 'O Dia/Mês Aniversário precisa estar cmo todos os campos preenchidos',
+            'mes_niver_ini.required_with' => 'O Dia/Mês Aniversário precisa estar cmo todos os campos preenchidos',
+            'mes_niver_fim.required_with' => 'O Dia/Mês Aniversário precisa estar cmo todos os campos preenchidos',
+
         ];
     }
 }

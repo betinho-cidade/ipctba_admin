@@ -107,10 +107,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email_membro">E-mail</label>
-                                @if($membro && $membro->email !== $membro_ficha->email_membro)
+                                @if($membro && $membro->email !== $membro_ficha->email)
                                     <i class="fas fa-envelope-open-text" title="{{ $membro->email ?? '---' }}" style="color:red"></i></a>
                                 @endif
-                                <input @if(!Gate::check('edit_membro_ficha')) disabled @endif type="email" class="form-control" id="email_membro" name="email_membro" value="{{$membro_ficha->email_membro}}">
+                                <input @if(!Gate::check('edit_membro_ficha')) disabled @endif type="email" class="form-control" id="email_membro" name="email_membro" value="{{$membro_ficha->email}}">
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>

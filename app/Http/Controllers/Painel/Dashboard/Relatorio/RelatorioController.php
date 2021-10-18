@@ -37,7 +37,7 @@ class RelatorioController extends Controller
 
         $user = Auth()->User();
 
-        $membros = Membro::all();
+        $membros = null;;
 
         $excel_params = [];
 
@@ -63,6 +63,10 @@ class RelatorioController extends Controller
                 'sexo' => isset($request->excel_params['sexo']) ? $request->excel_params['sexo'] : '',
                 'idade_inicial' => isset($request->excel_params['idade_inicial']) ? $request->excel_params['idade_inicial'] : '',
                 'idade_final' => isset($request->excel_params['idade_final']) ? $request->excel_params['idade_final'] : '',
+                'dia_niver_ini' => isset($request->excel_params['dia_niver_ini']) ? $request->excel_params['dia_niver_ini'] : '',
+                'dia_niver_fim' => isset($request->excel_params['dia_niver_fim']) ? $request->excel_params['dia_niver_fim'] : '',
+                'mes_niver_ini' => isset($request->excel_params['mes_niver_ini']) ? $request->excel_params['mes_niver_ini'] : '',
+                'mes_niver_fim' => isset($request->excel_params['mes_niver_fim']) ? $request->excel_params['mes_niver_fim'] : '',
                 'data_admissao_ini' => isset($request->excel_params['data_admissao_ini']) ? $request->excel_params['data_admissao_ini'] : '',
                 'data_admissao_fim' => isset($request->excel_params['data_admissao_fim']) ? $request->excel_params['data_admissao_fim'] : '',
                 'data_demissao_ini' => isset($request->excel_params['data_demissao_ini']) ? $request->excel_params['data_demissao_ini'] : '',
@@ -75,6 +79,10 @@ class RelatorioController extends Controller
                 'sexo' => isset($request->sexo) ? $request->sexo : '',
                 'idade_inicial' => isset($request->idade_inicial) ? $request->idade_inicial : '',
                 'idade_final' => isset($request->idade_final) ? $request->idade_final : '',
+                'dia_niver_ini' => isset($request->dia_niver_ini) ? $request->dia_niver_ini : '',
+                'dia_niver_fim' => isset($request->dia_niver_fim) ? $request->dia_niver_fim : '',
+                'mes_niver_ini' => isset($request->mes_niver_ini) ? $request->mes_niver_ini : '',
+                'mes_niver_fim' => isset($request->mes_niver_fim) ? $request->mes_niver_fim : '',
                 'data_admissao_ini' => isset($request->data_admissao_ini) ? $request->data_admissao_ini : '',
                 'data_admissao_fim' => isset($request->data_admissao_fim) ? $request->data_admissao_fim : '',
                 'data_demissao_ini' => isset($request->data_demissao_ini) ? $request->data_demissao_ini : '',
@@ -97,6 +105,11 @@ class RelatorioController extends Controller
                             $minDate = Carbon::today()->subYears($excel_params['idade_final']);
                             $maxDate = Carbon::today()->subYears($excel_params['idade_inicial'])->endOfDay();
                             $query->whereBetween('data_nascimento', [$minDate, $maxDate]);
+                        }
+                        if($excel_params['dia_niver_ini'] && $excel_params['dia_niver_fim'] && $excel_params['mes_niver_ini'] && $excel_params['mes_niver_fim']){
+                            $minDate = $excel_params['mes_niver_ini'] . $excel_params['dia_niver_ini'];
+                            $maxDate = $excel_params['mes_niver_fim'] . $excel_params['dia_niver_fim'];
+                            $query->whereRaw("DATE_FORMAT(data_nascimento, '%m%d') BETWEEN ? AND ?", [$minDate, $maxDate]);
                         }
                         if($excel_params['data_admissao_ini'] && $excel_params['data_admissao_fim']){
                             $minDate = $excel_params['data_admissao_ini'];

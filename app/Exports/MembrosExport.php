@@ -146,6 +146,11 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
                 $maxDate = Carbon::today()->subYears($excel_params['idade_inicial'])->endOfDay();
                 $query->whereBetween('data_nascimento', [$minDate, $maxDate]);
             }
+            if($excel_params['dia_niver_ini'] && $excel_params['dia_niver_fim'] && $excel_params['mes_niver_ini'] && $excel_params['mes_niver_fim']){
+                $minDate = $excel_params['mes_niver_ini'] . $excel_params['dia_niver_ini'];
+                $maxDate = $excel_params['mes_niver_fim'] . $excel_params['dia_niver_fim'];
+                $query->whereRaw("DATE_FORMAT(data_nascimento, '%m%d') BETWEEN ? AND ?", [$minDate, $maxDate]);
+            }
             if($excel_params['data_admissao_ini'] && $excel_params['data_admissao_fim']){
                 $minDate = $excel_params['data_admissao_ini'];
                 $maxDate = $excel_params['data_admissao_fim'];
