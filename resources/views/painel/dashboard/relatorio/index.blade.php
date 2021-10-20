@@ -17,11 +17,21 @@
     </div>
 @endif
 
+@if(session()->has('message.level'))
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-{{ session('message.level') }}">
+            {!! session('message.content') !!}
+            </div>
+        </div>
+    </div>
+@endif
+
 <!-- start page title -->
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Relatório - FIltro de Membros do IPCTBA</h4>
+            <h4 class="mb-sm-0">Relatório - Filtro de Membros do IPCTBA</h4>
         </div>
     </div>
 </div>
@@ -226,6 +236,10 @@
                 <div class="card-body">
 
                     <span class="float-right">
+                        @can('create_membro')
+                            <a href="{{route("membro.create")}}" class="btn btn-outline-secondary waves-effect">Novo Membro</a>
+                        @endcan
+
                         <a href="{{route("relatorio.excell", compact('excel_params'))}}" class="btn btn-outline-secondary waves-effect">Exportar Excel <i class="fa fa-download color: goldenrod" title="Exportar Membros para Excell"></i></a>
                     </span>
 
@@ -269,8 +283,7 @@
                                                     <th>Avatar</th>
                                                     <th>ROL</th>
                                                     <th>Nome</th>
-                                                    <th>Situação Membro</th>
-                                                    <th>Ofício</th>
+                                                    <th>Ações</th>
                                                 </tr>
                                                 </thead>
 
@@ -278,25 +291,33 @@
                                                 @if($membros)
                                                     @forelse($membros as $membro)
                                                     <tr>
-                                                        <td>
-                                                            @if(Gate::check('view_membro'))
-                                                                <a href="{{route('membro.show', compact('membro'))}}"><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></a>
-                                                            @else
-                                                                <img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt="">
-                                                            @endif
-                                                        </td>
+                                                        <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></td>
                                                         <td>{{$membro->numero_rol}}</td>
                                                         <td>{{$membro->nome}}</td>
-                                                        <td>{{$membro->historico_situacao_atual}}</td>
-                                                        <td>{{$membro->historico_oficio_atual}}</td>
+                                                        <td style="text-align:center;">
+
+                                                            @can('view_membro')
+                                                                <a href="{{route('membro.pdf', compact('membro'))}}"><i class="fa fa-download color: goldenrod" title="Gerar PDF do Membro"></i></a>
+                                                            @endcan
+
+                                                            @can('view_membro')
+                                                                <a href="{{route('membro.show', compact('membro'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar o Membro"></i></a>
+                                                            @endcan
+
+                                                            @can('delete_membro')
+                                                                <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$membro->id}})"
+                                                                    data-target="#modal-delete-membro"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir o Membro"></i>
+                                                                </a>
+                                                            @endcan
+                                                            </td>
                                                     </tr>
                                                     @empty
                                                     <tr>
-                                                        <td colspan="5">Nenhum registro encontrado</td>
+                                                        <td colspan="6">Nenhum registro encontrado</td>
                                                     </tr>
                                                     @endforelse
                                                 @else
-                                                    <td colspan="5">Utilize o filtro ao lado para realizar a busca.</td>
+                                                    <td colspan="6">Utilize o filtro ao lado para realizar a busca.</td>
                                                 @endif
                                                 </tbody>
                                             </table>
@@ -319,6 +340,21 @@
 
 </div>
 <!-- end row -->
+
+    @can('delete_membro')
+       <form action="" id="deleteForm" method="post">
+        @csrf
+        @method('DELETE')
+        </form>
+
+        @section('modal_target')"formSubmit();"@endsection
+        @section('modal_type')@endsection
+        @section('modal_name')"modal-delete-membro"@endsection
+        @section('modal_msg_title')Deseja excluir o registro ? @endsection
+        @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
+        @section('modal_close')Fechar @endsection
+        @section('modal_save')Excluir @endsection
+    @endcan
 
 @endsection
 
@@ -344,6 +380,23 @@
         });
     </script>
     @endif
+
+    @can('delete_membro')
+        <script>
+            function deleteData(id)
+            {
+                var id = id;
+                var url = '{{ route("membro.destroy", ":id") }}';
+                url = url.replace(':id', id);
+                $("#deleteForm").attr('action', url);
+            }
+
+            function formSubmit()
+            {
+                $("#deleteForm").submit();
+            }
+        </script>
+    @endcan
 
 @endsection
 

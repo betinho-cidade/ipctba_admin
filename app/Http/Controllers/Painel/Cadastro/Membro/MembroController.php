@@ -42,26 +42,26 @@ class MembroController extends Controller
     }
 
 
-    public function index()
-    {
-        if(Gate::denies('view_membro')){
-            abort('403', 'Página não disponível');
-            //return redirect()->back();
-        }
+    // public function index()
+    // {
+    //     if(Gate::denies('view_membro')){
+    //         abort('403', 'Página não disponível');
+    //         //return redirect()->back();
+    //     }
 
-        $user = Auth()->User();
+    //     $user = Auth()->User();
 
-        $membros_AT = Membro::where('status','A')
-                            ->orderBy('nome', 'desc')
-                            ->get();
+    //     $membros_AT = Membro::where('status','A')
+    //                         ->orderBy('nome', 'desc')
+    //                         ->get();
 
-        $membros_IN = Membro::where('status','I')
-                            ->orderBy('nome', 'desc')
-                            ->get();
+    //     $membros_IN = Membro::where('status','I')
+    //                         ->orderBy('nome', 'desc')
+    //                         ->get();
 
 
-        return view('painel.cadastro.membro.index', compact('user', 'membros_AT', 'membros_IN'));
-    }
+    //     return view('painel.cadastro.membro.index', compact('user', 'membros_AT', 'membros_IN'));
+    // }
 
 
 
@@ -243,7 +243,7 @@ class MembroController extends Controller
             $request->session()->flash('message.content', 'O Membro <code class="highlighter-rouge">'. $request->nome .'</code> foi criado com sucesso');
         }
 
-        return redirect()->route('membro.index');
+        return redirect()->route('relatorio.index');
     }
 
 
@@ -482,7 +482,7 @@ class MembroController extends Controller
             $request->session()->flash('message.content', 'O Membro <code class="highlighter-rouge">'. $membro->nome .'</code> foi alterado com sucesso');
         }
 
-        return redirect()->route('membro.index');
+        return redirect()->route('relatorio.index');
     }
 
 
@@ -552,7 +552,7 @@ class MembroController extends Controller
             $request->session()->flash('message.content', 'O Membro <code class="highlighter-rouge">'. $membro_nome .'</code> foi excluído com sucesso');
         }
 
-        return redirect()->route('membro.index');
+        return redirect()->route('relatorio.index');
     }
 
 

@@ -100,7 +100,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/usuario/{usuario}/destroy', 'UsuarioController@destroy')->name('usuario.destroy');
             });
             Route::group(['namespace' => 'Membro'], function(){
-                Route::get('/membro', 'MembroController@index')->name('membro.index');
+                // Route::get('/membro', 'MembroController@index')->name('membro.index');
                 Route::get('/membro/excell', 'MembroController@excell')->name('membro.excell');
                 Route::get('/membro/create', 'MembroController@create')->name('membro.create');
                 Route::post('/membro/store', 'MembroController@store')->name('membro.store');

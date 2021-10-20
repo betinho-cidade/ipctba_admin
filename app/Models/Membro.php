@@ -25,7 +25,7 @@ class Membro extends Model
     {
         $membro = $this->id;
 
-        $bread = '<a href="' . route('membro.index') . '">Lista Membros</a>';
+        $bread = '<a href="' . route('relatorio.index') . '">Filtro Membros</a>';
         $bread .= ' > ';
         $bread .= '<a href="' . route('membro.show', compact('membro')) . '">' . $this->nome . '</a>';
 

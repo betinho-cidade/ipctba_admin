@@ -50,7 +50,6 @@
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('usuario.index') }}">Usuários</a></li>
-                                    <li><a href="{{ route('membro.index') }}">Membros</a></li>
                                     <li><a href="{{ route('membro_ficha.index') }}">Ficha de Atualização</a></li>
                                 </ul>
                             </li>
@@ -86,7 +85,6 @@
                                     <span>Cadastros</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{ route('membro.index') }}">Membros</a></li>
                                     <li><a href="{{ route('membro_ficha.index') }}">Ficha de Atualização</a></li>
                                 </ul>
                             </li>
