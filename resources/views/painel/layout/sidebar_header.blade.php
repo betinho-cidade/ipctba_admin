@@ -5,19 +5,19 @@
                         <div class="navbar-brand-box">
                             <a href="{{route('painel')}}" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="{{asset('nazox/assets/images/logo-sm-dark.png')}}" alt="" height="22">
+                                    <img src="{{asset('nazox/assets/images/logo-sm-dark.png')}}" alt="" height="28">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{asset('nazox/assets/images/logo-dark.png')}}" alt="" height="20">
+                                    <img src="{{asset('nazox/assets/images/logo-dark.png')}}" alt="" height="50">
                                 </span>
                             </a>
 
                             <a href="{{route('painel')}}" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="{{asset('nazox/assets/images/logo-sm-light.png')}}" alt="" height="22">
+                                    <img src="{{asset('nazox/assets/images/logo-sm-light.png')}}" alt="" height="28">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{asset('nazox/assets/images/logo-light.png')}}" alt="" height="36">
+                                    <img src="{{asset('nazox/assets/images/logo-light.png')}}" alt="" height="50">
                                 </span>
                             </a>
                         </div>
