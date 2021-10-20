@@ -39,12 +39,19 @@
                     <div class="progress progress-sm animated-progess" style="height: 1px;">
                         <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-
                     <p></p>
 
                     <!-- CAMPOS DE BUSCA - INI -->
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="form-check mb-1 float-right">
+                                <input class="form-check-input float-right" type="checkbox" checked id="is_ativo" name="is_ativo">
+                                <label class="form-check-label float-right" for="is_ativo">
+                                    Ativo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
                             <div class="form-check mb-1 float-right">
                                 <input class="form-check-input float-right" type="checkbox" id="is_disciplina" name="is_disciplina">
                                 <label class="form-check-label float-right" for="is_disciplina">
@@ -57,7 +64,15 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <select id="tipo_membro" name="tipo_membro" class="form-control" required>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="%Nome%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select id="tipo_membro" name="tipo_membro" class="form-control">
                                 <option value="">Tipo de Membro</option>
                                 <option value="CM">Comungante</option>
                                 <option value="NC">Não Comungante</option>
@@ -70,7 +85,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <select id="sexo" name="sexo" class="form-control" required>
+                            <select id="sexo" name="sexo" class="form-control">
                                 <option value="">Sexo</option>
                                 <option value="M">Masculino</option>
                                 <option value="F">Feminino</option>
@@ -85,10 +100,10 @@
                                 <label for="idade_inicial">Faixa Etária</label>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="idade_inicial" name="idade_inicial" placeholder="Inicial" required>
+                                        <input type="text" class="form-control" id="idade_inicial" name="idade_inicial" placeholder="Inicial">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="idade_final" name="idade_final" placeholder="FInal" required>
+                                        <input type="text" class="form-control" id="idade_final" name="idade_final" placeholder="FInal">
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +163,7 @@
                                         <span style="font-size: 20px;">I</span>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="date" class="form-control" id="data_admissao_ini" name="data_admissao_ini" placeholder="Inicial" required>
+                                        <input type="date" class="form-control" id="data_admissao_ini" name="data_admissao_ini" placeholder="Inicial">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -156,7 +171,7 @@
                                         <span style="font-size: 20px;">F</span>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="date" class="form-control" id="data_admissao_fim" name="data_admissao_fim" placeholder="FInal" required>
+                                        <input type="date" class="form-control" id="data_admissao_fim" name="data_admissao_fim" placeholder="FInal">
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +187,7 @@
                                         <span style="font-size: 20px;">I</span>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="date" class="form-control" id="data_demissao_ini" name="data_demissao_ini" placeholder="Inicial" required>
+                                        <input type="date" class="form-control" id="data_demissao_ini" name="data_demissao_ini" placeholder="Inicial">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -180,7 +195,7 @@
                                         <span style="font-size: 20px;">F</span>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="date" class="form-control" id="data_demissao_fim" name="data_demissao_fim" placeholder="FInal" required>
+                                        <input type="date" class="form-control" id="data_demissao_fim" name="data_demissao_fim" placeholder="FInal">
                                     </div>
                                 </div>
                             </div>

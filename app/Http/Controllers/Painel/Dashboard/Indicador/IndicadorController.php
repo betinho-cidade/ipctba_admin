@@ -89,21 +89,21 @@ class IndicadorController extends Controller
 
         //Status de Participação
         //-----------------------------------------------------------------------
-        $membro_patcipacaos = Membro::select("status_participacao_id", DB::raw("count(*) as qtde"))
+        $membro_partcipacaos = Membro::select("status_participacao_id", DB::raw("count(*) as qtde"))
                                             ->groupBy('status_participacao_id')
                                             ->where('status', 'A')
                                             ->get();
 
         $count = 0;
         $graph_participacaos = [];
-        if($membro_patcipacaos){
+        if($membro_partcipacaos){
             $tot_participacaos = 0;
-            foreach($membro_patcipacaos as $membro_patcipacao){
+            foreach($membro_partcipacaos as $membro_partcipacao){
                 $graph_participacaos[$count] = [
-                    'participacao' => $membro_patcipacao->status_participacao->nome,
-                    'qtde' => $membro_patcipacao->qtde
+                    'participacao' => $membro_partcipacao->status_participacao->nome,
+                    'qtde' => $membro_partcipacao->qtde
                 ];
-                $tot_participacaos = $tot_participacaos + $membro_patcipacao->qtde;
+                $tot_participacaos = $tot_participacaos + $membro_partcipacao->qtde;
                 $count = $count + 1;
             }
         }

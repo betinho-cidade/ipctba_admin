@@ -132,8 +132,16 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
         $excel_params = $this->params;
 
         $membros = Membro::where(function($query) use ($excel_params){
+            if ($excel_params['is_ativo']) {
+                $query->where('status', 'A');
+            } else {
+                $query->where('status', 'I');
+            }
             if ($excel_params['is_disciplina']) {
                 $query->where('is_disciplina', 'S');
+            }
+            if ($excel_params['nome']) {
+                $query->where('nome', 'like', $excel_params['nome']);
             }
             if ($excel_params['tipo_membro']) {
                 $query->where('tipo_membro', $excel_params['tipo_membro']);
@@ -165,6 +173,7 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
         })
         ->orderBy('nome', 'desc')
         ->get();
+
 
         return $membros;
     }

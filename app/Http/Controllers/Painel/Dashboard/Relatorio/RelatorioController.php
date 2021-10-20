@@ -59,6 +59,8 @@ class RelatorioController extends Controller
         if($request->excel_params) {
             $excel_params = [
                 'is_disciplina' => isset($request->excel_params['is_disciplina']) ? $request->excel_params['is_disciplina'] : '',
+                'is_ativo' => isset($request->excel_params['is_ativo']) ? $request->excel_params['is_ativo'] : '',
+                'nome' => isset($request->excel_params['nome']) ? $request->excel_params['nome'] : '',
                 'tipo_membro' => isset($request->excel_params['tipo_membro']) ? $request->excel_params['tipo_membro'] : '',
                 'sexo' => isset($request->excel_params['sexo']) ? $request->excel_params['sexo'] : '',
                 'idade_inicial' => isset($request->excel_params['idade_inicial']) ? $request->excel_params['idade_inicial'] : '',
@@ -75,6 +77,8 @@ class RelatorioController extends Controller
         } else {
             $excel_params = [
                 'is_disciplina' => isset($request->is_disciplina) ? $request->is_disciplina : '',
+                'is_ativo' => isset($request->is_ativo) ? $request->is_ativo : '',
+                'nome' => isset($request->nome) ? $request->nome : '',
                 'tipo_membro' => isset($request->tipo_membro) ? $request->tipo_membro : '',
                 'sexo' => isset($request->sexo) ? $request->sexo : '',
                 'idade_inicial' => isset($request->idade_inicial) ? $request->idade_inicial : '',
@@ -92,8 +96,16 @@ class RelatorioController extends Controller
 
 
         $membros = Membro::where(function($query) use ($excel_params){
+                        if ($excel_params['is_ativo']) {
+                            $query->where('status', 'A');
+                        } else {
+                            $query->where('status', 'I');
+                        }
                         if ($excel_params['is_disciplina']) {
                             $query->where('is_disciplina', 'S');
+                        }
+                        if ($excel_params['nome']) {
+                            $query->where('nome', 'like', $excel_params['nome']);
                         }
                         if ($excel_params['tipo_membro']) {
                             $query->where('tipo_membro', $excel_params['tipo_membro']);
