@@ -171,7 +171,7 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
             }
 
         })
-        ->orderBy('nome', 'desc')
+        ->orderBy('nome', 'asc')
         ->get();
 
 

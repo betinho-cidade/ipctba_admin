@@ -160,7 +160,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::group(['namespace' => 'Relatorio'], function(){
                 Route::get('/relatorio', 'RelatorioController@index')->name('relatorio.index');
-                Route::post('/relatorio/search', 'RelatorioController@search')->name('relatorio.search');
+                Route::get('/relatorio/search', 'RelatorioController@search')->name('relatorio.search');
                 Route::get('/relatorio/excell', 'RelatorioController@excell')->name('relatorio.excell');
             });
 

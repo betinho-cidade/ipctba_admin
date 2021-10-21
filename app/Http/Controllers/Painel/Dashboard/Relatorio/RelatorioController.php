@@ -135,9 +135,9 @@ class RelatorioController extends Controller
                         }
 
                     })
-                    ->orderBy('nome', 'desc')
-                    ->get();
-
+                    ->orderBy('nome', 'asc')
+                    ->paginate(300);
+                    //->get();
 
         return view('painel.dashboard.relatorio.index', compact('user', 'membros', 'excel_params'));
     }

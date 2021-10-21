@@ -43,7 +43,7 @@
         <div class="email-leftbar card" style="width: 240px;">
 
             <!-- FILTROS DE PESQUISA - INI -->
-            <form name="search_membro" method="POST" action="{{route('relatorio.search')}}"  class="needs-validation" novalidate>
+            <form name="search_membro" method="GET" action="{{route('relatorio.search')}}"  class="needs-validation" novalidate>
             @csrf
                     <h4 class="card-title">Selecione o filtro desejado</h4>
                     <div class="progress progress-sm animated-progess" style="height: 1px;">
@@ -269,6 +269,17 @@
                                             <span class="d-sm-block">Membros ( <code class="highlighter-rouge">{{($membros) ? $membros->count() : 0}}</code> )</span>
                                         </a>
                                     </li>
+
+                                    @if($membros)
+                                        <span class="float-right" style="font-size: 12px;">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            Registros: {{ ($membros->lastItem()) ? $membros->lastItem() : 0}} / {{ $membros->total() }} &nbsp;&nbsp;&nbsp;
+                                            Página: {{ $membros->currentPage() }} / {{ $membros->lastPage() }} &nbsp;&nbsp;&nbsp;
+                                            @if($membros->previousPageUrl()) <a href="{{ $membros->previousPageUrl() . '&' . http_build_query($excel_params)}}"> <i class="mdi mdi-skip-previous" style="font-size: 16px;" title="Anterior"></i>  </a> @else <i class="mdi mdi-dots-horizontal" style="font-size: 16px;" title="..."></i> @endif
+                                            @if($membros->hasMorePages()) <a href="{{ $membros->nextPageUrl() . '&' . http_build_query($excel_params)}}"> <i class="mdi mdi-skip-next" style="font-size: 16px;" title="Próximo"></i>  </a> @else <i class="mdi mdi-dots-horizontal" style="font-size: 16px;" title="..."></i> @endif
+                                        </span>
+                                        <br>
+                                    @endif
                                 </ul>
 
                                 <!-- Tab panes -->
