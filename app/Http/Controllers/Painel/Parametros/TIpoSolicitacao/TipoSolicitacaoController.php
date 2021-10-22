@@ -107,7 +107,7 @@ class TipoSolicitacaoController extends Controller
 
         $user = Auth()->User();
 
-        return view('painel.parametros.tipo_solicitacao.show', compact('user', 'oficio'));
+        return view('painel.parametros.tipo_solicitacao.show', compact('user', 'tipo_solicitacao'));
     }
 
 
