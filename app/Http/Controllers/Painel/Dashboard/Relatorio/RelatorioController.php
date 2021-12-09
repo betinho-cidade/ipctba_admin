@@ -37,7 +37,7 @@ class RelatorioController extends Controller
 
         $user = Auth()->User();
 
-        $membros = null;;
+        $membros = null;
 
         $excel_params = [];
 
