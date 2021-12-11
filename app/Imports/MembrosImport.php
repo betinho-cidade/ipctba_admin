@@ -54,13 +54,13 @@ class MembrosImport implements ToModel, WithHeadingRow, WithBatchInserts, WithCh
                 'email'						=> $row['email'],
                 'is_disciplina'				=> 'N',
                 'status_participacao_id'	=> ($row['status_participacao_id']) ? $row['status_participacao_id'] : null,
-                //'data_batismo'	    		=> ($row['data_batismo']) ? Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['data_batismo'])) : null,
-                //'pastor_batismo'    		=> $row['pastor_batismo'],
+                // para não membros
+                'data_batismo'	    		=> ($row['data_batismo']) ? Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['data_batismo'])) : null,
+                'pastor_batismo'    		=> $row['pastor_batismo'],
             ]);
 
         }catch(Exception $ex){
             dd($ex->getMessage(), $row);
-        }
 */
 
     }
