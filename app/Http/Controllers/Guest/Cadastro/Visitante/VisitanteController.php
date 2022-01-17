@@ -61,7 +61,7 @@ class VisitanteController extends Controller
             $membro->end_complemento = $request->end_complemento;
             $membro->estado_civil = $request->estado_civil;
             $membro->escolaridade = $request->escolaridade;
-            $membro->tipo_membro = 'NM';
+            $membro->tipo_membro = 'EP';
             $membro->data_batismo = $request->data_batismo;
             $membro->pastor_batismo = $request->pastor_batismo;
             $membro->igreja_batismo = $request->igreja_batismo;

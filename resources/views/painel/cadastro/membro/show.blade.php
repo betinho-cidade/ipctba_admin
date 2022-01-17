@@ -330,6 +330,7 @@
                                 <option value="NC" {{($membro->tipo_membro == 'NC') ? 'selected' : '' }}>Não Comungante</option>
                                 <option value="NM" {{($membro->tipo_membro == 'NM') ? 'selected' : '' }}>Não Membro</option>
                                 <option value="PS" {{($membro->tipo_membro == 'PS') ? 'selected' : '' }}>Pastor</option>
+                                <option value="EP" {{($membro->tipo_membro == 'EP') ? 'selected' : '' }}>Em Processo</option>
                             </select>
                             <div class="valid-feedback">ok!</div>
                             <div class="invalid-feedback">Inválido!</div>
@@ -605,7 +606,7 @@
                             @can('create_historico_oficio')
                                 <i onClick="location.href='{{route('historico_oficio.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Histórico do Ofício"></i>
                             @endcan
-                            Histórico de Ofiícios ( <code class="highlighter-rouge">{{ $historico_oficios->count() }}</code> )
+                            Histórico de Ofícios ( <code class="highlighter-rouge">{{ $historico_oficios->count() }}</code> )
                         </span>
                     </a>
                 </li>
@@ -617,7 +618,7 @@
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Ordenação</th>
+                                    <th>Ordem</th>
                                     <th>Ofício</th>
                                     <th>Data Início</th>
                                     <th>Data Fim</th>
@@ -683,7 +684,7 @@
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Ordenação</th>
+                                    <th>Ordem</th>
                                     <th>Situação</th>
                                     <th>Data Início</th>
                                     <th>Data Fim</th>
@@ -749,7 +750,7 @@
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Ordenação</th>
+                                    <th>Ordem</th>
                                     <th>Solicitação</th>
                                     <th>Líder</th>
                                     <th>Data Agendamento</th>

@@ -141,10 +141,15 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
                 $query->where('is_disciplina', 'S');
             }
             if ($excel_params['nome']) {
-                $query->where('nome', 'like', $excel_params['nome']);
+                $query->where('nome', 'like', '%' . $excel_params['nome'] . '%');
             }
             if ($excel_params['tipo_membro']) {
                 $query->where('tipo_membro', $excel_params['tipo_membro']);
+            } else {
+                $query->whereNotIn('tipo_membro', ['EP']);
+            }
+            if ($excel_params['status_participacao']) {
+                $query->where('status_participacao_id', $excel_params['status_participacao']);
             }
             if ($excel_params['sexo']) {
                 $query->where('sexo', $excel_params['sexo']);

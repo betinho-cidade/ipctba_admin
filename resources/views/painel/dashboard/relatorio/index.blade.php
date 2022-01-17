@@ -53,29 +53,29 @@
 
                     <!-- CAMPOS DE BUSCA - INI -->
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-check mb-1 float-right">
+                        <div class="col-md-12">
+                            <div class="form-check mb-1 float-left">
                                 <input class="form-check-input float-right" type="checkbox" checked id="is_ativo" name="is_ativo">
                                 <label class="form-check-label float-right" for="is_ativo">
                                     Ativo
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        {{-- <div class="col-md-8">
                             <div class="form-check mb-1 float-right">
                                 <input class="form-check-input float-right" type="checkbox" id="is_disciplina" name="is_disciplina">
                                 <label class="form-check-label float-right" for="is_disciplina">
                                     Em Disciplina
                                 </label>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <p></p>
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="nome" name="nome" placeholder="%Nome%">
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
                             </div>
                         </div>
                     </div>
@@ -88,10 +88,24 @@
                                 <option value="NC">Não Comungante</option>
                                 <option value="NM">Não Membro</option>
                                 <option value="PS">Pastor</option>
+                                <option value="EP">Em Processo</option>
                             </select>
                         </div>
                     </div>
                     <p></p>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select id="status_participacao" name="status_participacao" class="form-control">
+                                <option value="">Status de Participação</option>
+                                @foreach($status_participacaos as $status_participacao)
+                                    <option value="{{$status_participacao->id}}">{{$status_participacao->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <p></p>
+
 
                     <div class="row">
                         <div class="col-md-12">
@@ -113,7 +127,7 @@
                                         <input type="text" class="form-control" id="idade_inicial" name="idade_inicial" placeholder="Inicial">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="idade_final" name="idade_final" placeholder="FInal">
+                                        <input type="text" class="form-control" id="idade_final" name="idade_final" placeholder="Final">
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +195,7 @@
                                         <span style="font-size: 20px;">F</span>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="date" class="form-control" id="data_admissao_fim" name="data_admissao_fim" placeholder="FInal">
+                                        <input type="date" class="form-control" id="data_admissao_fim" name="data_admissao_fim" placeholder="Final">
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +219,7 @@
                                         <span style="font-size: 20px;">F</span>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="date" class="form-control" id="data_demissao_fim" name="data_demissao_fim" placeholder="FInal">
+                                        <input type="date" class="form-control" id="data_demissao_fim" name="data_demissao_fim" placeholder="Final">
                                     </div>
                                 </div>
                             </div>
@@ -248,14 +262,14 @@
                             <div>
                                 <h5 class="px-3 mb-3" style="text-align: center">&nbsp; Listagem de Membros Pesquisado &nbsp;</h1>
                                 @php $count = 0; @endphp
-                                <span style="font-size:12px;">
+                                <span>
                                 @if($excel_params)
                                     @foreach ($excel_params as $param=>$value )
                                         @if($value)
                                             @if($count == 0)
-                                                <code>Filtro:</code>
+                                                <code style="font-size:14px;">Filtro:</code>
                                             @endif
-                                            <code>[{{ $param }}:{{ $value }}]&nbsp;</code>
+                                            <code style="font-size:14px;">[{{ $excel_params_translate[$param] }}: {{ ($param=='status_participacao') ? $status_descricao->nome : $value }}]&nbsp;</code>
                                             @php $count = $count + 1; @endphp
                                         @endif
                                     @endforeach
@@ -291,9 +305,9 @@
                                             <table id="dt_lista_membros" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                 <thead>
                                                 <tr>
-                                                    <th>Avatar</th>
-                                                    <th>ROL</th>
+                                                    {{-- <th>Avatar</th> --}}
                                                     <th>Nome</th>
+                                                    <th>ROL</th>
                                                     <th>Ações</th>
                                                 </tr>
                                                 </thead>
@@ -302,9 +316,9 @@
                                                 @if($membros)
                                                     @forelse($membros as $membro)
                                                     <tr>
-                                                        <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></td>
-                                                        <td>{{$membro->numero_rol}}</td>
+                                                        {{-- <td><img class="avatar-sm mr-3 rounded-circle" src="{{$membro->imagem}}" alt=""></td> --}}
                                                         <td>{{$membro->nome}}</td>
+                                                        <td>{{$membro->numero_rol}}</td>
                                                         <td style="text-align:center;">
 
                                                             @can('view_membro')
@@ -312,7 +326,7 @@
                                                             @endcan
 
                                                             @can('view_membro')
-                                                                <a href="{{route('membro.show', compact('membro'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar o Membro"></i></a>
+                                                                <a href="{{route('membro.show', compact('membro'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Visualizar Membro"></i></a>
                                                             @endcan
 
                                                             @can('delete_membro')
@@ -324,11 +338,11 @@
                                                     </tr>
                                                     @empty
                                                     <tr>
-                                                        <td colspan="6">Nenhum registro encontrado</td>
+                                                        <td colspan="3">Nenhum registro encontrado</td>
                                                     </tr>
                                                     @endforelse
                                                 @else
-                                                    <td colspan="6">Utilize o filtro ao lado para realizar a busca.</td>
+                                                    <td colspan="3">Utilize o filtro ao lado para realizar a busca.</td>
                                                 @endif
                                                 </tbody>
                                             </table>

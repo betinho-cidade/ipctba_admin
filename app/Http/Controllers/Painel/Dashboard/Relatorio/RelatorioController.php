@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Membro;
+use App\Models\StatusParticipacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
@@ -39,9 +40,11 @@ class RelatorioController extends Controller
 
         $membros = null;
 
+        $status_participacaos = StatusParticipacao::orderBy('nome')->get();
+
         $excel_params = [];
 
-        return view('painel.dashboard.relatorio.index', compact('user', 'membros', 'excel_params'));
+        return view('painel.dashboard.relatorio.index', compact('user', 'membros', 'status_participacaos', 'excel_params'));
     }
 
 
@@ -62,6 +65,7 @@ class RelatorioController extends Controller
                 'is_ativo' => isset($request->excel_params['is_ativo']) ? $request->excel_params['is_ativo'] : '',
                 'nome' => isset($request->excel_params['nome']) ? $request->excel_params['nome'] : '',
                 'tipo_membro' => isset($request->excel_params['tipo_membro']) ? $request->excel_params['tipo_membro'] : '',
+                'status_participacao' => isset($request->excel_params['status_participacao']) ? $request->excel_params['status_participacao'] : '',
                 'sexo' => isset($request->excel_params['sexo']) ? $request->excel_params['sexo'] : '',
                 'idade_inicial' => isset($request->excel_params['idade_inicial']) ? $request->excel_params['idade_inicial'] : '',
                 'idade_final' => isset($request->excel_params['idade_final']) ? $request->excel_params['idade_final'] : '',
@@ -80,6 +84,7 @@ class RelatorioController extends Controller
                 'is_ativo' => isset($request->is_ativo) ? $request->is_ativo : '',
                 'nome' => isset($request->nome) ? $request->nome : '',
                 'tipo_membro' => isset($request->tipo_membro) ? $request->tipo_membro : '',
+                'status_participacao' => isset($request->status_participacao) ? $request->status_participacao : '',
                 'sexo' => isset($request->sexo) ? $request->sexo : '',
                 'idade_inicial' => isset($request->idade_inicial) ? $request->idade_inicial : '',
                 'idade_final' => isset($request->idade_final) ? $request->idade_final : '',
@@ -94,6 +99,24 @@ class RelatorioController extends Controller
             ];
         }
 
+        $excel_params_translate = [
+            'is_disciplina' => 'Em Disciplina',
+            'is_ativo' => 'Ativo',
+            'nome' => 'Nome',
+            'tipo_membro' => 'Tipo Membro',
+            'status_participacao' => 'Status de Participação',
+            'sexo' => 'Sexo',
+            'idade_inicial' => 'Idade Inicial',
+            'idade_final' => 'Idade Final',
+            'dia_niver_ini' => 'Dia Aniversário Inicial',
+            'dia_niver_fim' => 'Dia Aniversário Final',
+            'mes_niver_ini' => 'Mês Aniversário Inicial',
+            'mes_niver_fim' => 'Mês Aniversário Final',
+            'data_admissao_ini' => 'Data Admissão Inicial',
+            'data_admissao_fim' => 'Data Admissão Final',
+            'data_demissao_ini' => 'Data Demissão Inicial',
+            'data_demissao_fim' => 'Data Demissão Final',
+        ];
 
         $membros = Membro::where(function($query) use ($excel_params){
                         if ($excel_params['is_ativo']) {
@@ -105,10 +128,15 @@ class RelatorioController extends Controller
                             $query->where('is_disciplina', 'S');
                         }
                         if ($excel_params['nome']) {
-                            $query->where('nome', 'like', $excel_params['nome']);
+                            $query->where('nome', 'like', '%' . $excel_params['nome'] . '%');
                         }
                         if ($excel_params['tipo_membro']) {
                             $query->where('tipo_membro', $excel_params['tipo_membro']);
+                        } else {
+                            $query->whereNotIn('tipo_membro', ['EP']);
+                        }
+                        if ($excel_params['status_participacao']) {
+                            $query->where('status_participacao_id', $excel_params['status_participacao']);
                         }
                         if ($excel_params['sexo']) {
                             $query->where('sexo', $excel_params['sexo']);
@@ -139,7 +167,10 @@ class RelatorioController extends Controller
                     ->paginate(300);
                     //->get();
 
-        return view('painel.dashboard.relatorio.index', compact('user', 'membros', 'excel_params'));
+        $status_participacaos = StatusParticipacao::orderBy('nome')->get();
+        $status_descricao = ($excel_params['status_participacao']) ? StatusParticipacao::where('id', $excel_params['status_participacao'])->first() : '';
+
+        return view('painel.dashboard.relatorio.index', compact('user', 'membros', 'excel_params', 'excel_params_translate', 'status_participacaos', 'status_descricao'));
     }
 
     public function excell(Request $request)

@@ -39,7 +39,7 @@ class HistoricoSolicitacaoController extends Controller
 
         $tipo_solicitacaos = TipoSolicitacao::all();
 
-        $liders = Membro::all();
+        $liders = Membro::orderBy('nome')->get();
 
         return view('painel.cadastro.membro.historico_solicitacao.create', compact('user', 'membro', 'tipo_solicitacaos', 'liders'));
     }

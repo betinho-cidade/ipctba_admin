@@ -68,7 +68,7 @@ class IndicadorController extends Controller
         //-----------------------------------------------------------------------
         $membro_tipos = Membro::select("tipo_membro", DB::raw("count(*) as qtde"))
                                     ->groupBy('tipo_membro')
-                                    ->whereNotIn('tipo_membro', ['PS'])
+                                    ->whereNotIn('tipo_membro', ['PS', 'NM'])
                                     ->where('status', 'A')
                                     ->get();
 

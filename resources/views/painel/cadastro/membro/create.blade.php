@@ -279,6 +279,7 @@
                                 <option value="NC" {{(old('tipo_membro') == 'NC') ? 'selected' : '' }}>Não Comungante</option>
                                 <option value="NM" {{(old('tipo_membro') == 'NM') ? 'selected' : '' }}>Não Membro</option>
                                 <option value="PS" {{(old('tipo_membro') == 'PS') ? 'selected' : '' }}>Pastor</option>
+                                <option value="EP" {{(old('tipo_membro') == 'EP') ? 'selected' : '' }}>Em Processo</option>
                             </select>
                             <div class="valid-feedback">ok!</div>
                             <div class="invalid-feedback">Inválido!</div>

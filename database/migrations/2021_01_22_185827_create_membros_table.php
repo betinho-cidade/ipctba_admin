@@ -42,7 +42,7 @@ class CreateMembrosTable extends Migration
             $table->string('nome_pai', 300)->nullable();
             $table->string('nome_mae', 300);
             $table->string('numero_rol', 50)->nullable();
-            $table->enum('tipo_membro', ['CM', 'NC', 'NM', 'PS']);  //CM->Comungante  NC->Não Comungante  NM->Não Membro  PS->Pastor
+            $table->enum('tipo_membro', ['CM', 'NC', 'NM', 'PS', 'EP']);  //CM->Comungante  NC->Não Comungante  NM->Não Membro  PS->Pastor  EP->Em Processo
             $table->date('data_batismo')->nullable();
             $table->string('pastor_batismo', 300)->nullable();
             $table->string('igreja_batismo', 300)->nullable();

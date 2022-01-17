@@ -18,7 +18,7 @@
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-store-2-line"></i>
-                                    <span>Dashboard</span>
+                                    <span>Painel de Controle</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('indicador.index') }}">Indicadores</a></li>
@@ -49,6 +49,7 @@
                                     <span>Cadastros</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('membro.create') }}">Novo Membro</a></li>
                                     <li><a href="{{ route('usuario.index') }}">Usuários</a></li>
                                     <li><a href="{{ route('membro_ficha.index') }}">Ficha de Atualização</a></li>
                                 </ul>
@@ -70,7 +71,7 @@
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-store-2-line"></i>
-                                    <span>Dashboard</span>
+                                    <span>Painel de Controle</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('indicador.index') }}">Indicadores</a></li>

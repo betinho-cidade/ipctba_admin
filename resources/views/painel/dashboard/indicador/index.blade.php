@@ -88,10 +88,10 @@
                     <a href="{{route('membro.show', compact('membro'))}}">
                     <div class="card">
                         <div class="row no-gutters align-items-topr">
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <img class="card-img img-fluid" src="{{$membro->imagem}}" alt="Card image">
-                            </div>
-                            <div class="col-md-8">
+                            </div> --}}
+                            <div class="col-md-12">
                                 <div class="card-body">
                                     <span class="float-right" style="font-size: 12px; color: gray">{{$membro->idade}}</span>
                                     <h5 class="card-title">{{utf8_encode($membro->data_nascimento_dia_mes)}}</h5>

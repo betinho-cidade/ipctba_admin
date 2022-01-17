@@ -355,6 +355,10 @@ class Membro extends Model
                 $descricao = 'Pastor';
                 break;
             }
+            case 'EP' : {
+                $descricao = 'Em Processo';
+                break;
+            }
             default : {
                 $descricao = '---';
                 break;
