@@ -101,7 +101,7 @@ class RelatorioController extends Controller
 
         $excel_params_translate = [
             'is_disciplina' => 'Em Disciplina',
-            'is_ativo' => 'Ativo',
+            'is_ativo' => 'Situação Membro',
             'nome' => 'Nome',
             'tipo_membro' => 'Tipo Membro',
             'status_participacao' => 'Status de Participação',
@@ -119,10 +119,12 @@ class RelatorioController extends Controller
         ];
 
         $membros = Membro::where(function($query) use ($excel_params){
-                        if ($excel_params['is_ativo']) {
-                            $query->where('status', 'A');
-                        } else {
-                            $query->where('status', 'I');
+                        if($excel_params['is_ativo']){
+                            if ($excel_params['is_ativo'] == 'ativo') {
+                                $query->where('status', 'A');
+                            } elseif ($excel_params['is_ativo'] == 'inativo') {
+                                $query->where('status', 'I');
+                            }
                         }
                         if ($excel_params['is_disciplina']) {
                             $query->where('is_disciplina', 'S');

@@ -53,11 +53,19 @@
 
                     <!-- CAMPOS DE BUSCA - INI -->
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-check mb-1 float-left">
-                                <input class="form-check-input float-right" type="checkbox" checked id="is_ativo" name="is_ativo">
-                                <label class="form-check-label float-right" for="is_ativo">
+                                <input class="form-check-input float-right" type="radio" checked id="ativo" name="is_ativo" value="ativo">
+                                <label class="form-check-label float-right" for="ativo">
                                     Ativo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check mb-1 float-left">
+                                <input class="form-check-input float-right" type="radio" id="inativo" name="is_ativo" value="inativo">
+                                <label class="form-check-label float-right" for="inativo">
+                                    Inativo
                                 </label>
                             </div>
                         </div>
