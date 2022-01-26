@@ -424,9 +424,11 @@ class Membro extends Model
         $historico_oficio = ($this->historico_oficios->count() == 0) ? true : false;
         $historico_solicitacao = ($this->historico_solicitacaos->count() == 0) ? true : false;
         $membro_familia = ($this->membro_familias->count() == 0) ? true : false;
-        $historico_situacao = ($this->historico_situacaos->count() <= 1) ? true : false;
+        $historico_situacao = ($this->historico_situacaos->count() <= 2) ? true : false; // SituacaoMembro: 1.Tempo de Igreja -  2.Cadastro Site
 
-        if($historico_oficio && $historico_solicitacao && $membro_familia && $historico_situacao){
+        if($historico_oficio && $historico_solicitacao
+           && $membro_familia && $historico_situacao
+           && $this->tipo_membro = 'EP'){
             $cadastro_inicial = true;
         }
 

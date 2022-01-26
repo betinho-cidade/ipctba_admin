@@ -515,6 +515,7 @@ class MembroController extends Controller
             if($membro->cadastro_inicial){
                 DB::table('historico_situacaos')->where('membro_id', '=', $membro->id)->delete();
                 DB::table('membro_ministerios')->where('membro_id', '=', $membro->id)->delete();
+                DB::table('membro_filhos')->where('membro_id', '=', $membro->id)->delete();
             }
 
             if($usuario){
