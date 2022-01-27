@@ -51,6 +51,9 @@
 
                 <!-- Dados Pessoais - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
+                    <span class="float-right" style="align-top: center; font-size: 14px;">
+                        <a href="{{route('membro.pdf', compact('membro'))}}"><i class="fa fa-download color: goldenrod" title="Gerar PDF do Membro"></i></a>
+                    </span>
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Pessoais</h5>
                 </div>
 
@@ -128,19 +131,7 @@
                 </div>
 
                     <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="situacao_membro">Situação</label>
-                                <select @if(!Gate::check('edit_membro')) disabled @endif id="situacao_membro" name="situacao_membro" class="form-control" required>
-                                    <option value="">---</option>
-                                    <option value="A" {{($membro->status == 'A') ? 'selected' : '' }}>Ativo</option>
-                                    <option value="I" {{($membro->status == 'I') ? 'selected' : '' }}>Inativo</option>
-                                </select>
-                                <div class="valid-feedback">ok!</div>
-                                <div class="invalid-feedback">Inválido!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label for="estado_civil">Estado Civil</label>
                             <select @if(!Gate::check('edit_membro')) disabled @endif id="estado_civil" name="estado_civil" class="form-control">
                                 <option value="">---</option>
@@ -155,7 +146,7 @@
                             <div class="invalid-feedback">Inválido!</div>
                         </div>
 
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="conjuge">Nome Cônjuge</label>
                                 <input @if(!Gate::check('edit_membro')) disabled @endif type="text" class="form-control" id="conjuge" name="conjuge" value="{{$membro->conjuge}}">
@@ -313,7 +304,19 @@
                 </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="situacao_membro">Situação</label>
+                                <select @if(!Gate::check('edit_membro')) disabled @endif id="situacao_membro" name="situacao_membro" class="form-control" required>
+                                    <option value="">---</option>
+                                    <option value="A" {{($membro->status == 'A') ? 'selected' : '' }}>Ativo</option>
+                                    <option value="I" {{($membro->status == 'I') ? 'selected' : '' }}>Inativo</option>
+                                </select>
+                                <div class="valid-feedback">ok!</div>
+                                <div class="invalid-feedback">Inválido!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="numero_rol">Número ROL</label>
                                 <input @if(!Gate::check('edit_membro')) disabled @endif type="text" class="form-control" id="numero_rol" name="numero_rol" value="{{$membro->numero_rol}}">
@@ -336,7 +339,7 @@
                             <div class="invalid-feedback">Inválido!</div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="status_participacao">Status de Participação</label>
                                 <select @if(!Gate::check('edit_membro')) disabled @endif id="status_participacao" name="status_participacao" class="form-control">

@@ -135,7 +135,12 @@ class HistoricoSolicitacaoController extends Controller
                 if($request->repetir_solicitacao <> 0){
 
                     $data_agendamento = Carbon::now();
-                    $data_agendamento->addDays($request->repetir_solicitacao)->format('Y-m-d');
+                    $data_agendamento->addDays($request->repetir_solicitacao)->format('Y-m-d H:i:s');
+
+                    $hora_minuto = explode(":", $request->hora_realizacao);
+
+                    $data_agendamento->hour($hora_minuto[0]);
+                    $data_agendamento->minute($hora_minuto[1]);
 
                     $historico_solicitacao_new = new HistoricoSolicitacao();
 

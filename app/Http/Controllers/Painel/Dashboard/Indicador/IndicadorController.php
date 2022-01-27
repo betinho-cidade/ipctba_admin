@@ -92,6 +92,7 @@ class IndicadorController extends Controller
         $membro_partcipacaos = Membro::select("status_participacao_id", DB::raw("count(*) as qtde"))
                                             ->groupBy('status_participacao_id')
                                             ->where('status', 'A')
+                                            ->where('tipo_membro', 'CM')
                                             ->get();
 
         $count = 0;
