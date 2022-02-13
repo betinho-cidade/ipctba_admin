@@ -85,7 +85,7 @@ class MembroController extends Controller
 
         $ministerios = Ministerio::orderBy('nome')->get();
 
-        $perfis = Role::whereIn('name', ['Membro','Lider'])
+        $perfis = Role::whereIn('name', ['Membro','Lider', 'Pastor'])
                         ->get();
 
 
@@ -270,7 +270,7 @@ class MembroController extends Controller
 
         $ministerios = Ministerio::orderBy('nome')->get();
 
-        $perfis = Role::whereIn('name', ['Membro','Lider'])
+        $perfis = Role::whereIn('name', ['Membro','Lider', 'Pastor'])
                         ->get();
 
         $historico_oficios = HistoricoOficio::where('membro_id', $membro->id)

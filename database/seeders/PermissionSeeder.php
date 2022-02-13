@@ -433,6 +433,41 @@ class PermissionSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
+                [
+                    'id' => 61,
+                    'name' => 'view_usuario_logado',
+                    'description' => 'Acessar as informações do usuário logado',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 62,
+                    'name' => 'view_agenda_solicitacao',
+                    'description' => 'Acessar as informações das Agendas/Solicitações do membro',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 63,
+                    'name' => 'edit_agenda_solicitacao',
+                    'description' => 'Alterar as informações das Agendas/Solicitações do membro',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 64,
+                    'name' => 'create_agenda_solicitacao',
+                    'description' => 'Criar uma nova Agenda/Solicitação do membro',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 65,
+                    'name' => 'delete_agenda_solicitacao',
+                    'description' => 'Excluir uma Agenda/Solicitação do membro',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
             ]);
         } else {
             echo "\e[31mTabela Permissions não está vazia. ";

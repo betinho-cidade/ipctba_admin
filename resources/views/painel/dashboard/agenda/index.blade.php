@@ -3,12 +3,20 @@
 @section('content')
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-4">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0">Agenda IPCTBA</h4>
             </div>
         </div>
+
+        <div class="col-lg-8 align-items-left">
+            @foreach($agenda_meses as $key => $value)
+            <button type="button" onClick="javascript:location.href='{{ route('agenda.index', ['anomes' => $key]) }}'" class="btn btn-light btn-sm waves-effect waves-light">{{ $value }}</button>
+            @endforeach
+        </div>
+
     </div>
+
 
     @if($agendas)
     @foreach($agendas as $ano_mes => $lista_agenda )
@@ -30,8 +38,8 @@
                         <div class="progress progress-sm animated-progess" style="height: 3px;">
                             <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        @php $historico_solicitacao = $agenda['historico_solicitacao_obj']; $membro = $historico_solicitacao->membro; @endphp
-                        <a href="{{route('historico_solicitacao.show', compact('membro', 'historico_solicitacao'))}}">
+                        @php $agenda_solicitacao = $agenda['historico_solicitacao_obj']; @endphp
+                        <a href="{{route('agenda_solicitacao.show', compact('agenda_solicitacao'))}}">
                         <div class="card-body">
                             <div class="float-end ms-2">
                                 <div>

@@ -34,11 +34,19 @@ class MembroFamiliaController extends Controller
 
         $user = Auth()->User();
 
-        $membro_familias = Membro::whereNotIn('id', [$membro->id])
-                                   ->orderBy('nome')
-                                   ->get();
+        $membro_familias = MembroFamilia::where('membro_id', $membro->id)
+                                         ->get();
 
-        return view('painel.cadastro.membro.membro_familia.create', compact('user', 'membro', 'membro_familias'));
+
+        $novo_membros = Membro::where(function($query) use ($membro_familias){
+                                if($membro_familias->count() > 0){
+                                    $query->whereNotIn('id', [$membro_familias->pluck('membro_familia_id')]);
+                                }
+                                })
+                                ->orderBy('nome')
+                                ->get();
+
+        return view('painel.cadastro.membro.membro_familia.create', compact('user', 'membro', 'novo_membros'));
     }
 
 
@@ -86,7 +94,7 @@ class MembroFamiliaController extends Controller
             $request->session()->flash('message.content', 'O Vínculo Familiar <code class="highlighter-rouge">'. $membro_familia->vinculo_familiar .'</code> foi criado com sucesso');
         }
 
-        return redirect()->route('membro.show', compact('membro'));
+        return redirect()->route('membro_familia.create', compact('membro'));
     }
 
 

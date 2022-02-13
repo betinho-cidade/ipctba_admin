@@ -12,6 +12,11 @@ class HistoricoSolicitacao extends Model
 {
     use HasFactory;
 
+    public function user(){
+
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function membro(){
 
         return $this->belongsTo('App\Models\Membro');
@@ -27,6 +32,7 @@ class HistoricoSolicitacao extends Model
         return $this->belongsTo('App\Models\TipoSolicitacao');
     }
 
+
     public function getDataAgendamentoAnoMesFormatadaAttribute()
     {
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
@@ -41,6 +47,11 @@ class HistoricoSolicitacao extends Model
         return ($this->data_agendamento) ? date('d/m H:i', strtotime($this->data_agendamento)) : '';
     }
 
+    public function getDataAgendamentoAgendaAnoMesAttribute()
+    {
+        return ($this->data_agendamento) ? date('Ym', strtotime($this->data_agendamento)) : '';
+    }
+
     public function getDataAgendamentoAjustadaAttribute()
     {
         return ($this->data_agendamento) ? date('Y-m-d', strtotime($this->data_agendamento)) : '';
@@ -48,7 +59,7 @@ class HistoricoSolicitacao extends Model
 
     public function getDataAgendamentoFormatadaAttribute()
     {
-        return ($this->data_agendamento) ? date('d/m/Y H:i', strtotime($this->data_agendamento)): '';
+        return ($this->data_agendamento) ? date('d/m/y H:i', strtotime($this->data_agendamento)): '';
     }
 
     public function getHoraAgendamentoAjustadaAttribute()
@@ -68,13 +79,29 @@ class HistoricoSolicitacao extends Model
 
     public function getDataRealizacaoFormatadaAttribute()
     {
-        return ($this->data_realizacao) ? date('d-m-Y H:i', strtotime($this->data_realizacao)): '';
+        return ($this->data_realizacao) ? date('d/m/y H:i', strtotime($this->data_realizacao)): '';
     }
 
     public function getHoraRealizacaoAjustadaAttribute()
     {
         return ($this->data_realizacao) ? date('H:i', strtotime($this->data_realizacao)) : '';
     }
+
+    public function getDataRealizacaoOrdenacaoAttribute()
+    {
+        return ($this->data_realizacao) ? date('YmdHi', strtotime($this->data_realizacao)) : '3000010101';
+    }
+
+    public function getDataCriacaoOrdenacaoAttribute()
+    {
+        return ($this->created_at) ? date('YmdHi', strtotime($this->created_at)) : '3000010101';
+    }
+
+    public function getDataCriacaoFormatadaAttribute()
+    {
+        return ($this->created_at) ? date('d/m/y H:i', strtotime($this->created_at)): '';
+    }
+
 
     public function getComentarioAbreviadoAttribute()
     {

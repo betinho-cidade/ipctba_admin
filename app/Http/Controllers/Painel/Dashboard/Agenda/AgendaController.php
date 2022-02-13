@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Image;
+use Carbon\Carbon;
 
 
 
@@ -24,7 +25,7 @@ class AgendaController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
         if(Gate::denies('view_agenda')){
             abort('403', 'Página não disponível');
@@ -33,7 +34,31 @@ class AgendaController extends Controller
 
         $user = Auth()->User();
 
-        $historico_solicitacaos = HistoricoSolicitacao::whereNull('data_realizacao')
+        $lista_meses = HistoricoSolicitacao::where('status', 'AG')
+                                             ->orderBy('data_agendamento')
+                                             ->get()
+                                             ->transform(function($item) {
+                                                return Carbon::parse($item->data_agendamento)->format('Y-m');
+                                             })
+                                              ->unique(function($item) {
+                                                return $item;
+                                              });
+
+        foreach($lista_meses as $agenda_mes){
+            $agenda_meses[$agenda_mes] = ucfirst(strftime('%b/%y', strtotime($agenda_mes)));
+        }
+
+
+        $mes_atual = date('Y-m', strtotime(Carbon::now()));
+        $referencia = ($request->anomes && strrpos($request->anomes, '-')) ? explode("-", $request->anomes) : explode("-", $mes_atual);
+
+        $historico_solicitacaos = HistoricoSolicitacao::where('status', 'AG')
+                                                        ->where(function($query) use ($referencia){
+                                                            if ($referencia) {
+                                                                $query->whereYear('data_agendamento', '=', $referencia[0])
+                                                                      ->whereMonth('data_agendamento', '=', $referencia[1]);
+                                                            }
+                                                        })
                                                         ->orderBy('data_agendamento')
                                                         ->get();
 
@@ -57,12 +82,12 @@ class AgendaController extends Controller
                 'data' => $solicitacao->data_agendamento_agenda,
                 'historico_solicitacao_obj' => $solicitacao,
             ];
+
             $count = $count + 1;
         }
 
-        return view('painel.dashboard.agenda.index', compact('user', 'agendas'));
+        return view('painel.dashboard.agenda.index', compact('user', 'agendas', 'agenda_meses'));
     }
-
 
 }
 

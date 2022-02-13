@@ -68,15 +68,17 @@
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>
                         </div>
+
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label for="membro_familia">Membro da Família Familiar</label>
-                                <select class="form-control select2" id="membro_familia" name="membro_familia" required>
+                                <label for="membro_familia">Membro da Família</label>
+                                <select id="membro_familia" name="membro_familia" class="form-control select2" required>
                                     <option value="">---</option>
-                                    @foreach($membro_familias as $membro_familia)
+                                    @foreach($novo_membros as $membro_familia)
                                         <option value="{{$membro_familia->id}}">{{$membro_familia->nome}}</option>
                                     @endforeach
                                 </select>
+
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>
@@ -96,11 +98,17 @@
 
 @endsection
 
+@section('head-css')
+    <link href="{{ asset('nazox/assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css">
+@endsection
 
 @section('script-js')
     <script src="{{asset('nazox/assets/js/pages/form-validation.init.js')}}"></script>
     <script src="{{asset('nazox/assets/libs/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
     <script src="{{asset('nazox/assets/js/pages/form-element.init.js')}}"></script>
+    <script src="{{ asset('nazox/assets/libs/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('nazox/assets/js/pages/form-advanced.init.js') }}"></script>
+
     <!-- form mask -->
     <script src="{{asset('nazox/assets/libs/inputmask/jquery.inputmask.min.js')}}"></script>
 @endsection

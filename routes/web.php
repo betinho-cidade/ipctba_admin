@@ -99,6 +99,12 @@ Route::middleware(['auth'])->group(function () {
                 Route::put('/usuario/{usuario}/update', 'UsuarioController@update')->name('usuario.update');
                 Route::delete('/usuario/{usuario}/destroy', 'UsuarioController@destroy')->name('usuario.destroy');
             });
+
+            Route::group(['namespace' => 'UsuarioLogado'], function(){
+                Route::get('/usuario_logado/{user}', 'UsuarioLogadoController@show')->name('usuario_logado.show');
+                Route::put('/usuario_logado/{user}/update', 'UsuarioLogadoController@update')->name('usuario_logado.update');
+            });
+
             Route::group(['namespace' => 'Membro'], function(){
                 // Route::get('/membro', 'MembroController@index')->name('membro.index');
                 Route::get('/membro/excell', 'MembroController@excell')->name('membro.excell');
@@ -125,14 +131,6 @@ Route::middleware(['auth'])->group(function () {
                     Route::delete('/membro/{membro}/historico_situacao/{historico_situacao}/destroy', 'HistoricoSituacaoController@destroy')->name('historico_situacao.destroy');
                 });
 
-                Route::group(['namespace' => 'HistoricoSolicitacao'], function(){
-                    Route::get('/membro/{membro}/historico_solicitacao/create', 'HistoricoSolicitacaoController@create')->name('historico_solicitacao.create');
-                    Route::post('/membro/{membro}/historico_solicitacao/store', 'HistoricoSolicitacaoController@store')->name('historico_solicitacao.store');
-                    Route::get('/membro/{membro}/historico_solicitacao/{historico_solicitacao}', 'HistoricoSolicitacaoController@show')->name('historico_solicitacao.show');
-                    Route::put('/membro/{membro}/historico_solicitacao/{historico_solicitacao}/update', 'HistoricoSolicitacaoController@update')->name('historico_solicitacao.update');
-                    Route::delete('/membro/{membro}/historico_solicitacao/{historico_solicitacao}/destroy', 'HistoricoSolicitacaoController@destroy')->name('historico_solicitacao.destroy');
-                });
-
                 Route::group(['namespace' => 'MembroFamilia'], function(){
                     Route::get('/membro/{membro}/membro_familia/create', 'MembroFamiliaController@create')->name('membro_familia.create');
                     Route::post('/membro/{membro}/membro_familia/store', 'MembroFamiliaController@store')->name('membro_familia.store');
@@ -150,12 +148,22 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/membro_ficha/{membro_ficha}/destroy', 'MembroFichaController@destroy')->name('membro_ficha.destroy');
             });
 
+            Route::group(['namespace' => 'AgendaSolicitacao'], function(){
+                Route::get('/agenda_solicitacao', 'AgendaSolicitacaoController@index')->name('agenda_solicitacao.index');
+                Route::get('/agenda_solicitacao/create', 'AgendaSolicitacaoController@create')->name('agenda_solicitacao.create');
+                Route::post('/agenda_solicitacao/store', 'AgendaSolicitacaoController@store')->name('agenda_solicitacao.store');
+                Route::get('/agenda_solicitacao/{agenda_solicitacao}', 'AgendaSolicitacaoController@show')->name('agenda_solicitacao.show');
+                Route::put('/agenda_solicitacao/{agenda_solicitacao}/update', 'AgendaSolicitacaoController@update')->name('agenda_solicitacao.update');
+                Route::delete('/agenda_solicitacao/{agenda_solicitacao}/destroy', 'AgendaSolicitacaoController@destroy')->name('agenda_solicitacao.destroy');
+            });
+
         });
 
         Route::group(['namespace' => 'Dashboard'], function(){
 
             Route::group(['namespace' => 'Agenda'], function(){
                 Route::get('/agenda', 'AgendaController@index')->name('agenda.index');
+                Route::post('/agenda', 'AgendaController@index')->name('agenda.index');
             });
 
             Route::group(['namespace' => 'Relatorio'], function(){

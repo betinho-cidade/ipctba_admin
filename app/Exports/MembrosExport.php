@@ -26,6 +26,7 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
     {
         return [
             'ID',
+            'Número ROL',
             'Nome',
             'Celular',
             'E-mail',
@@ -58,7 +59,6 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
             'Cidade Igreja Anterior',
             'Pastor Igreja Anterior',
             'E-mail Pastor Igreja Anterior',
-            'Número ROL',
             'Tipo Membro',
             'Número da Ata',
             'Data Admissão',
@@ -69,6 +69,10 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
             'Status do Membro',
             'Em Disciplina ?',
             'Aptidões',
+            'Ofício Atual',
+            'Ministérios',
+            'Situação Atual',
+            'Histórico Solicitações',
             'Login',
         ];
     }
@@ -78,6 +82,7 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
 
         return [
             $membro->id,
+            $membro->numero_rol,
             $membro->nome,
             $membro->celular,
             $membro->email,
@@ -110,7 +115,6 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
             $membro->igreja_old_cidade,
             $membro->igreja_old_pastor,
             $membro->igreja_old_pastor_email,
-            $membro->numero_rol,
             $membro->descricao_tipo_membro,
             $membro->numero_ata,
             Date::stringToExcel($membro->data_admissao),
@@ -121,6 +125,10 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
             $membro->descricao_status,
             $membro->descricao_is_disciplina,
             $membro->aptidao,
+            $membro->historico_oficio_atual,
+            $membro->ministerios_lista,
+            $membro->historico_situacao_atual,
+            $membro->historico_solicitacao_lista,
             $membro->user->login ?? '',
         ];
 
@@ -145,6 +153,9 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
             if ($excel_params['nome']) {
                 $query->where('nome', 'like', '%' . $excel_params['nome'] . '%');
             }
+            if ($excel_params['rol']) {
+                $query->where('numero_rol', 'like', '%' . $excel_params['rol'] . '%');
+            }
             if ($excel_params['tipo_membro']) {
                 $query->where('tipo_membro', $excel_params['tipo_membro']);
             } else {
@@ -152,6 +163,9 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
             }
             if ($excel_params['status_participacao']) {
                 $query->where('status_participacao_id', $excel_params['status_participacao']);
+            }
+            if ($excel_params['estado_civil']) {
+                $query->where('estado_civil', $excel_params['estado_civil']);
             }
             if ($excel_params['sexo']) {
                 $query->where('sexo', $excel_params['sexo']);
@@ -166,6 +180,11 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
                 $maxDate = $excel_params['mes_niver_fim'] . $excel_params['dia_niver_fim'];
                 $query->whereRaw("DATE_FORMAT(data_nascimento, '%m%d') BETWEEN ? AND ?", [$minDate, $maxDate]);
             }
+            if($excel_params['dia_casamento_ini'] && $excel_params['dia_casamento_fim'] && $excel_params['mes_casamento_ini'] && $excel_params['mes_casamento_fim']){
+                $minDate = $excel_params['mes_casamento_ini'] . $excel_params['dia_casamento_ini'];
+                $maxDate = $excel_params['mes_casamento_fim'] . $excel_params['dia_casamento_fim'];
+                $query->whereRaw("DATE_FORMAT(data_casamento, '%m%d') BETWEEN ? AND ?", [$minDate, $maxDate]);
+            }
             if($excel_params['data_admissao_ini'] && $excel_params['data_admissao_fim']){
                 $minDate = $excel_params['data_admissao_ini'];
                 $maxDate = $excel_params['data_admissao_fim'];
@@ -176,9 +195,48 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
                 $maxDate = $excel_params['data_demissao_fim'];
                 $query->whereBetween('data_demissao', [$minDate, $maxDate]);
             }
-
+            if ($excel_params['meio_admissao']) {
+                $query->where('meio_admissao_id', $excel_params['meio_admissao']);
+            }
+            if ($excel_params['meio_demissao']) {
+                $query->where('meio_demissao_id', $excel_params['meio_demissao']);
+            }
+            if($excel_params['oficio']){
+                $query->whereIn('membros.id', function($subquery) use ($excel_params) {
+                    $subquery->select('membros.id');
+                    $subquery->from('historico_oficios');
+                    $subquery->join('membros', 'historico_oficios.membro_id', '=','membros.id');
+                    $subquery->where("historico_oficios.oficio_id",$excel_params['oficio']);
+                    $subquery->whereNull('historico_oficios.data_fim');
+                });
+            }
+            if($excel_params['ministerio']){
+                $query->whereIn('membros.id', function($subquery) use ($excel_params) {
+                    $subquery->select('membros.id');
+                    $subquery->from('membro_ministerios');
+                    $subquery->join('membros', 'membro_ministerios.membro_id', '=','membros.id');
+                    $subquery->where("membro_ministerios.ministerio_id",$excel_params['ministerio']);
+                });
+            }
+            if($excel_params['situacao']){
+                $query->whereIn('membros.id', function($subquery) use ($excel_params) {
+                    $subquery->select('membros.id');
+                    $subquery->from('historico_situacaos');
+                    $subquery->join('membros', 'historico_situacaos.membro_id', '=','membros.id');
+                    $subquery->where("historico_situacaos.situacao_membro_id",$excel_params['situacao']);
+                    $subquery->whereNull('historico_situacaos.data_fim');
+                });
+            }
+            if($excel_params['tipo_solicitacao']){
+                $query->whereIn('membros.id', function($subquery) use ($excel_params) {
+                    $subquery->select('membros.id');
+                    $subquery->from('historico_solicitacaos');
+                    $subquery->join('membros', 'historico_solicitacaos.membro_id', '=','membros.id');
+                    $subquery->where("historico_solicitacaos.tipo_solicitacao_id",$excel_params['tipo_solicitacao']);
+                });
+            }
         })
-        ->orderBy('nome', 'asc')
+        ->orderBy($excel_params['order_field'], $excel_params['order_type'])
         ->get();
 
 

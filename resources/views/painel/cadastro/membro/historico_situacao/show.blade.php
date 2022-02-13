@@ -44,14 +44,14 @@
             <!-- FORMULÁRIO - INICIO -->
 
             <h4 class="card-title">Formulário de Atualização - Histórico da Situação do Membro</h4>
-            <p class="card-title-desc">Informações do histórico do Situação do Membro.</p>
+            <p class="card-title-desc">Informações do histórico da Situação do Membro.</p>
             <form name="edit_historico_situacao" method="POST" action="{{route('historico_situacao.update', compact('membro', 'historico_situacao'))}}"  class="needs-validation"  novalidate>
                 @csrf
                 @method('put')
 
                 <!-- Dados - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
-                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Histório da Situação do Membro</h5>
+                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados do Histórico da Situação do Membro</h5>
                 </div>
 
                     <div class="row">

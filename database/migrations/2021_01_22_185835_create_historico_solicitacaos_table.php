@@ -15,13 +15,16 @@ class CreateHistoricoSolicitacaosTable extends Migration
     {
         Schema::create('historico_solicitacaos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('membro_id');
-            $table->unsignedBigInteger('lider_id');
+            $table->unsignedBigInteger('lider_id')->nullable();
             $table->unsignedBigInteger('tipo_solicitacao_id');
+            $table->enum('status', ['AB', 'AG' ,'CL'])->default('AB');  //AB->Abertas  AG->Agendadas  CL->Concluídas
             $table->datetime('data_agendamento')->nullable();
             $table->datetime('data_realizacao')->nullable();
             $table->longText('comentario')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('membro_id')->references('id')->on('membros');
             $table->foreign('lider_id')->references('id')->on('membros');
             $table->foreign('tipo_solicitacao_id')->references('id')->on('tipo_solicitacaos');

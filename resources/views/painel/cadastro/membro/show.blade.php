@@ -604,8 +604,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#historico_oficios" role="tab">
-                        <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                        <span class="d-none d-sm-block">
+                        <span class="d-sm-block">
                             @can('create_historico_oficio')
                                 <i onClick="location.href='{{route('historico_oficio.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Histórico do Ofício"></i>
                             @endcan
@@ -615,7 +614,7 @@
                 </li>
             </ul>
 
-                <div class="tab-content p-3 text-muted">
+                <div class="tab-content p-3 text-muted tab-response-mobile">
                     <div class="tab-pane active" id="historico_oficios" role="tabpanel">
                         <table id="dt_historico_oficios" class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -670,8 +669,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#historico_situacaos" role="tab">
-                        <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                        <span class="d-none d-sm-block">
+                        <span class="d-sm-block">
                             @can('create_historico_situacao')
                                 <i onClick="location.href='{{route('historico_situacao.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Histórico da Situação do Membro"></i>
                             @endcan
@@ -681,7 +679,7 @@
                 </li>
             </ul>
 
-                <div class="tab-content p-3 text-muted">
+                <div class="tab-content p-3 text-muted tab-response-mobile">
                     <div class="tab-pane active" id="historico_situacaos" role="tabpanel">
                         <table id="dt_historico_situacaos" class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -736,18 +734,14 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#historico_solicitacaos" role="tab">
-                        <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                        <span class="d-none d-sm-block">
-                            @can('create_historico_solicitacao')
-                                <i onClick="location.href='{{route('historico_solicitacao.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Histórico de Solicitação do Membro"></i>
-                            @endcan
+                        <span class="d-sm-block">
                             Histórico de Solicitações ( <code class="highlighter-rouge">{{ $historico_solicitacaos->count() }}</code> )
                         </span>
                     </a>
                 </li>
             </ul>
 
-                <div class="tab-content p-3 text-muted">
+                <div class="tab-content p-3 text-muted tab-response-mobile">
                     <div class="tab-pane active" id="historico_solicitacaos" role="tabpanel">
                         <table id="dt_historico_solicitacaos" class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -764,26 +758,19 @@
                             </thead>
 
                             <tbody>
-                                @forelse($historico_solicitacaos as $historico_solicitacao)
+                                @forelse($historico_solicitacaos as $agenda_solicitacao)
                                     <tr>
-                                        <td>{{ $historico_solicitacao->data_agendamento_ordenacao }}</td>
-                                        <td>{{ $historico_solicitacao->tipo_solicitacao->nome }}</td>
-                                        <td>{{ $historico_solicitacao->lider->nome }}</td>
-                                        <td>{{ $historico_solicitacao->data_agendamento_formatada }}</td>
-                                        <td>{{ $historico_solicitacao->data_realizacao_formatada }}</td>
-                                        <td>{{ $historico_solicitacao->comentario_abreviado }}</td>
+                                        <td>{{ $agenda_solicitacao->data_agendamento_ordenacao }}</td>
+                                        <td>{{ $agenda_solicitacao->tipo_solicitacao->nome }}</td>
+                                        <td>{{ $agenda_solicitacao->lider->nome }}</td>
+                                        <td>{{ $agenda_solicitacao->data_agendamento_formatada }}</td>
+                                        <td>{{ $agenda_solicitacao->data_realizacao_formatada }}</td>
+                                        <td>{{ $agenda_solicitacao->comentario_abreviado }}</td>
                                         <td style="text-align:center;">
 
-                                            @can('edit_historico_solicitacao')
-                                                <a href="{{route('historico_solicitacao.show', compact('membro', 'historico_solicitacao'))}}"><i class="fa fa-edit"
-                                                        style="color: goldenrod" title="Editar o Histórico da Solicitação do Membro"></i></a>
-                                            @endcan
-
-                                            @can('delete_historico_solicitacao')
-                                                <a href="javascript:;" data-toggle="modal"
-                                                onclick="deleteData('historico_solicitacao', '{{$membro->id}}', '{{$historico_solicitacao->id}}');"
-                                                    data-target="#modal-delete"><i class="fa fa-minus-circle"
-                                                        style="color: crimson" title="Excluir o Histórico da Solicitação do Membro"></i></a>
+                                            @can('view_agenda_solicitacao')
+                                                <a href="{{route('agenda_solicitacao.show', compact('agenda_solicitacao'))}}"><i class="fa fa-edit"
+                                                        style="color: goldenrod" title="Visualizar a Agenda / Solicitação do Membro"></i></a>
                                             @endcan
                                         </td>
                                     </tr>
@@ -804,8 +791,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#membro_familias" role="tab">
-                        <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                        <span class="d-none d-sm-block">
+                        <span class="d-sm-block">
                             @can('create_historico_familiar')
                                 <i onClick="location.href='{{route('membro_familia.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Vínculo Familiar"></i>
                             @endcan
@@ -814,7 +800,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="tab-content p-3 text-muted">
+            <div class="tab-content p-3 text-muted tab-response-mobile">
                 <div class="tab-pane active" id="membro_familias" role="tabpanel">
                     <table id="dt_membro_familias" class="table table-striped table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -1065,16 +1051,6 @@
             var url = '{{ route('historico_situacao.destroy', [':membro', ':situacao']) }}';
             url = url.replace(':membro', membro);
             url = url.replace(':situacao', situacao);
-            $("#deleteForm").attr('action', url);
-        }
-
-        function deleteHistoricoSolicitacao(data) {
-            var membro = data[0];
-            var solicitacao = data[1];
-
-            var url = '{{ route('historico_solicitacao.destroy', [':membro', ':solicitacao']) }}';
-            url = url.replace(':membro', membro);
-            url = url.replace(':solicitacao', solicitacao);
             $("#deleteForm").attr('action', url);
         }
 

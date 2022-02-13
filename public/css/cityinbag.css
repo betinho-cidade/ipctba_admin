@@ -7,6 +7,10 @@
 .box-plano-acao{min-height: 120px;max-height: 120px;overflow-y: scroll;}
 .plano-acao-imagem img, .img-aplica{max-height: 120px;}
 .plano-acao-geral-auditor{margin-bottom: 18px;}
+.tab-filter .espacamento {margin: 8px 0;}
+.espacamento select{margin-bottom: 10px;}
+
+
 
 /* CSS PADRAO CORES FAMALI */
 .btn-primary{background-color: #272727 !important;border-color: #272727 !important;}
@@ -59,5 +63,8 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control:before,
 .box-plano-acao{min-height: 120px;max-height: 120px;overflow-y: scroll;}
 .plano-acao-imagem img{    max-height: auto; }
 .plano-acao-geral-auditor{margin-bottom: 30px; display:block;}
-
+.tab-response-mobile {overflow-x:scroll;}
+.margin-bottom-10{margin-bottom: 10px;}
+.tab-filter .card-body{padding:20px 10px;}
+.tab-filter .float-right{float:initial !important;}
 }

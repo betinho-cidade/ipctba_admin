@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Novo Histório da Solicitação</h4>
+            <h4 class="mb-0">Informações do Usuário</h4>
         </div>
     </div>
 </div>
@@ -35,86 +35,74 @@
     </div>
 @endif
 
-<small style="color: mediumpurple">{!! $membro->breadcrumb !!}</small>
-
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
             <!-- FORMULÁRIO - INICIO -->
 
-            <h4 class="card-title">Formulário de Cadastro - Histórico da Solicitação</h4>
-            <p class="card-title-desc">Informe novo histórico da Solicitação para o membro.</p>
-            <form name="create_historico_solicitacao" method="POST" action="{{route('historico_solicitacao.store', compact('membro'))}}"  class="needs-validation"  novalidate>
-                @csrf
+            <h4 class="card-title">Formulário de Atualização - {{$user->name}}</h4>
+            <p class="card-title-desc">Informações de acesso ao sistema.</p>
 
-                <!-- Dados - INI -->
+            <form name="edit_usuario_logado" method="POST" action="{{route('usuario_logado.update', compact('user'))}}"  class="needs-validation" accept-charset="utf-8" enctype="multipart/form-data" novalidate>
+                @csrf
+                @method('PUT')
+
+                <!-- Dados Pessoais - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
-                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Histório da Solicitação</h5>
+                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Pessoais</h5>
                 </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-8">
                             <div class="form-group">
-                                <label for="tipo_solicitacao">Tipo de Solicitação</label>
-                                <select id="tipo_solicitacao" name="tipo_solicitacao" class="form-control" required>
-                                    <option value="">---</option>
-                                    @foreach($tipo_solicitacaos as $tipo_solicitacao)
-                                        <option value="{{$tipo_solicitacao->id}}" {{($tipo_solicitacao->id == old('tipo_solicitacao')) ? 'selected' : '' }}>{{$tipo_solicitacao->nome}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" value="{{$user->name}}" placeholder="Nome" required>
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="lider">Líder</label>
-                                <select id="lider" name="lider" class="form-control" required>
-                                    <option value="">---</option>
-                                    @foreach($liders as $lider)
-                                        <option value="{{$lider->id}}" {{($lider->id == old('lider')) ? 'selected' : '' }}>({{ $lider->historico_oficio_atual }}) {{$lider->nome}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="valid-feedback">ok!</div>
-                                <div class="invalid-feedback">Inválido!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="data_agendamento">Data Agendamento</label>
-                                <input type="date" class="form-control" id="data_agendamento" name="data_agendamento"
-                                    value="{{ old('data_agendamento')}}">
-                                <div class="valid-feedback">ok!</div>
-                                <div class="invalid-feedback">Inválido!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="hora_agendamento">Hora Agendamento</label>
-                                <input type="time" class="form-control" id="hora_agendamento" name="hora_agendamento"
-                                    value="{{ old('hora_agendamento') }}">
+                                <label for="email">Login Acesso</label>
+                                <input type="text" class="form-control" id="email" name="email" value="{{$user->email}}" placeholder="Login Acesso" required>
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label for="comentario">Comentários</label>
-                                <textarea class="form-control" rows="3" id="comentario" name="comentario" placeholder="Comentários...">{{ old('comentario') }}</textarea>
+                                <label for="view_password">Senha Atual</label>
+                                <input type="password" class="form-control" id="view_password" name="view_password" placeholder="Senha" required>
+                                <div class="valid-feedback">ok!</div>
+                                <div class="invalid-feedback">Inválido!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="password_new">Nova Senha</label>
+                                <input type="password" class="form-control" id="password_new" name="password_new" placeholder="Senha">
+                                <div class="valid-feedback">ok!</div>
+                                <div class="invalid-feedback">Inválido!</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="password_confirm">Nova Senha Confirmação</label>
+                                <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Senha de Confirmação">
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>
                         </div>
                     </div>
+                <!-- Dados Pessoais -- FIM -->
 
-                <!-- Dados -- FIM -->
-
-                <button class="btn btn-primary" type="submit">Salvar Cadastro</button>
+                <button class="btn btn-primary" type="submit">Atualizar Cadastro</button>
             </form>
+
 
             <!-- FORMULÁRIO - FIM -->
             </div>
@@ -124,11 +112,24 @@
 
 @endsection
 
-
 @section('script-js')
     <script src="{{asset('nazox/assets/js/pages/form-validation.init.js')}}"></script>
     <script src="{{asset('nazox/assets/libs/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
     <script src="{{asset('nazox/assets/js/pages/form-element.init.js')}}"></script>
     <!-- form mask -->
     <script src="{{asset('nazox/assets/libs/inputmask/jquery.inputmask.min.js')}}"></script>
+
+    <script src="{{asset('nazox/assets/libs/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+    <script src="{{asset('nazox/assets/js/pages/lightbox.init.js')}}"></script>
+
+    <script>
+		$(document).ready(function(){
+            $('.select2').select2();
+		});
+	</script>
+
+@endsection
+
+@section('head-css')
+    <link href="{{asset('nazox/assets/libs/magnific-popup/magnific-popup.css')}}" rel="stylesheet" type="text/css" />
 @endsection

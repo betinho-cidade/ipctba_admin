@@ -65,6 +65,17 @@ class Membro extends Model
                     ->toArray();
     }
 
+    public function getMinisteriosListaAttribute(){
+
+        $lista = '';
+
+        foreach($this->membro_ministerios()->get() as $ministerio){
+            $lista .= $ministerio->ministerio->nome . ', ';
+        }
+
+        return rtrim($lista,', ');;
+    }
+
     public function historico_situacaos(){
 
         return $this->hasMany('App\Models\HistoricoSituacao');
@@ -99,6 +110,17 @@ class Membro extends Model
     public function historico_solicitacaos(){
 
         return $this->hasMany('App\Models\HistoricoSolicitacao');
+    }
+
+    public function getHistoricoSolicitacaoListaAttribute(){
+
+        $lista = '';
+
+        foreach($this->historico_solicitacaos()->orderBy('data_agendamento')->get() as $historico_solicitacao){
+            $lista .= $historico_solicitacao->tipo_solicitacao->nome . ' ['.$historico_solicitacao->data_agendamento_formatada.' - '.$historico_solicitacao->data_realizacao_formatada.'], ';
+        }
+
+        return rtrim($lista,', ');;
     }
 
     public function membro_fichas(){

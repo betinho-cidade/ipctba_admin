@@ -50,7 +50,7 @@
 
                 <!-- Dados - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
-                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Histório Situação do Membro</h5>
+                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Histórico Situação do Membro</h5>
                 </div>
 
                     <div class="row">
