@@ -43,7 +43,7 @@ class AgendaController extends Controller
                                               ->unique(function($item) {
                                                 return $item;
                                               });
-
+        $agenda_meses = [];
         foreach($lista_meses as $agenda_mes){
             $agenda_meses[$agenda_mes] = ucfirst(strftime('%b/%y', strtotime($agenda_mes)));
         }
