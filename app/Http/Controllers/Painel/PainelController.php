@@ -34,7 +34,7 @@ class PainelController extends Controller
         } elseif ($role == 'Lider'){
             return redirect()->route('indicador.index');
 
-        } elseif ($role == 'Lider'){
+        } elseif ($role == 'Pastor'){
             return redirect()->route('indicador.index');
 
         }else{

@@ -54,6 +54,8 @@ class MembroFichaController extends Controller
 
         $user = Auth()->User();
 
+        $roles = $user->roles;
+
         if(!$user->membro){
             $message = 'Para criar uma nova ficha, é necessário que o líder seja um membro';
             $request->session()->flash('message.level', 'danger');

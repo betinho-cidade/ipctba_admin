@@ -52,14 +52,14 @@
                         <div class="form-group">
                             <label for="lider">Solicitado por</label>
                             <select id="lider" name="lider" class="form-control" required>
-                               <option value="{{$user->membro->id}}">{{$user->membro->nome}}</option>
+                                <option value="{{$user->membro->id}}">{{$user->membro->nome}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="membro_sol">Membro para Atualização Cadastral</label>
-                            <select id="membro_sol" name="membro_sol" class="form-control dynamic_membro" required>
+                            <select id="membro_sol" name="membro_sol" class="form-control select2 dynamic_membro" required>
                                 <option value="">---</option>
                                 @foreach($membros as $membro_lst)
                                     <option value="{{$membro_lst->id}}" {{($membro_lst->id == $membro_sol) ? 'selected' : '' }}>{{$membro_lst->nome}}</option>
