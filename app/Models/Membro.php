@@ -153,7 +153,7 @@ class Membro extends Model
 
     public function getDataCasamentoFormatadaAttribute()
     {
-        return ($this->data_casamento) ? date('d-m-Y', strtotime($this->data_casamento)): '';
+        return ($this->data_casamento) ? date('d/m/Y', strtotime($this->data_casamento)): '';
     }
 
     public function getDataNascimentoAjustadaAttribute()
@@ -163,7 +163,7 @@ class Membro extends Model
 
     public function getDataNascimentoFormatadaAttribute()
     {
-        return ($this->data_nascimento) ? date('d-m-Y', strtotime($this->data_nascimento)): '';
+        return ($this->data_nascimento) ? date('d/m/Y', strtotime($this->data_nascimento)): '';
     }
 
     public function getDataNascimentoDiaMesAttribute()
@@ -202,7 +202,7 @@ class Membro extends Model
 
     public function getDataBatismoFormatadaAttribute()
     {
-        return ($this->data_batismo) ? date('d-m-Y', strtotime($this->data_batismo)): '';
+        return ($this->data_batismo) ? date('d/m/Y', strtotime($this->data_batismo)): '';
     }
 
     public function getDataProfissaoFeAjustadaAttribute()
@@ -212,7 +212,7 @@ class Membro extends Model
 
     public function getDataProfissaoFeFormatadaAttribute()
     {
-        return ($this->data_profissao_fe) ? date('d-m-Y', strtotime($this->data_profissao_fe)): '';
+        return ($this->data_profissao_fe) ? date('d/m/Y', strtotime($this->data_profissao_fe)): '';
     }
 
     public function getDataAdmissaoAjustadaAttribute()
@@ -222,7 +222,7 @@ class Membro extends Model
 
     public function getDataAdmissaoFormatadaAttribute()
     {
-        return ($this->data_admissao) ? date('d-m-Y', strtotime($this->data_admissao)): '';
+        return ($this->data_admissao) ? date('d/m/Y', strtotime($this->data_admissao)): '';
     }
 
     public function getDataDemissaoAjustadaAttribute()
@@ -232,7 +232,7 @@ class Membro extends Model
 
     public function getDataDemissaoFormatadaAttribute()
     {
-        return ($this->data_demissao) ? date('d-m-Y', strtotime($this->data_demissao)): '';
+        return ($this->data_demissao) ? date('d/m/Y', strtotime($this->data_demissao)): '';
     }
 
     public function getDescricaoSexoAttribute(){

@@ -42,29 +42,6 @@ class MembroController extends Controller
     }
 
 
-    // public function index()
-    // {
-    //     if(Gate::denies('view_membro')){
-    //         abort('403', 'Página não disponível');
-    //         //return redirect()->back();
-    //     }
-
-    //     $user = Auth()->User();
-
-    //     $membros_AT = Membro::where('status','A')
-    //                         ->orderBy('nome', 'desc')
-    //                         ->get();
-
-    //     $membros_IN = Membro::where('status','I')
-    //                         ->orderBy('nome', 'desc')
-    //                         ->get();
-
-
-    //     return view('painel.cadastro.membro.index', compact('user', 'membros_AT', 'membros_IN'));
-    // }
-
-
-
     public function create()
     {
         if(Gate::denies('create_membro')){

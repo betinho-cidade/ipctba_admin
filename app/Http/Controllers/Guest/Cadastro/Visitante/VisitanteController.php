@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\Membro;
 use App\Models\MembroFilho;
 use App\Models\SituacaoMembro;
+use App\Models\StatusParticipacao;
 use App\Models\HistoricoSituacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -124,6 +125,12 @@ class VisitanteController extends Controller
                 $historico_situacao->save();
             }
 
+            $status_participacao_membro = StatusParticipacao::where('nome', 'EP Formulário')->first();
+
+            if($status_participacao_membro) {
+                $membro->status_participacao_id = $status_participacao_membro->id;
+                $membro->save();
+            }
 
             DB::commit();
 

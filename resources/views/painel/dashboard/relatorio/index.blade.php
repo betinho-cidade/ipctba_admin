@@ -259,7 +259,7 @@
                                                 <span style="font-size: 20px;">I</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="date" class="form-control" id="data_admissao_ini" name="data_admissao_ini" placeholder="Inicial">
+                                                <input style="font-size: 12px;" type="date" class="form-control" id="data_admissao_ini" name="data_admissao_ini" placeholder="Inicial">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -267,7 +267,7 @@
                                                 <span style="font-size: 20px;">F</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="date" class="form-control" id="data_admissao_fim" name="data_admissao_fim" placeholder="Final">
+                                                <input style="font-size: 12px;" type="date" class="form-control" id="data_admissao_fim" name="data_admissao_fim" placeholder="Final">
                                             </div>
                                         </div>
                                     </div>
@@ -281,7 +281,7 @@
                                                 <span style="font-size: 20px;">I</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="date" class="form-control" id="data_demissao_ini" name="data_demissao_ini" placeholder="Inicial">
+                                                <input style="font-size: 12px;" type="date" class="form-control" id="data_demissao_ini" name="data_demissao_ini" placeholder="Inicial">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -289,7 +289,7 @@
                                                 <span style="font-size: 20px;">F</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="date" class="form-control" id="data_demissao_fim" name="data_demissao_fim" placeholder="Final">
+                                                <input style="font-size: 12px;" type="date" class="form-control" id="data_demissao_fim" name="data_demissao_fim" placeholder="Final">
                                             </div>
                                         </div>
                                     </div>
