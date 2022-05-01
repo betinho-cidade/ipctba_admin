@@ -536,7 +536,7 @@ class MembroController extends Controller
 
     public function pdf(Membro $membro)
     {
-        if(Gate::denies('view_membro')){
+        if(Gate::denies('edit_membro')){
             abort('403', 'Página não disponível');
         }
 

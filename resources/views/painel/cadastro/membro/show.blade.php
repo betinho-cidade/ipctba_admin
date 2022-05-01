@@ -51,9 +51,11 @@
 
                 <!-- Dados Pessoais - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
+                    @can('edit_membro')
                     <span class="float-right" style="align-top: center; font-size: 14px;">
                         <a href="{{route('membro.pdf', compact('membro'))}}"><i class="fa fa-download color: goldenrod" title="Gerar PDF do Membro"></i></a>
                     </span>
+                    @endcan
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Pessoais</h5>
                 </div>
 
@@ -75,6 +77,19 @@
                             </div>
                         </div>
 
+                        <div class="col-md-2">
+                            <label for="celular">Telefone Celular</label>
+                            <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="celular" id="celular" class="form-control mask_celular" value="{{$membro->celular}}" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="data_nascimento">Data Nascimento</label>
+                            <input @if(!Gate::check('edit_membro')) disabled @endif type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="{{$membro->data_nascimento_ajustada}}" required>
+                        </div>
+
+                    </div>
+                    @can('edit_membro')
+                    <p></p>
+                    <div class="row">
                         <div class="col-md-3">
                             <label for="cpf">CPF</label>
                             <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="cpf" id="cpf" class="form-control mask_cpf" value="{{$membro->cpf}}">
@@ -89,17 +104,6 @@
                             </select>
                             <div class="valid-feedback">ok!</div>
                             <div class="invalid-feedback">Inválido!</div>
-                        </div>
-                    </div>
-                    <p></p>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label for="celular">Telefone Celular</label>
-                            <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="celular" id="celular" class="form-control mask_celular" value="{{$membro->celular}}" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="data_nascimento">Data Nascimento</label>
-                            <input @if(!Gate::check('edit_membro')) disabled @endif type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="{{$membro->data_nascimento_ajustada}}" required>
                         </div>
                         <div class="col-md-3">
                             <label for="naturalidade">Naturalidade</label>
@@ -121,10 +125,11 @@
                             </div>
                         </div>
                     </div>
+                    @endcan
                     <p></p>
                 <!-- Dados Pessoais - FIM -->
 
-
+                @can('edit_membro')
                 <!-- Dados Complementares - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Complementares</h5>
@@ -247,9 +252,9 @@
                             </div>
                         </div>
                     </div>
-
-
                 <!-- Dados Complementares - FIM -->
+                @endcan
+
 
                 <!-- Dados Endereço - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
@@ -297,7 +302,7 @@
                     <p></p>
                 <!-- Dados Endereço - FIM -->
 
-
+                @can('edit_membro')
                 <!-- Dados Eclesiásticos - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Eclesiásticos</h5>
@@ -489,10 +494,10 @@
                         </div>
                     </fieldset>
                     <p></p>
-
-
                 <!-- Dados Eclesiásticos - FIM -->
+                @endcan
 
+                @can('edit_membro')
                 <!-- Dados Ministeriais -- INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Ministeriais</h5>
@@ -523,6 +528,7 @@
                     </div>
                     <p></p>
                 <!-- Dados Ministeriais -- FIM -->
+                @endcan
 
                 @can('edit_membro')
                 <!-- Dados Acesso -- INI -->
@@ -593,6 +599,7 @@
             </form>
             <!-- FORMULÁRIO - FIM -->
 
+            @can('edit_membro')
             <p><br></p>
 
             <div class="bg-soft-success p-3 rounded" style="margin-bottom:10px;">
@@ -837,7 +844,7 @@
                 </div>
             </div>
             <!-- Nav tabs - LISTA VINCULO FAMILIAR - FIM -->
-
+            @endcan
 
             @section('modal_target')"formSubmit();"@endsection
             @section('modal_type')@endsection

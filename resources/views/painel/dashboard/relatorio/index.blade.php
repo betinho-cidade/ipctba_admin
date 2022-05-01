@@ -458,7 +458,7 @@
                                                                 <td>{{$membro->numero_rol}}</td>
                                                                 <td style="text-align:center;">
 
-                                                                    @can('view_membro')
+                                                                    @can('edit_membro')
                                                                         <a href="{{route('membro.pdf', compact('membro'))}}"><i class="fa fa-download color: goldenrod" title="Gerar PDF do Membro"></i></a>
                                                                     @endcan
 
