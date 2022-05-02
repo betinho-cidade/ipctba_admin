@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="col-md-2">
-                            <label for="celular">Telefone Celular</label>
+                            <label for="celular">Telefone Celular <a href="tel:0{{$membro->celular}}"><i class="mdi mdi-phone-in-talk-outline"></i></a></label>
                             <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="celular" id="celular" class="form-control mask_celular" value="{{$membro->celular}}" required>
                         </div>
                         <div class="col-md-3">
