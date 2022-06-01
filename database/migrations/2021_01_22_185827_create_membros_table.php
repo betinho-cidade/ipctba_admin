@@ -59,6 +59,7 @@ class CreateMembrosTable extends Migration
             $table->enum('status', ['A', 'I']);  //A->Ativo  I->Inativo
             $table->enum('is_disciplina', ['S', 'N']);  //S->Sim  N->Não
             $table->longText('aptidao')->nullable();
+            $table->longText('anotacao')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('status_participacao_id')->references('id')->on('status_participacaos');

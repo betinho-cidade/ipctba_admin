@@ -32,9 +32,9 @@
 
         <div class="row">
         @foreach($lista_agenda as $agenda )
-            <div class="col-lg-3">
+            <div class="col-lg-3 {{ $agenda['status'] == 'CL' ? 'box-agenda-inativo' : '' }} ">
                 <div id="todo-task" class="task-list">
-                    <div class="card task-box">
+                    <div class="card task-box {{ $agenda['status'] == 'CL' ? 'bg-light' : '' }}">
                         <div class="progress progress-sm animated-progess" style="height: 3px;">
                             <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -43,7 +43,7 @@
                         <div class="card-body">
                             <div class="float-end ms-2">
                                 <div>
-                                    <span class="float-right" style="font-size: 14px;color:blue;">{{ $agenda['lider'] }}</span>
+                                    <span class="float-right" style="font-size: 14px;color: blue;">{{ $agenda['lider'] }}</span>
                                     <h6 class="card-title">{{ $agenda['data'] }}</h6>
                                 </div>
                             </div>

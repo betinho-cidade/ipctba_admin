@@ -129,6 +129,7 @@ class MembroController extends Controller
             $membro->data_admissao = $request->data_admissao;
             $membro->data_demissao = $request->data_demissao;
             $membro->aptidao = $request->aptidao;
+            $membro->anotacao = $request->anotacao;
 
             $membro->save();
 
@@ -326,6 +327,7 @@ class MembroController extends Controller
             $membro->data_admissao = $request->data_admissao;
             $membro->data_demissao = $request->data_demissao;
             $membro->aptidao = $request->aptidao;
+            $membro->anotacao = $request->anotacao;
 
             if($request->data_demissao){
                 $membro->status = 'I';

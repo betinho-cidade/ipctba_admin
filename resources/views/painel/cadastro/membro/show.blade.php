@@ -347,7 +347,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="status_participacao">Status de Participação</label>
-                                <select @if(!Gate::check('edit_membro')) disabled @endif id="status_participacao" name="status_participacao" class="form-control">
+                                <select @if(!Gate::check('edit_membro')) disabled @endif id="status_participacao" name="status_participacao" class="form-control"  required>
                                     <option value="">---</option>
                                     @foreach($status_participacaos as $status_participacao)
                                         <option value="{{$status_participacao->id}}" {{($status_participacao->id == $membro->status_participacao_id) ? 'selected' : '' }}>{{$status_participacao->nome}}</option>
@@ -528,6 +528,25 @@
                     </div>
                     <p></p>
                 <!-- Dados Ministeriais -- FIM -->
+                @endcan
+
+                @can('edit_membro')
+                <!-- Anotações Gerais -- INI -->
+                <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
+                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Anotações Gerais</h5>
+                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="anotacao">Informações adicionais sobre o membro</label>
+                                <textarea @if(!Gate::check('edit_membro')) disabled @endif class="form-control" id="anotacao" name="anotacao" rows="3">{{ $membro->anotacao}}</textarea>
+                                <div class="valid-feedback">ok!</div>
+                                <div class="invalid-feedback">Inválido!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                <!-- Anotações Gerais -- FIM -->
                 @endcan
 
                 @can('edit_membro')

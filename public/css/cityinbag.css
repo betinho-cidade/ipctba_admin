@@ -9,8 +9,9 @@
 .plano-acao-geral-auditor{margin-bottom: 18px;}
 .tab-filter .espacamento {margin: 8px 0;}
 .espacamento select{margin-bottom: 10px;}
-
-
+.card.task-box.bg-light {    background-color: #ededed!important;}
+.box-agenda-inativo .progress-bar{background-color: #c5c5c5;}
+.box-agenda-inativo .card-body, .box-agenda-inativo .card-title, .box-agenda-inativo .text-dark, .box-agenda-inativo span{color: #aaaaaa !important;}
 
 /* CSS PADRAO CORES FAMALI */
 .btn-primary{background-color: #272727 !important;border-color: #272727 !important;}

@@ -293,6 +293,17 @@
                 @endif
             @endif
 
+            @if($membro->anotacao)
+                <div class="bg-soft-primary" style="margin-top: 15px;">
+                    <h5 style="font-size: 12px" class="text-left">Anotações Gerais</h5>
+                    <hr class="mt-1 mb-1"/>
+                </div>
+
+                <div class="bg-soft-primary">
+                    {{ $membro->anotacao}}
+                </div>
+            @endif
+
             @if($membro->user)
                 <div class="bg-soft-primary" style="margin-top: 15px;">
                     <h5 style="font-size: 12px" class="text-left">Dados Acesso</h5>

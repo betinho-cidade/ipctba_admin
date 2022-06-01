@@ -71,6 +71,7 @@ class CreateRequest extends FormRequest
             'data_demissao' => 'nullable|date',
             'path_imagem' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'email' => 'max:300|unique:users,email', //Login de Acesso
+            'status_participacao' => 'required',
             'password' => 'nullable|min:8',
             'password_confirm' => 'same:password',
         ];
@@ -132,6 +133,7 @@ class CreateRequest extends FormRequest
             'path_imagem.max' => 'O tamanho máximo permitido para a Imagem do Membro é de 1Mb.',
             'email.max' => 'O tamanho permitido para o Login de Acesso é de 300 caracteres',
             'email.unique' => 'O Login de Acesso informado já existe',
+            'status_participacao.required' => 'O Status de Participação é requerido',
             'password.min' => 'O tamanho MÍNIMO permitido para a senha é de 8 caracteres',
             'password_confirm.same' => 'A Senha de Confirmação deve ser igual a Senha',
         ];

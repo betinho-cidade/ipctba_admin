@@ -34,7 +34,7 @@ class AgendaController extends Controller
 
         $user = Auth()->User();
 
-        $lista_meses = HistoricoSolicitacao::where('status', 'AG')
+        $lista_meses = HistoricoSolicitacao::whereIn('status', ['AG', 'CL'])
                                              ->orderBy('data_agendamento')
                                              ->get()
                                              ->transform(function($item) {
@@ -52,7 +52,7 @@ class AgendaController extends Controller
         $mes_atual = date('Y-m', strtotime(Carbon::now()));
         $referencia = ($request->anomes && strrpos($request->anomes, '-')) ? explode("-", $request->anomes) : explode("-", $mes_atual);
 
-        $historico_solicitacaos = HistoricoSolicitacao::where('status', 'AG')
+        $historico_solicitacaos = HistoricoSolicitacao::whereIn('status', ['AG', 'CL'])
                                                         ->where(function($query) use ($referencia){
                                                             if ($referencia) {
                                                                 $query->whereYear('data_agendamento', '=', $referencia[0])
@@ -81,6 +81,7 @@ class AgendaController extends Controller
                 'comentario' => $solicitacao->comentario,
                 'data' => $solicitacao->data_agendamento_agenda,
                 'historico_solicitacao_obj' => $solicitacao,
+                'status' => $solicitacao->status,
             ];
 
             $count = $count + 1;
