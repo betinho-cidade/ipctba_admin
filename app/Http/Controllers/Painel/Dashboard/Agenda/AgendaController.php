@@ -34,6 +34,9 @@ class AgendaController extends Controller
 
         $user = Auth()->User();
 
+        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        date_default_timezone_set('America/Sao_Paulo');
+
         $lista_meses = HistoricoSolicitacao::whereIn('status', ['AG', 'CL'])
                                              ->orderBy('data_agendamento')
                                              ->get()
@@ -47,7 +50,6 @@ class AgendaController extends Controller
         foreach($lista_meses as $agenda_mes){
             $agenda_meses[$agenda_mes] = ucfirst(strftime('%b/%y', strtotime($agenda_mes)));
         }
-
 
         $mes_atual = date('Y-m', strtotime(Carbon::now()));
         $referencia = ($request->anomes && strrpos($request->anomes, '-')) ? explode("-", $request->anomes) : explode("-", $mes_atual);
