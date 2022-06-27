@@ -87,7 +87,7 @@
                         </div>
 
                     </div>
-                    @can('edit_membro')
+                    @if(Gate::check('edit_membro') || $user->roles->contains('name', 'Pastor'))
                     <p></p>
                     <div class="row">
                         <div class="col-md-3">
@@ -125,11 +125,11 @@
                             </div>
                         </div>
                     </div>
-                    @endcan
+                    @endif
                     <p></p>
                 <!-- Dados Pessoais - FIM -->
 
-                @can('edit_membro')
+                @if(Gate::check('edit_membro') || $user->roles->contains('name', 'Pastor'))
                 <!-- Dados Complementares - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Complementares</h5>
@@ -253,7 +253,7 @@
                         </div>
                     </div>
                 <!-- Dados Complementares - FIM -->
-                @endcan
+                @endif
 
 
                 <!-- Dados Endereço - INI -->
@@ -302,7 +302,7 @@
                     <p></p>
                 <!-- Dados Endereço - FIM -->
 
-                @can('edit_membro')
+                @if(Gate::check('edit_membro') || $user->roles->contains('name', 'Pastor'))
                 <!-- Dados Eclesiásticos - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Eclesiásticos</h5>
@@ -495,9 +495,9 @@
                     </fieldset>
                     <p></p>
                 <!-- Dados Eclesiásticos - FIM -->
-                @endcan
+                @endif
 
-                @can('edit_membro')
+                @if(Gate::check('edit_membro') || $user->roles->contains('name', 'Pastor'))
                 <!-- Dados Ministeriais -- INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Ministeriais</h5>
@@ -528,9 +528,9 @@
                     </div>
                     <p></p>
                 <!-- Dados Ministeriais -- FIM -->
-                @endcan
+                @endif
 
-                @can('edit_membro')
+                @if(Gate::check('edit_membro') || $user->roles->contains('name', 'Pastor'))
                 <!-- Anotações Gerais -- INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Anotações Gerais</h5>
@@ -547,9 +547,9 @@
                     </div>
                     <p></p>
                 <!-- Anotações Gerais -- FIM -->
-                @endcan
+                @endif
 
-                @can('edit_membro')
+                @if(Gate::check('edit_membro') || $user->roles->contains('name', 'Pastor'))
                 <!-- Dados Acesso -- INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Acesso (módulos futuros)</h5>
@@ -610,7 +610,7 @@
                         </div>
                     </div>
                 <!-- Dados Pessoais -- FIM -->
-                @endcan
+                @endif
 
                 @can('edit_membro')
                     <button class="btn btn-primary" type="submit">Atualizar Cadastro</button>
@@ -618,7 +618,7 @@
             </form>
             <!-- FORMULÁRIO - FIM -->
 
-            @can('edit_membro')
+            @if(Gate::check('edit_membro') || $user->roles->contains('name', 'Pastor'))
             <p><br></p>
 
             <div class="bg-soft-success p-3 rounded" style="margin-bottom:10px;">
@@ -863,7 +863,7 @@
                 </div>
             </div>
             <!-- Nav tabs - LISTA VINCULO FAMILIAR - FIM -->
-            @endcan
+            @endif
 
             @section('modal_target')"formSubmit();"@endsection
             @section('modal_type')@endsection

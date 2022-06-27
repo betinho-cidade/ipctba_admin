@@ -13,7 +13,7 @@
 
    </head>
 
-<body style="font-size: 10px">
+<body style="font-size: 12px">
 
 <div class="row">
     <div class="col-12">
@@ -21,12 +21,12 @@
             <div class="card-body">
             <!-- FORMULÁRIO - INICIO -->
 
-            <h4 style="color:#575757;font-size: 14px">Relatório do Membro</h4>
+            <h4 style="color:#575757;font-size: 16px">Relatório do Membro</h4>
             <p>Informações do membro {{ strtoupper($membro->nome) }} dispostas em formato PDF para armazenamento e impressão.</p>
 
 
             <div class="bg-soft-primary">
-                <h5 style="font-size: 12px" class="text-left">Dados Pessoais</h5>
+                <h5 style="font-size: 14px" class="text-left">Dados Pessoais</h5>
                 <hr class="mt-1 mb-1"/>
             </div>
 
@@ -73,7 +73,7 @@
             @endif
 
             <div class="bg-soft-primary" style="margin-top: 15px;">
-                <h5 style="font-size: 12px" class="text-left">Dados Complementares</h5>
+                <h5 style="font-size: 14px" class="text-left">Dados Complementares</h5>
                 <hr class="mt-1 mb-1"/>
             </div>
 
@@ -173,7 +173,7 @@
             @endif
 
             <div class="bg-soft-primary" style="margin-top: 15px;">
-                <h5 style="font-size: 12px" class="text-left">Dados Eclesiásticos</h5>
+                <h5 style="font-size: 14px" class="text-left">Dados Eclesiásticos</h5>
                 <hr class="mt-1 mb-1"/>
             </div>
 
@@ -275,7 +275,7 @@
 
             @if($membro->membro_ministerios)
                 <div class="bg-soft-primary" style="margin-top: 15px;">
-                    <h5 style="font-size: 12px" class="text-left">Dados Ministeriais</h5>
+                    <h5 style="font-size: 14px" class="text-left">Dados Ministeriais</h5>
                     <hr class="mt-1 mb-1"/>
                 </div>
 
@@ -295,7 +295,7 @@
 
             @if($membro->anotacao)
                 <div class="bg-soft-primary" style="margin-top: 15px;">
-                    <h5 style="font-size: 12px" class="text-left">Anotações Gerais</h5>
+                    <h5 style="font-size: 14px" class="text-left">Anotações Gerais</h5>
                     <hr class="mt-1 mb-1"/>
                 </div>
 
@@ -306,7 +306,7 @@
 
             @if($membro->user)
                 <div class="bg-soft-primary" style="margin-top: 15px;">
-                    <h5 style="font-size: 12px" class="text-left">Dados Acesso</h5>
+                    <h5 style="font-size: 14px" class="text-left">Dados Acesso</h5>
                     <hr class="mt-1 mb-1"/>
                 </div>
 
