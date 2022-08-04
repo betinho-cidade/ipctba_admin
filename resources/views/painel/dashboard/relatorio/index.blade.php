@@ -53,7 +53,7 @@
 
                             <!-- CAMPOS DE BUSCA - INI -->
                             <div class="row espacamento">
-                                <div class="col-3">
+                                <div class="col-2 espaco-ativo-mobile">
                                     <div class="form-check mb-1 float-left">
                                         <input class="form-check-input float-right" type="radio" checked id="ativo" name="is_ativo" value="ativo">
                                         <label class="form-check-label float-right" for="ativo">
@@ -61,7 +61,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="form-check mb-1 float-right">
                                         <input class="form-check-input float-right" type="radio" id="inativo" name="is_ativo" value="inativo">
                                         <label class="form-check-label float-right" for="inativo">
@@ -69,10 +69,10 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-5">
                                     <select id="order_field" name="order_field" class="form-control" style="font-size: 12px">
-                                        <option value="nome">Nome</option>
-                                        <option value="numero_rol">Rol</option>
+                                        <option value="nome">Ordenar por Nome</option>
+                                        <option value="numero_rol">Ordenar por Rol</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
@@ -371,10 +371,10 @@
         </div>
     </div>
     <div class="col-md-7">
-        <div class="card">
-            <div class="card-body">
+        <div class="card" style="margin-bottom: 0;">
+            <div class="card-body" style="padding:0;">
                 <!-- Right Sidebar -->
-                    <div class="card">
+                    <div class="card" style="margin-bottom: 0;">
                         <div class="card-body">
 
                             <span class="float-right">
@@ -388,9 +388,9 @@
                             <div class="tab-content py-4">
                                 <div class="tab-pane show active" id="pendente">
                                     <div>
-                                        <h5 class="px-3 mb-3" style="text-align: center">&nbsp; Listagem de Membros &nbsp;</h1>
+                                        <h5 class="px-3 mb-3" style="text-align: left; margin-top: -15px; padding-left: 0 !important; margin-bottom: 25px !important;">Listagem de Membros</h1>
                                         @php $count = 0; @endphp
-                                        <span>
+                                        <span style="display: block;margin-bottom: 10px;">
                                         @if($excel_params)
                                             @foreach ($excel_params as $param=>$value )
                                                 @if($value)
@@ -412,7 +412,7 @@
                                             @endforeach
                                             </code>
                                         @endif
-                                        </sapn>
+                                        </span>
 
                                         <ul class="nav nav-tabs" role="tablist">
                                             <li class="nav-item" title="Lista de Membros">
@@ -422,7 +422,7 @@
                                             </li>
 
                                             @if($membros)
-                                                <span class="float-right" style="font-size: 12px;">
+                                                <span class="float-right" style="font-size: 12px;padding-top: 8px;margin-left: -4px;">
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     Registros: {{ ($membros->lastItem()) ? $membros->lastItem() : 0}} / {{ $membros->total() }} &nbsp;&nbsp;&nbsp;
                                                     Página: {{ $membros->currentPage() }} / {{ $membros->lastPage() }} &nbsp;&nbsp;&nbsp;

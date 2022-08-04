@@ -1,3 +1,10 @@
+/* Paginação */
+.chat-list li a { margin-right: 3px !important; display: block; padding: 7px 12px; color: #74788d; -webkit-transition: all .4s; transition: all .4s; border: 1px solid #cfd1d4; border-radius: 4px; }
+.page-item.active .page-link { background-color: #005b40 !important; border-color: #005b40 !important; }
+#dt_lista_membros_wrapper #dt_lista_membros_paginate{    margin-top: 35px !important;}
+/* Paginação */
+
+
 .img-miniatura{max-width: 50px !important;width: auto !important;height: auto !important;}
 .activity-wid .activity-list:last-child {padding-bottom: 30px;}
 .plano-acao-geral{display: flex;}
@@ -52,6 +59,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control:before,
 /* CSS PADRAO  FAMALI - ADM */
 
 @media only screen and (max-width:767px){
+    .espaco-ativo-mobile{margin-right: 20px; margin-bottom: 10px;}
     .largura-div{padding:0 !important;}
     .form-group{overflow:scroll;}
     .tab-content{padding-left: 0 !important;}
