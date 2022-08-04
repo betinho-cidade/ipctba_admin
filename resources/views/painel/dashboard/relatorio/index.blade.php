@@ -538,11 +538,11 @@
             language: {
                 url: '{{asset('nazox/assets/localisation/pt_br.json')}}'
             },
-            @if($excel_params['order_field'] == 'nome')
-                "order": [[ 0, "{{ $excel_params['order_type'] }}" ]]
-            @else
-                "order": [[ 1, "{{ $excel_params['order_type'] }}" ]]
-            @endif
+            "order": [],
+            "columnDefs": [ {
+              "targets"  : 'no-sort',
+              "orderable": false,
+            }],
         });
     </script>
     @endif
