@@ -31,7 +31,7 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Relatório - Filtro de Membros do IPCTBA</h4>
+            <h4 class="mb-sm-0">Relatório - Filtro de Membros da IPCTBA</h4>
         </div>
     </div>
 </div>
@@ -53,18 +53,18 @@
 
                             <!-- CAMPOS DE BUSCA - INI -->
                             <div class="row espacamento">
-                                <div class="col-2 espaco-ativo-mobile">
+                                <div class="col-2 espaco-ativo-mobile" style="padding:0;padding-top: 6px;">
                                     <div class="form-check mb-1 float-left">
                                         <input class="form-check-input float-right" type="radio" checked id="ativo" name="is_ativo" value="ativo">
-                                        <label class="form-check-label float-right" for="ativo">
+                                        <label class="form-check-label float-right" for="ativo" style="margin-left: -3px;">
                                             Ativo
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-2"  style="padding:0;     padding-top: 6px;">
                                     <div class="form-check mb-1 float-right">
                                         <input class="form-check-input float-right" type="radio" id="inativo" name="is_ativo" value="inativo">
-                                        <label class="form-check-label float-right" for="inativo">
+                                        <label class="form-check-label float-right" for="inativo" style="margin-left: -3px;">
                                             Inativo
                                         </label>
                                     </div>

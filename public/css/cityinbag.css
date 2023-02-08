@@ -59,7 +59,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control:before,
 /* CSS PADRAO  FAMALI - ADM */
 
 @media only screen and (max-width:767px){
-    .espaco-ativo-mobile{margin-right: 20px; margin-bottom: 10px;}
+    .espaco-ativo-mobile{margin-right: 20px; margin-bottom: 10px;margin-left: 15px;}
     .largura-div{padding:0 !important;}
     .form-group{overflow:scroll;}
     .tab-content{padding-left: 0 !important;}

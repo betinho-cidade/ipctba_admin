@@ -29,13 +29,13 @@ class PainelController extends Controller
         $role = $roles->first()->name;
 
         if($role == 'Gestor') {
-            return redirect()->route('indicador.index');
+            return redirect()->route('relatorio.index');
 
         } elseif ($role == 'Lider'){
-            return redirect()->route('indicador.index');
+            return redirect()->route('relatorio.index');
 
         } elseif ($role == 'Pastor'){
-            return redirect()->route('indicador.index');
+            return redirect()->route('relatorio.index');
 
         }else{
             return view('painel.index', compact('user'));
