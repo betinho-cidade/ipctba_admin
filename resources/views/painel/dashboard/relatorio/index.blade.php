@@ -150,6 +150,10 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-12">
+                                <button style="font-size: 14px; line-height: 14px; width: 100%; margin-bottom: 10px;" type="submit" class="btn btn-primary waves-effect waves-light">Filtrar</button>
+                            </div>
+
                             <div class="row espacamento">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -360,7 +364,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary waves-effect waves-light">Filtrar</button>
+                                <button style="width: 100%;" type="submit" class="btn btn-primary waves-effect waves-light">Filtrar</button>
                             </div>
 
                     </form>
