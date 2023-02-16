@@ -187,10 +187,10 @@ Route::group(['namespace' => 'Guest'], function(){
     Route::group(['namespace' => 'Cadastro'], function(){
 
         Route::group(['namespace' => 'Visitante'], function(){
-            Route::get('/visitante', 'VisitanteController@create')->name('visitante.create');
-            Route::post('/visitante/store', 'VisitanteController@store')->name('visitante.store');
-            Route::post('/visitante/js_viacep', 'VisitanteController@js_viacep')->name('visitante.js_viacep');
-            Route::get('/visitante/bemvindo', 'VisitanteController@bemvindo')->name('visitante.bemvindo');
+            Route::get('/novo_membro', 'VisitanteController@create')->name('visitante.create');
+            Route::post('/novo_membro/store', 'VisitanteController@store')->name('visitante.store');
+            Route::post('/novo_membro/js_viacep', 'VisitanteController@js_viacep')->name('visitante.js_viacep');
+            Route::get('/novo_membro/bemvindo', 'VisitanteController@bemvindo')->name('visitante.bemvindo');
         });
 
         Route::group(['namespace' => 'FichaCadastro'], function(){
