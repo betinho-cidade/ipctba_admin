@@ -118,7 +118,7 @@
                             <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="{{old('data_nascimento')}}">
                         </div>
                         <div class="col-md-4">
-                            <label for="naturalidade">Naturalidade</label>
+                            <label for="naturalidade">Local de Nascimento</label>
                             @if($membro && $membro->naturalidade)
                                 <i class="fas fa-envelope-open-text" title="{{ $membro->naturalidade ?? '---' }}"></i></a>
                             @endif

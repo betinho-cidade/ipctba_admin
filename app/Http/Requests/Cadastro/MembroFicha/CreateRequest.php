@@ -60,7 +60,7 @@ class CreateRequest extends FormRequest
             'email_membro.max' => 'O tamanho permitido para o E-mail d Membro é de 500 caracteres',
             'celular.max' => 'O tamanho permitido para o celular é de 11 dígitos',
             'data_nascimento.date' => 'A data de nascimento é inválida',
-            'naturalidade.max' => 'O tamanho permitido para a naturalidade é de 300 caracteres',
+            'naturalidade.max' => 'O tamanho permitido para o local de nascimento é de 300 caracteres',
             'conjuge.max' => 'O tamanho permitido para o cônjuge é de 300 caracteres',
             'data_casamento.date' => 'A data de casamento é inválida',
             'profissao.max' => 'O tamanho permitido para a profissão é de 300 caracteres',

@@ -133,7 +133,7 @@
                             <input @if(!Gate::check('edit_membro_ficha')) disabled @endif type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="{{$membro_ficha->data_nascimento}}">
                         </div>
                         <div class="col-md-4">
-                            <label for="naturalidade">Naturalidade</label>
+                            <label for="naturalidade">Local de Nascimento</label>
                             @if($membro && $membro->naturalidade !== $membro_ficha->naturalidade)
                                 <i class="fas fa-envelope-open-text" title="{{ $membro->naturalidade ?? '---' }}" style="color:red"></i></a>
                             @endif

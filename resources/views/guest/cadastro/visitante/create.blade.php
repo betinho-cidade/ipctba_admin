@@ -185,7 +185,7 @@
                                 <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="{{old('data_nascimento')}}" required>
                             </div>
                             <div class="col-md-4">
-                                <label for="naturalidade">Naturalidade</label>
+                                <label for="naturalidade">Local de Nascimento</label>
                                 <input type="text" name="naturalidade" id="naturalidade" class="form-control" value="{{old('naturalidade')}}" required>
                             </div>
                         </div>

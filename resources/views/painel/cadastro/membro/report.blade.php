@@ -68,7 +68,7 @@
 
             @if($membro->naturalidade)
             <div class="bg-soft-primary">
-                <b>Naturalidade: </b>{{ $membro->naturalidade}}<br>
+                <b>Local de Nascimento: </b>{{ $membro->naturalidade}}<br>
             </div>
             @endif
 
