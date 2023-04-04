@@ -788,7 +788,7 @@
                                     <tr>
                                         <td>{{ $agenda_solicitacao->data_agendamento_ordenacao }}</td>
                                         <td>{{ $agenda_solicitacao->tipo_solicitacao->nome }}</td>
-                                        <td>{{ $agenda_solicitacao->lider->nome }}</td>
+                                        <td>{{ $agenda_solicitacao->lider->nome ?? '...' }}</td>
                                         <td>{{ $agenda_solicitacao->data_agendamento_formatada }}</td>
                                         <td>{{ $agenda_solicitacao->data_realizacao_formatada }}</td>
                                         <td>{{ $agenda_solicitacao->comentario_abreviado }}</td>
