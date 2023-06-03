@@ -153,8 +153,23 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="conjuge">Nome Cônjuge</label>
-                                <input @if(!Gate::check('edit_membro')) disabled @endif type="text" class="form-control" id="conjuge" name="conjuge" value="{{$membro->conjuge}}">
+                                <label for="conjuge">Nome Cônjuge                                
+                                @if($membro->membro_familias && $membro->membro_familias->contains('vinculo', 'C'))
+                                    @can('view_membro')
+                                        <a href="{{route('membro.show', ['membro' => $membro->membro_familias->where('vinculo', 'C')->first()->membro_familia_id])}}" target="_blank"><i class="mdi mdi-account" style="color: goldenrod" title="Visualizar Membro"></i></a>
+                                    @endcan
+                                @else
+                                    @can('create_historico_familiar')
+                                    <i onClick="location.href='{{route('membro_familia.create', ['membro'=>$membro->id, 'vinculo'=>'C', 'name'=>$membro->conjuge])}}';" class="mdi mdi-account-search" style="color: goldenrod; margin-right:5px;" title="Novo Vínculo Familiar"></i>
+                                    @endcan
+                                @endif
+                                </label>
+                                @if($membro->membro_familias && $membro->membro_familias->contains('vinculo', 'C'))
+                                    <input disabled type="text" class="form-control" value="{{$membro->membro_familias->where('vinculo', 'C')->first()->membro_familia->nome}}">
+                                    <input type="hidden" id="conjuge" name="conjuge" class="form-control" value="{{$membro->membro_familias->where('vinculo', 'C')->first()->membro_familia->nome}}">
+                                @else
+                                    <input @if(!Gate::check('edit_membro')) disabled @endif type="text" class="form-control" id="conjuge" name="conjuge" value="{{$membro->conjuge}}">
+                                @endif
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
                             </div>
@@ -189,12 +204,42 @@
                             <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="profissao" id="profissao" class="form-control" value="{{$membro->profissao}}">
                         </div>
                         <div class="col-md-3">
-                            <label for="nome_pai">Nome do Pai</label>
-                            <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="nome_pai" id="nome_pai" class="form-control" value="{{$membro->nome_pai}}">
+                            <label for="nome_pai">Nome do Pai 
+                                @if($membro->membro_familias && $membro->membro_familias->contains('vinculo', 'P'))
+                                        @can('view_membro')
+                                        <a href="{{route('membro.show', ['membro' => $membro->membro_familias->where('vinculo', 'P')->first()->membro_familia_id])}}" target="_blank"><i class="mdi mdi-account" style="color: goldenrod" title="Visualizar Membro"></i></a>
+                                    @endcan
+                                @else
+                                    @can('create_historico_familiar')
+                                    <i onClick="location.href='{{route('membro_familia.create', ['membro'=>$membro->id, 'vinculo'=>'P', 'name'=>$membro->nome_pai])}}';" class="mdi mdi-account-search" style="color: goldenrod; margin-right:5px;" title="Novo Vínculo Familiar"></i>
+                                    @endcan
+                                @endif
+                            </label>
+                            @if($membro->membro_familias && $membro->membro_familias->contains('vinculo', 'P'))
+                                <input disabled type="text" class="form-control" value="{{$membro->membro_familias->where('vinculo', 'P')->first()->membro_familia->nome}}">
+                                <input type="hidden" name="nome_pai" id="nome_pai" class="form-control" value="{{$membro->membro_familias->where('vinculo', 'P')->first()->membro_familia->nome}}">
+                            @else
+                                <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="nome_pai" id="nome_pai" class="form-control" value="{{$membro->nome_pai}}">
+                            @endif
                         </div>
                         <div class="col-md-3">
-                            <label for="nome_mae">Nome da Mãe</label>
-                            <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="nome_mae" id="nome_mae" class="form-control" value="{{$membro->nome_mae}}" required>
+                            <label for="nome_mae">Nome da Mãe 
+                                @if($membro->membro_familias && $membro->membro_familias->contains('vinculo', 'M'))
+                                    @can('view_membro')
+                                        <a href="{{route('membro.show', ['membro' => $membro->membro_familias->where('vinculo', 'M')->first()->membro_familia_id])}}" target="_blank"><i class="mdi mdi-account" style="color: goldenrod" title="Visualizar Membro"></i></a>
+                                    @endcan
+                                @else
+                                    @can('create_historico_familiar')
+                                    <i onClick="location.href='{{route('membro_familia.create', ['membro'=>$membro->id, 'vinculo'=>'M', 'name'=>$membro->nome_mae])}}';" class="mdi mdi-account-search" style="color: goldenrod; margin-right:5px;" title="Novo Vínculo Familiar"></i>
+                                    @endcan
+                                @endif
+                            </label>
+                            @if($membro->membro_familias && $membro->membro_familias->contains('vinculo', 'M'))
+                                <input disabled type="text" class="form-control" value="{{$membro->membro_familias->where('vinculo', 'M')->first()->membro_familia->nome}}">
+                                <input type="hidden" name="nome_mae" id="nome_mae" class="form-control" value="{{$membro->membro_familias->where('vinculo', 'M')->first()->membro_familia->nome}}">
+                            @else
+                                <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="nome_mae" id="nome_mae" class="form-control" value="{{$membro->nome_mae}}">
+                            @endif
                         </div>
                     </div>
                     <p></p>
@@ -217,7 +262,11 @@
                                                 <div class="handle flex-center" style="font-size: xx-small;"><i class="fa fa-bars"></i></div>
                                                 <div class="row form-group">
                                                     <div class="col-md-6">
-                                                        <label for="filho_nome">Nome</label>
+                                                        <label for="filho_nome">Nome
+                                                            @can('create_historico_familiar')
+                                                            <i onClick="location.href='{{route('membro_familia.create', ['membro'=>$membro->id, 'vinculo'=>'F', 'name'=>$membro_filho->nome, 'membro_filho'=>$membro_filho->id])}}';" class="mdi mdi-account-search" style="color: goldenrod; margin-right:5px;" title="Novo Vínculo Familiar"></i>
+                                                            @endcan
+                                                        </label>
                                                         <input @if(!Gate::check('edit_membro')) disabled @endif type="text" name="filho_nome[]" id="filho_nome[]" class="form-control" value="{{$membro_filho->nome}}" required>
                                                         <div class="valid-feedback">ok!</div>
                                                         <div class="invalid-feedback">Inválido!</div>
@@ -252,6 +301,62 @@
                             </div>
                         </div>
                     </div>
+
+            <!-- Nav tabs - VINCULO FAMILIAR - INI -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#membro_familias" role="tab">
+                        <span class="d-sm-block">
+                            @can('create_historico_familiar')
+                                <i onClick="location.href='{{route('membro_familia.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Vínculo Familiar"></i>
+                            @endcan
+                            Vínculos Familires ( <code class="highlighter-rouge">{{ $membro_familias->count() }}</code> )
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content p-3 text-muted tab-response-mobile">
+                <div class="tab-pane active" id="membro_familias" role="tabpanel">
+                    <table id="dt_membro_familias" class="table table-striped table-bordered dt-responsive nowrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Vínculo</th>
+                                <th>Membro da Família</th>
+                                <th style="text-align:center;">Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @forelse($membro_familias as $membro_familia)
+                                <tr>
+                                    <td>{{ $membro_familia->vinculo_familiar }}</td>
+                                    <td>{{ $membro_familia->membro_familia->nome }}</td>
+                                    <td style="text-align:center;">
+
+                                        @can('view_membro')
+                                            <a href="{{route('membro.show', ['membro' => $membro_familia->membro_familia_id])}}" target="_blank"><i class="mdi mdi-account" style="color: goldenrod" title="Visualizar Membro"></i></a>
+                                        @endcan
+
+                                        @can('delete_historico_familiar')
+                                            <a href="javascript:;" data-toggle="modal"
+                                            onclick="deleteData('membro_familia', '{{$membro->id}}', '{{$membro_familia->id}}');"
+                                                data-target="#modal-delete"><i class="fa fa-minus-circle"
+                                                    style="color: crimson" title="Excluir o Vínculo Familiar do Membro"></i></a>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3">Nenhum registro encontrado</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Nav tabs - LISTA VINCULO FAMILIAR - FIM -->
+
                 <!-- Dados Complementares - FIM -->
                 @endif
 
@@ -810,59 +915,6 @@
                     </div>
                 </div>
             <!-- Nav tabs - LISTA HISTORICO SOLICITACAO MEMBRO - FIM -->
-
-            <p><br></p>
-
-            <!-- Nav tabs - VINCULO FAMILIAR - INI -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#membro_familias" role="tab">
-                        <span class="d-sm-block">
-                            @can('create_historico_familiar')
-                                <i onClick="location.href='{{route('membro_familia.create', compact('membro'))}}';" class="fa fa-plus-square" style="color: goldenrod; margin-right:5px;" title="Novo Vínculo Familiar"></i>
-                            @endcan
-                            Vínculos Familires ( <code class="highlighter-rouge">{{ $membro_familias->count() }}</code> )
-                        </span>
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content p-3 text-muted tab-response-mobile">
-                <div class="tab-pane active" id="membro_familias" role="tabpanel">
-                    <table id="dt_membro_familias" class="table table-striped table-bordered dt-responsive nowrap"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>Vínculo</th>
-                                <th>Membro da Família</th>
-                                <th style="text-align:center;">Ações</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @forelse($membro_familias as $membro_familia)
-                                <tr>
-                                    <td>{{ $membro_familia->vinculo_familiar }}</td>
-                                    <td>{{ $membro_familia->membro_familia->nome }}</td>
-                                    <td style="text-align:center;">
-
-                                        @can('delete_historico_familiar')
-                                            <a href="javascript:;" data-toggle="modal"
-                                            onclick="deleteData('membro_familia', '{{$membro->id}}', '{{$membro_familia->id}}');"
-                                                data-target="#modal-delete"><i class="fa fa-minus-circle"
-                                                    style="color: crimson" title="Excluir o Vínculo Familiar do Membro"></i></a>
-                                        @endcan
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="3">Nenhum registro encontrado</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- Nav tabs - LISTA VINCULO FAMILIAR - FIM -->
             @endif
 
             @section('modal_target')"formSubmit();"@endsection

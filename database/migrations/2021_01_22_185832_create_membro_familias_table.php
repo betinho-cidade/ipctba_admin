@@ -21,7 +21,7 @@ class CreateMembroFamiliasTable extends Migration
             $table->timestamps();
             $table->foreign('membro_id')->references('id')->on('membros');
             $table->foreign('membro_familia_id')->references('id')->on('membros');
-            $table->unique(['membro_id', 'membro_familia_id', 'vinculo'], 'membro_familia_uk');
+            $table->unique(['membro_id', 'membro_familia_id'], 'membro_familia_uk');
         });
     }
 

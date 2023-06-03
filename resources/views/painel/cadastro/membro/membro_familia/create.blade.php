@@ -48,6 +48,9 @@
             <form name="create_membro_familia" method="POST" action="{{route('membro_familia.store', compact('membro'))}}"  class="needs-validation"  novalidate>
                 @csrf
 
+                <input type="hidden" name="name" id="name" class="form-control" value="{{$name ?? ''}}">
+                <input type="hidden" name="membro_filho" id="membro_filho" class="form-control" value="{{$membro_filho ?? ''}}">
+                
                 <!-- Dados - INI -->
                 <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Vínculo Familiar</h5>
@@ -59,10 +62,10 @@
                                 <label for="vinculo">Vínculo Familiar</label>
                                 <select id="vinculo" name="vinculo" class="form-control" required>
                                     <option value="">---</option>
-                                    <option value="P" {{(old('vinculo') == 'P') ? 'selected' : '' }}>Pai</option>
-                                    <option value="M" {{(old('vinculo') == 'M') ? 'selected' : '' }}>Mãe</option>
-                                    <option value="F" {{(old('vinculo') == 'F') ? 'selected' : '' }}>Filho(a)</option>
-                                    <option value="C" {{(old('vinculo') == 'C') ? 'selected' : '' }}>Cônjuge</option>
+                                    <option value="P" {{(old('vinculo') == 'P' || ($vinculo && $vinculo=='P')) ? 'selected' : '' }}>Pai</option>
+                                    <option value="M" {{(old('vinculo') == 'M' || ($vinculo && $vinculo=='M')) ? 'selected' : '' }}>Mãe</option>
+                                    <option value="F" {{(old('vinculo') == 'F' || ($vinculo && $vinculo=='F')) ? 'selected' : '' }}>Filho(a)</option>
+                                    <option value="C" {{(old('vinculo') == 'C' || ($vinculo && $vinculo=='C')) ? 'selected' : '' }}>Cônjuge</option>
                                 </select>
                                 <div class="valid-feedback">ok!</div>
                                 <div class="invalid-feedback">Inválido!</div>
@@ -72,6 +75,15 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="membro_familia">Membro da Família</label>
+                                <code style="float: right">
+                                @foreach(explode(' ',$name) as $texto_busca)
+                                    @if(Str::length($texto_busca) > 2)
+                                        <a href="javascript:search('{{$texto_busca ?? ''}}');">{{$texto_busca ?? ''}}</a>
+                                    @else
+                                        {{$texto_busca ?? ''}}
+                                    @endif
+                                @endforeach
+                                </code>
                                 <select id="membro_familia" name="membro_familia" class="form-control select2" required>
                                     <option value="">---</option>
                                     @foreach($novo_membros as $membro_familia)
@@ -111,4 +123,15 @@
 
     <!-- form mask -->
     <script src="{{asset('nazox/assets/libs/inputmask/jquery.inputmask.min.js')}}"></script>
+
+    <script>
+
+        function search(text){
+            $('#membro_familia').select2('open');
+            var search = $('input.select2-search__field');
+            search.val(text); 
+            search.trigger('input');
+        }
+
+    </script>
 @endsection

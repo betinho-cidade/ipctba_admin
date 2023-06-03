@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Membro;
 use App\Models\MembroFamilia;
+use App\Models\MembroFilho;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
@@ -26,7 +27,7 @@ class MembroFamiliaController extends Controller
     }
 
 
-    public function create(Membro $membro)
+    public function create(Membro $membro, Request $request)
     {
         if(Gate::denies('create_historico_familiar')){
             abort('403', 'Página não disponível');
@@ -37,16 +38,20 @@ class MembroFamiliaController extends Controller
         $membro_familias = MembroFamilia::where('membro_id', $membro->id)
                                          ->get();
 
-
         $novo_membros = Membro::where(function($query) use ($membro_familias){
                                 if($membro_familias->count() > 0){
-                                    $query->whereNotIn('id', [$membro_familias->pluck('membro_familia_id')]);
+                                    $query->whereNotIn('id', $membro_familias->pluck('membro_familia_id'));
                                 }
                                 })
+                                ->whereNotIn('id', [$membro->id])
                                 ->orderBy('nome')
                                 ->get();
 
-        return view('painel.cadastro.membro.membro_familia.create', compact('user', 'membro', 'novo_membros'));
+        $vinculo = $request->has('vinculo') ? $request->vinculo : '';
+        $name = $request->has('name') ? $request->name : '';
+        $membro_filho = $request->has('membro_filho') ? $request->membro_filho : '';
+
+        return view('painel.cadastro.membro.membro_familia.create', compact('user', 'membro', 'novo_membros', 'vinculo', 'name', 'membro_filho'));
     }
 
 
@@ -61,6 +66,38 @@ class MembroFamiliaController extends Controller
 
         $message = '';
 
+        $vinculo = $request->has('vinculo') ? $request->vinculo : '';
+        $name = $request->has('name') ? $request->name : '';        
+        $membro_filho = $request->has('membro_filho') ? $request->membro_filho : '';
+        $isMembroFilho = [];
+
+        if ($membro_filho && $vinculo == 'F') {
+
+            $isMembroFilho = MembroFilho::where('id', $membro_filho)
+                                  ->first();            
+
+            if(!$isMembroFilho || ($isMembroFilho->membro_id != $membro->id)){
+                $message = 'O filho selecionado não possui relação com o membro em questão';
+                $request->session()->flash('message.level', 'danger');
+                $request->session()->flash('message.content', $message);
+    
+                return redirect()->route('membro_familia.create', ['membro'=>$membro->id, 'vinculo'=>$vinculo, 'name'=>$name, 'membro_filho'=>$membro_filho]);
+            }
+        }    
+
+        $existe_vinculo = MembroFamilia::where('membro_id', $membro->id)
+                                        ->where('vinculo', $request->vinculo)
+                                        ->first();
+
+        if ($existe_vinculo && $vinculo != 'F') {
+            $message = 'Já existe um membro relacionado com o vínculo informado - ' . $existe_vinculo->vinculo_familiar . ' ('. $existe_vinculo->membro_familia->nome .')';
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.content', $message);
+
+            return redirect()->route('membro_familia.create', ['membro'=>$membro->id, 'vinculo'=>$vinculo, 'name'=>$name]);
+        }    
+        
+
         try {
 
             DB::beginTransaction();
@@ -73,6 +110,13 @@ class MembroFamiliaController extends Controller
 
             $membro_familia->save();
 
+            if($isMembroFilho){
+                MembroFilho::where('id', $isMembroFilho->id)
+                            ->delete();
+            }
+
+            $this->createVinculo($membro, $membro_familia->membro_familia_id, $membro_familia->vinculo);
+
             DB::commit();
 
         } catch (Exception $ex){
@@ -80,7 +124,21 @@ class MembroFamiliaController extends Controller
             DB::rollBack();
 
             if(strpos($ex->getMessage(), 'membro_familia_uk') !== false){
-                $message = "Já existe um vínculo registrado com os valores informados.";
+                
+                $membro_familia = MembroFamilia::where('membro_id', $membro->id)
+                                                ->where('membro_familia_id', $request->membro_familia)
+                                                ->first();
+                if(!$membro_familia){
+                    $membro_familia = MembroFamilia::where('membro_id', $request->membro_familia)
+                                                    ->where('membro_familia_id', $membro->id)
+                                                    ->first();
+
+                    $message = 'O vínculo recursivo com o Membro (<a href="' . route('membro.show', ['membro' => $membro_familia->membro_id]) . '" target="_blank">'.$membro_familia->membro->nome.'</a>) NÃO PODE ser realizado, pois já existe um vínculo - ' . $membro_familia->vinculo_familiar . ' ('. $membro_familia->membro_familia->nome .')';                                                    
+
+                } else{
+                    $message = 'Já existe um membro relacionado com o vínculo informado - ' . $membro_familia->vinculo_familiar . ' ('. $membro_familia->membro_familia->nome .')';
+                }
+
             } else{
                 $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();
             }
@@ -98,6 +156,32 @@ class MembroFamiliaController extends Controller
     }
 
 
+    public function createVinculo(Membro $membro, String $membro_vinculo_id, String $vinculo){
+
+        $membro_vinculo = Membro::where('id', $membro_vinculo_id)
+                                  ->first();
+
+        $membro_familia = new MembroFamilia();
+
+        $membro_familia->membro_id = $membro_vinculo->id;
+        $membro_familia->membro_familia_id = $membro->id;
+        
+        switch($vinculo){
+            case 'C':
+                $membro_familia->vinculo = $vinculo;
+                break;
+            case 'P':
+            case 'M':
+                $membro_familia->vinculo = 'F';
+                break;
+            case 'F':
+                $membro_familia->vinculo = ($membro->sexo == 'M') ? 'P' : 'M';
+                break;
+        }
+
+        $membro_familia->save();
+    }
+
 
     public function destroy(Membro $membro, MembroFamilia $membro_familia, Request $request)
     {
@@ -112,6 +196,10 @@ class MembroFamiliaController extends Controller
 
         try {
             DB::beginTransaction();
+
+            MembroFamilia::where('membro_id', $membro_familia->membro_familia_id)
+                        ->where('membro_familia_id', $membro->id)
+                        ->delete();
 
             $membro_familia->delete();
 

@@ -61,8 +61,8 @@ class MembrosImport implements ToModel, WithHeadingRow, WithBatchInserts, WithCh
 
         }catch(Exception $ex){
             dd($ex->getMessage(), $row);
+        }
 */
-
     }
 
 

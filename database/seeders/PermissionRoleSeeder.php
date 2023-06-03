@@ -518,13 +518,13 @@ class PermissionRoleSeeder extends Seeder
                 ],
                 [
                     'permission_id' => 54,
-                    'role_id' => 2,
+                    'role_id' => 4,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
                 [
                     'permission_id' => 56,
-                    'role_id' => 2,
+                    'role_id' => 4,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
