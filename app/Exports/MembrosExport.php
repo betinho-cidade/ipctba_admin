@@ -6,12 +6,21 @@ use App\Models\Membro;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 
-class MembrosExport implements FromCollection, WithMapping, WithHeadings
+class MembrosExport implements FromCollection, WithMapping, WithHeadings, WithColumnFormatting, WithStyles, WithEvents
 {
 
     protected $params;
@@ -242,5 +251,135 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings
 
         return $membros;
     }
+
+    public function columnFormats(): array
+    {
+        return [
+            'F' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'L' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'Y' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'AB' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'AK' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'AM' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        ];
+    }    
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            // Style the first row as bold text.
+            1   => ['font' => ['bold' => true],
+                     'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]
+                    ],
+            'A' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                    
+            'B' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                    
+            'D' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                
+            'F' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                    
+            'G' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                            
+            'H' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                        
+            'I' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                    
+            'J' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                    
+            'L' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                        
+            'M' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                        
+            'N' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                        
+            'Q' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                        
+            'R' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                            
+            'S' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                        
+            'U' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'V' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'W' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'Y' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'Z' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AA' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AB' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AC' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AD' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AE' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AF' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AG' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AI' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AJ' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AK' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                            
+            'AL' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AM' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AN' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AO' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AP' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AQ' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                            
+            'AR' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                               
+            'AS' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AT' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AU' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AV' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
+            'AW' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                            
+        ];
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class=> function(AfterSheet $event) {
+                
+                $event->sheet->setAutoFilter('A1:AW1');
+                
+                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('P')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('Q')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('R')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('S')->setWidth(10);
+                $event->sheet->getDelegate()->getColumnDimension('T')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('U')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('V')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('W')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('X')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('Y')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('Z')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AA')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AB')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AC')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AD')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AE')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AF')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AG')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AH')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AI')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AJ')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AK')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AL')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AM')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AN')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AO')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AP')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AQ')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AR')->setWidth(80);
+                $event->sheet->getDelegate()->getColumnDimension('AS')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AT')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AU')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AV')->setWidth(80);
+                $event->sheet->getDelegate()->getColumnDimension('AW')->setWidth(40);                
+
+                $event->sheet->getDelegate()->getStyle('A1:AW1')
+                        ->getFill()
+                        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        ->getStartColor()
+                        ->setARGB('D9D9D9');
+            }
+        ];
+
+    }    
 
 }
