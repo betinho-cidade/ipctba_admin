@@ -125,7 +125,7 @@ class VisitanteController extends Controller
                 $historico_situacao->save();
             }
 
-            $status_participacao_membro = StatusParticipacao::where('nome', 'EP Formulário')->first();
+            $status_participacao_membro = StatusParticipacao::where('nome', '2_Formulário')->first();
 
             if($status_participacao_membro) {
                 $membro->status_participacao_id = $status_participacao_membro->id;
