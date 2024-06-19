@@ -244,6 +244,13 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings, WithCo
                     $subquery->where("historico_solicitacaos.tipo_solicitacao_id",$excel_params['tipo_solicitacao']);
                 });
             }
+            if($excel_params['is_visitante']){
+                $query->whereIn('membros.id', function($subquery) use ($excel_params) {
+                    $subquery->select('membros.id');
+                    $subquery->from('visitantes');
+                    $subquery->join('membros', 'visitantes.membro_id', '=','membros.id');
+                });
+            }                     
         })
         ->orderBy($excel_params['order_field'], $excel_params['order_type'])
         ->get();

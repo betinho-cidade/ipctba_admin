@@ -468,6 +468,70 @@ class PermissionSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
+                [
+                    'id' => 66,
+                    'name' => 'view_processo_visitante',
+                    'description' => 'Acessar as informações das Solicitações/Processos dos visitantes',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 67,
+                    'name' => 'edit_processo_visitante',
+                    'description' => 'Alterar as informações das Solicitações/Processos dos visitantes',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 68,
+                    'name' => 'create_processo_visitante',
+                    'description' => 'Criar uma nova Solicitação/Processo do visitante',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 69,
+                    'name' => 'delete_processo_visitante',
+                    'description' => 'Excluir uma Solicitação/Processo do visitante',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],    
+                [
+                    'id' => 70,
+                    'name' => 'view_ficha_visitante',
+                    'description' => 'Acessar as informações das Fichas dos visitantes',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 71,
+                    'name' => 'edit_ficha_visitante',
+                    'description' => 'Alterar as informações das Fichas dos visitantes',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 72,
+                    'name' => 'create_ficha_visitante',
+                    'description' => 'Criar uma nova Ficha do visitante',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 73,
+                    'name' => 'delete_ficha_visitante',
+                    'description' => 'Excluir uma Ficha do visitante',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],  
+                [
+                    'id' => 74,
+                    'name' => 'assign_ficha_visitante',
+                    'description' => 'Gerenciar Lider como responsável da Ficha do visitante',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],                                    
+
             ]);
         } else {
             echo "\e[31mTabela Permissions não está vazia. ";

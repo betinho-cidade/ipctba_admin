@@ -79,6 +79,7 @@ class RelatorioController extends Controller
 
         if($request->excel_params) {
             $excel_params = [
+                'is_visitante' => isset($request->excel_params['is_visitante']) ? $request->excel_params['is_visitante'] : '',
                 'is_disciplina' => isset($request->excel_params['is_disciplina']) ? $request->excel_params['is_disciplina'] : '',
                 'is_ativo' => isset($request->excel_params['is_ativo']) ? $request->excel_params['is_ativo'] : '',
                 'order_field' => isset($request->excel_params['order_field']) ? $request->excel_params['order_field'] : 'nome',
@@ -112,6 +113,7 @@ class RelatorioController extends Controller
             ];
         } else {
             $excel_params = [
+                'is_visitante' => isset($request->is_visitante) ? $request->is_visitante : '',
                 'is_disciplina' => isset($request->is_disciplina) ? $request->is_disciplina : '',
                 'is_ativo' => isset($request->is_ativo) ? $request->is_ativo : '',
                 'order_field' => isset($request->order_field) ? $request->order_field : 'nome',
@@ -146,6 +148,7 @@ class RelatorioController extends Controller
         }
 
         $excel_params_translate = [
+            'is_visitante' => 'Origem Visitante',
             'is_disciplina' => 'Em Disciplina',
             'is_ativo' => 'Situação Membro',
             'order_field' => 'Ordenação por',
@@ -183,7 +186,7 @@ class RelatorioController extends Controller
                             if ($excel_params['is_ativo'] == 'ativo') {
                                 $query->where('status', 'A');
                             } elseif ($excel_params['is_ativo'] == 'inativo') {
-                                $query->where('status', 'I');
+                                $query->where('stadus', 'I');
                             }
                         }
                         if ($excel_params['is_disciplina']) {
@@ -274,6 +277,13 @@ class RelatorioController extends Controller
                                 $subquery->where("historico_solicitacaos.tipo_solicitacao_id",$excel_params['tipo_solicitacao']);
                             });
                         }
+                        if($excel_params['is_visitante']){
+                            $query->whereIn('membros.id', function($subquery) use ($excel_params) {
+                                $subquery->select('membros.id');
+                                $subquery->from('visitantes');
+                                $subquery->join('membros', 'visitantes.membro_id', '=','membros.id');
+                            });
+                        }                        
                     })
                     ->orderBy($excel_params['order_field'], $excel_params['order_type'])
                     ->paginate(300);

@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Membro');
     }
 
+    public function visitante(){
+
+        return $this->hasMany('App\Models\Visitante');
+    }    
+
     public function historico_solicitacaos(){
 
         return $this->hasMany('App\Models\HistoricoSolicitacao');

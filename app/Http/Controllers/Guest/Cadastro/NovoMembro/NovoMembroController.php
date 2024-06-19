@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Guest\Cadastro\Visitante;
+namespace App\Http\Controllers\Guest\Cadastro\NovoMembro;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -15,17 +15,17 @@ use Illuminate\Support\Facades\Gate;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Guest\Visitante\CreateRequest;
+use App\Http\Requests\Guest\NovoMembro\CreateRequest;
 use Image;
 use Carbon\Carbon;
 
 
-class VisitanteController extends Controller
+class NovoMembroController extends Controller
 {
 
     public function create()
     {
-        return view('guest.cadastro.visitante.create');
+        return view('guest.cadastro.novo_membro.create');
     }
 
 
@@ -151,7 +151,7 @@ class VisitanteController extends Controller
         }
 
 
-        return redirect()->route('visitante.bemvindo', ['token' => $request->_token]);
+        return redirect()->route('novo_membro.bemvindo', ['token' => $request->_token]);
 
     }
 
@@ -161,7 +161,7 @@ class VisitanteController extends Controller
 
         if($request->token && session()->has('message.token') && ($request->token === session('message.token'))){
 
-            return view('guest.cadastro.visitante.bemvindo');
+            return view('guest.cadastro.novo_membro.bemvindo');
 
         } else{
 

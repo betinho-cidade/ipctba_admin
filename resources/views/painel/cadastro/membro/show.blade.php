@@ -5,8 +5,15 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="page-title-box d-flex align-items-center justify-content-between">
+        <div class="page-title-box d-flex align-items-center justify-content-between" style="padding-bottom: 0;">
             <h4 class="mb-0">Informações do Membro</h4>
+            
+            @if($membro->visitante)
+                        @php $visitante = $membro->visitante; @endphp
+                    <span class="float-right" style="align-top: center; font-size: 14px;">                        
+                        <a class="btn btn-outline-secondary waves-effect" href="{{route('visitante.show', compact('visitante'))}}" style="color: #ffffff !important; border-color: #005b40 !important; background: #005b40 !important;">Ficha de Visitante</a>
+                    </span>                    
+                    @endif
         </div>
     </div>
 </div>
@@ -56,6 +63,8 @@
                         <a href="{{route('membro.pdf', compact('membro'))}}"><i class="fa fa-download color: goldenrod" title="Gerar PDF do Membro"></i></a>
                     </span>
                     @endcan
+
+
                     <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Pessoais</h5>
                 </div>
 
@@ -249,7 +258,7 @@
                         <div class="col-md-12">
                             <div class="card bg-soft-primary">
                                 <div class="card-body itens-drag-drog">
-                                    <h4 class="card-title">
+                                    <h4 class="card-title" style="padding-top: 10px;  margin-bottom: 5px;">
                                         @can('edit_membro')
                                             <button id="addRow" type="button" class="btn btn-secondary" style="font-size: xx-small;">+</button>
                                         @endif

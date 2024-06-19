@@ -88,6 +88,22 @@ Route::middleware(['auth'])->group(function () {
                 Route::put('/tipo_solicitacao/{tipo_solicitacao}/update', 'TipoSolicitacaoController@update')->name('tipo_solicitacao.update');
                 Route::delete('/tipo_solicitacao/{tipo_solicitacao}/destroy', 'TipoSolicitacaoController@destroy')->name('tipo_solicitacao.destroy');
             });
+            Route::group(['namespace' => 'SolicitacaoVisitante'], function(){
+                Route::get('/solicitacao_visitante', 'SolicitacaoVisitanteController@index')->name('solicitacao_visitante.index');
+                Route::get('/solicitacao_visitante/create', 'SolicitacaoVisitanteController@create')->name('solicitacao_visitante.create');
+                Route::post('/solicitacao_visitante/store', 'SolicitacaoVisitanteController@store')->name('solicitacao_visitante.store');
+                Route::get('/solicitacao_visitante/{solicitacao_visitante}', 'SolicitacaoVisitanteController@show')->name('solicitacao_visitante.show');
+                Route::put('/solicitacao_visitante/{solicitacao_visitante}/update', 'SolicitacaoVisitanteController@update')->name('solicitacao_visitante.update');
+                Route::delete('/solicitacao_visitante/{solicitacao_visitante}/destroy', 'SolicitacaoVisitanteController@destroy')->name('solicitacao_visitante.destroy');
+
+                Route::group(['namespace' => 'ProcessoVisitante'], function(){
+                    Route::get('/solicitacao_visitante/{solicitacao_visitante}/processo/create', 'ProcessoVisitanteController@create')->name('processo_visitante.create');
+                    Route::post('/solicitacao_visitante/{solicitacao_visitante}/processo/store', 'ProcessoVisitanteController@store')->name('processo_visitante.store');
+                    Route::get('/solicitacao_visitante/{solicitacao_visitante}/processo/{processo_visitante}', 'ProcessoVisitanteController@show')->name('processo_visitante.show');
+                    Route::put('/solicitacao_visitante/{solicitacao_visitante}/processo/{processo_visitante}/update', 'ProcessoVisitanteController@update')->name('processo_visitante.update');
+                    Route::delete('/solicitacao_visitante/{solicitacao_visitante}/processo/{processo_visitante}/destroy', 'ProcessoVisitanteController@destroy')->name('processo_visitante.destroy');
+                });
+            });            
         });
 
         Route::group(['namespace' => 'Cadastro'], function(){
@@ -157,6 +173,14 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/agenda_solicitacao/{agenda_solicitacao}/destroy', 'AgendaSolicitacaoController@destroy')->name('agenda_solicitacao.destroy');
             });
 
+            Route::group(['namespace' => 'Visitante'], function(){
+                Route::get('/visitante', 'VisitanteController@index')->name('visitante.index');
+                Route::get('/visitante/{visitante}', 'VisitanteController@show')->name('visitante.show');
+                Route::put('/visitante/{visitante}/update', 'VisitanteController@update')->name('visitante.update');
+                Route::delete('/visitante/{visitante}/destroy', 'VisitanteController@destroy')->name('visitante.destroy');
+                Route::put('/visitante/{visitante}/processos', 'VisitanteController@processos')->name('visitante.processos');
+            });            
+
         });
 
         Route::group(['namespace' => 'Dashboard'], function(){
@@ -186,11 +210,11 @@ Route::group(['namespace' => 'Guest'], function(){
 
     Route::group(['namespace' => 'Cadastro'], function(){
 
-        Route::group(['namespace' => 'Visitante'], function(){
-            Route::get('/novo_membro', 'VisitanteController@create')->name('visitante.create');
-            Route::post('/novo_membro/store', 'VisitanteController@store')->name('visitante.store');
-            Route::post('/novo_membro/js_viacep', 'VisitanteController@js_viacep')->name('visitante.js_viacep');
-            Route::get('/novo_membro/bemvindo', 'VisitanteController@bemvindo')->name('visitante.bemvindo');
+        Route::group(['namespace' => 'NovoMembro'], function(){
+            Route::get('/novo_membro', 'NovoMembroController@create')->name('novo_membro.create');
+            Route::post('/novo_membro/store', 'NovoMembroController@store')->name('novo_membro.store');
+            Route::post('/novo_membro/js_viacep', 'NovoMembroController@js_viacep')->name('novo_membro.js_viacep');
+            Route::get('/novo_membro/bemvindo', 'NovoMembroController@bemvindo')->name('novo_membro.bemvindo');
         });
 
         Route::group(['namespace' => 'FichaCadastro'], function(){
@@ -199,6 +223,13 @@ Route::group(['namespace' => 'Guest'], function(){
             Route::post('/ficha_cadastro/js_viacep', 'FichaCadastroController@js_viacep')->name('ficha_cadastro.js_viacep');
             Route::get('/ficha_cadastro/ok', 'FichaCadastroController@ok')->name('ficha_cadastro.ok');
         });
+
+        Route::group(['namespace' => 'FichaVisitante'], function(){
+            Route::get('/ficha_visitante', 'FichaVisitanteController@create')->name('ficha_visitante.create');
+            Route::post('/ficha_visitante/store', 'FichaVisitanteController@store')->name('ficha_visitante.store');
+            Route::post('/ficha_visitante/js_viacep', 'FichaVisitanteController@js_viacep')->name('ficha_visitante.js_viacep');
+            Route::get('/ficha_visitante/ok', 'FichaVisitanteController@ok')->name('ficha_visitante.ok');
+        });        
     });
 
 });

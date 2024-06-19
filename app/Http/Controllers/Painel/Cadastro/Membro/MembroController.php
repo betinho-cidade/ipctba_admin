@@ -62,7 +62,7 @@ class MembroController extends Controller
 
         $ministerios = Ministerio::orderBy('nome')->get();
 
-        $perfis = Role::whereIn('name', ['Membro','Lider', 'Pastor'])
+        $perfis = Role::whereNotIn('name', ['Gestor'])
                         ->get();
 
 
@@ -248,7 +248,7 @@ class MembroController extends Controller
 
         $ministerios = Ministerio::orderBy('nome')->get();
 
-        $perfis = Role::whereIn('name', ['Membro','Lider', 'Pastor'])
+        $perfis = Role::whereNotIn('name', ['Gestor'])
                         ->get();
 
         $historico_oficios = HistoricoOficio::where('membro_id', $membro->id)

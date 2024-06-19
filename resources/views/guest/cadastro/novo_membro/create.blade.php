@@ -137,7 +137,7 @@
 
                 <h4 class="card-title">Formulário de Solicitação de Cadastro - Novo Membro</h4>
                 <p class="card-title-desc">A solicitação de cadastro será enviada aos responsáveis para análise e efetivação.</p>
-                <form name="create_visitante" method="POST" action="{{route('visitante.store')}}"  class="needs-validation"  novalidate>
+                <form name="create_novo_membro" method="POST" action="{{route('novo_membro.store')}}"  class="needs-validation"  novalidate>
                     @csrf
 
                     <!-- Dados Pessoais - INI -->
@@ -511,7 +511,7 @@
                     $('#end_uf').val('');
 
                     $.ajax({
-                        url: "{{route('visitante.js_viacep')}}",
+                        url: "{{route('novo_membro.js_viacep')}}",
                         method: "POST",
                         data: {_token:_token, cep:cep},
                         success:function(result){

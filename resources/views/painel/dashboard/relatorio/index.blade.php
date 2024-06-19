@@ -46,13 +46,23 @@
                     <!-- FILTROS DE PESQUISA - INI -->
                     <form name="search_membro" method="GET" action="{{route('relatorio.search')}}"  class="needs-validation" novalidate>
                     @csrf
-                            <h4 class="card-title">Selecione o filtro desejado</h4>
+                            <h4 class="card-title">Selecione o filtro desejado
+
+                            </h4>
+
                             <div class="progress progress-sm animated-progess" style="height: 1px;    margin-bottom: 15px;  ">
                                 <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
 
                             <!-- CAMPOS DE BUSCA - INI -->
                             <div class="row espacamento">
+                                <div class="col-12 espaco-ativo-mobile" style="padding:0;padding-top: 6px;">
+                                    <span style="margin-left: 20px;">
+                                    <label style="font-size:'8px;'">
+                                    <input class="form-check-input float-left" type="checkbox" id="is_visitante" name="is_visitante">
+                                    Origem Visitante</label>
+                                    </span>
+                                </div>
                                 <div class="col-2 espaco-ativo-mobile" style="padding:0;padding-top: 6px;">
                                     <div class="form-check mb-1 float-left">
                                         <input class="form-check-input float-right" type="radio" checked id="ativo" name="is_ativo" value="ativo">

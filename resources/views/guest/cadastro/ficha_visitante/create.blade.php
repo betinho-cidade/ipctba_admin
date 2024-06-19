@@ -67,12 +67,12 @@
                                 <li>
                                     <a href="index.html" class="waves-effect" style="cursor: default;color: #ffffff;pointer-events: none;">
                                         <i class="ri-lock-line" style="color: #ffffff;"></i><span class="badge badge-pill badge-success float-right"></span>
-                                        <span>Solicitação de Atualização de Ficha Cadastral</span>
+                                        <span>Ficha de Visitante</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a style="padding: .625rem 1rem;  color: #b7b7b7;cursor: default;pointer-events: none;">
-                                        <span><p>Deseja solicitar uma alteração dos Dados Cadastrais ?</p> Por gentileza, preencha o formulário ao lado e aguarda o contato de um dos nossos responsáveis.</span>
+                                        <span><p>É BOM TER VOCÊ AQUI CONOSCO!</p> Para podermos abençoar sua vida, por gentileza, preencha o formulário ao lado e aguarde o contato de um dos nossos responsáveis.</span>
                                     </a>
                                 </li>
 
@@ -133,9 +133,9 @@
                 <div class="card-body">
                 <!-- FORMULÁRIO - INICIO -->
 
-                <h4 class="card-title">Formulário de Solicitação de Atualização - Dados Cadastrais</h4>
-                <p class="card-title-desc">A solicitação de atualização de ficha cadastral será enviada aos responsáveis para análise e efetivação.</p>
-                <form name="create_ficha_cadastro" method="POST" action="{{route('ficha_cadastro.store')}}"  class="needs-validation"  novalidate>
+                <h4 class="card-title">Ficha do Visitante</h4>
+                <p class="card-title-desc">É BOM TER VOCÊ AQUI CONOSCO!</p>
+                <form name="create_ficha_visitante" method="POST" action="{{route('ficha_visitante.store')}}"  class="needs-validation"  novalidate>
                     @csrf
 
                     <!-- Dados Pessoais - INI -->
@@ -154,8 +154,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="email_membro">E-mail</label>
-                                    <input type="email" class="form-control" id="email_membro" name="email_membro" value="{{old('email_membro')}}">
+                                    <label for="email_visitante">E-mail</label>
+                                    <input type="email" class="form-control" id="email_visitante" name="email_visitante" value="{{old('email_visitante')}}">
                                     <div class="valid-feedback">ok!</div>
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
@@ -170,89 +170,36 @@
                             <div class="col-md-4">
                                 <label for="data_nascimento">Data Nascimento</label>
                                 <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="{{old('data_nascimento')}}">
-                            </div>
+                            </div>     
                             <div class="col-md-4">
-                                <label for="naturalidade">Local de Nascimento</label>
-                                <input type="text" name="naturalidade" id="naturalidade" class="form-control" value="{{old('naturalidade')}}">
+                                <label for="sexo">Sexo</label>
+                                <select id="sexo" name="sexo" class="form-control">
+                                    <option value="">---</option>
+                                    <option value="M" {{(old('sexo') == 'M') ? 'selected' : '' }}>Masculino</option>
+                                    <option value="F" {{(old('sexo') == 'F') ? 'selected' : '' }}>Feminino</option>
+                                </select>
+                                <div class="valid-feedback">ok!</div>
+                                <div class="invalid-feedback">Inválido!</div>
                             </div>
                         </div>
                         <p></p>
                     <!-- Dados Pessoais - FIM -->
 
-
-                    <!-- Dados Complementares - INI -->
-                    <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
-                        <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Complementares</h5>
-                    </div>
-
                         <div class="row">
+                            <div class="col-md-8">
+                                <label for="igreja_frequenta">Igreja que Frequenta</label>
+                                <input type="text" class="form-control" id="igreja_frequenta" name="igreja_frequenta" value="{{old('igreja_frequenta')}}">
+                                <div class="valid-feedback">ok!</div>
+                                <div class="invalid-feedback">Inválido!</div>
+                            </div>
                             <div class="col-md-4">
-                                <label for="estado_civil">Estado Civil</label>
-                                <select id="estado_civil" name="estado_civil" class="form-control">
-                                    <option value="">---</option>
-                                    <option value="SL" {{(old('estado_civil') == 'SL') ? 'selected' : '' }}>Solteiro</option>
-                                    <option value="CS" {{(old('estado_civil') == 'CS') ? 'selected' : '' }}>Casado</option>
-                                    <option value="SP" {{(old('estado_civil') == 'SP') ? 'selected' : '' }}>Separado</option>
-                                    <option value="DV" {{(old('estado_civil') == 'DV') ? 'selected' : '' }}>Divorciado</option>
-                                    <option value="VI" {{(old('estado_civil') == 'VI') ? 'selected' : '' }}>Viúvo</option>
-                                    <option value="UE" {{(old('estado_civil') == 'UE') ? 'selected' : '' }}>União Estável</option>
-                                </select>
-                                <div class="valid-feedback">ok!</div>
-                                <div class="invalid-feedback">Inválido!</div>
-                            </div>
-
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="conjuge">Nome Cônjuge</label>
-                                    <input type="text" class="form-control" id="conjuge" name="conjuge" value="{{old('conjuge')}}">
-                                    <div class="valid-feedback">ok!</div>
-                                    <div class="invalid-feedback">Inválido!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="data_casamento">Data Casamento</label>
-                                <input type="date" name="data_casamento" id="data_casamento" class="form-control" value="{{old('data_casamento')}}">
-                            </div>
+                                <label for="igreja_cidade">Cidade/UF</label>
+                                <input type="text" name="igreja_cidade" id="igreja_cidade" class="form-control" value="{{old('igreja_cidade')}}">
+                            </div>                            
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="escolaridade">Escolaridade</label>
-                                <select id="escolaridade" name="escolaridade" class="form-control">
-                                    'EF','EM','EP','ES','MS','DO','PD','NA','AL','NI'
-                                    <option value="">---</option>
-                                    <option value="EF" {{(old('escolaridade') == 'EF') ? 'selected' : '' }}>Ensino Fundamental</option>
-                                    <option value="EM" {{(old('escolaridade') == 'EM') ? 'selected' : '' }}>Ensino Médio</option>
-                                    <option value="EP" {{(old('escolaridade') == 'EP') ? 'selected' : '' }}>Ensino Profissionalizante</option>
-                                    <option value="ES" {{(old('escolaridade') == 'ES') ? 'selected' : '' }}>Ensino Superior</option>
-                                    <option value="MS" {{(old('escolaridade') == 'MS') ? 'selected' : '' }}>Mestrado</option>
-                                    <option value="DO" {{(old('escolaridade') == 'DO') ? 'selected' : '' }}>Doutorado</option>
-                                    <option value="PD" {{(old('escolaridade') == 'PD') ? 'selected' : '' }}>Pós Doutorado</option>
-                                    <option value="NA" {{(old('escolaridade') == 'NA') ? 'selected' : '' }}>Não Alfabetizado</option>
-                                    <option value="AL" {{(old('escolaridade') == 'AL') ? 'selected' : '' }}>Alfabetizado</option>
-                                    <option value="NI" {{(old('escolaridade') == 'N1') ? 'selected' : '' }}>Não Informada</option>
-                                </select>
-                                <div class="valid-feedback">ok!</div>
-                                <div class="invalid-feedback">Inválido!</div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="profissao">Profissão</label>
-                                <input type="text" name="profissao" id="profissao" class="form-control" value="{{old('profissao')}}">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="nome_pai">Nome do Pai</label>
-                                <input type="text" name="nome_pai" id="nome_pai" class="form-control" value="{{old('nome_pai')}}">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="nome_mae">Nome da Mãe</label>
-                                <input type="text" name="nome_mae" id="nome_mae" class="form-control" value="{{old('nome_mae')}}">
-                            </div>
-                        </div>
-                        <p></p>
-                    <!-- Dados Complementares - FIM -->
 
                     <!-- Dados Endereço - INI -->
-                    <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
+                    <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;margin-top:10px;">
                         <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Dados Endereço</h5>
                     </div>
                         <div class="row">
@@ -297,10 +244,34 @@
                         <p></p>
                     <!-- Dados Endereço - FIM -->
 
-                            <div class="row">
+                    <div class="bg-soft-primary p-3 rounded" style="margin-bottom:20px;margin-top:10px;">
+                        <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Como poderíamos abençoar sua vida. Você gostaria de:</h5>
+                    </div>
+
+                    <div class="row">
+                        @foreach($solicitacao_visitantes as $solicitacao_visitante)
+                        <div class="col-md-12" style="">
+                            <div class="form-check mb-1 " style="margin-bottom:15px !important;">
+                                <input class="form-check-input" type="checkbox" id="solicitacao_{{$solicitacao_visitante->id}}" name="solicitacao_{{$solicitacao_visitante->id}}">
+                                    <label class="form-check-label" styçe="margin-top: 1px;' for="{{$solicitacao_visitante->id}}">
+                                        {{$solicitacao_visitante->nome}}
+                                    </label>
+                                    @if($solicitacao_visitante->informar_motivo=='S')
+                                    <br/>
+                                        <label class="form-check-label left" for="{{$solicitacao_visitante->id}}">
+                                            <textarea  style="margin-left: 0;  margin-top: 5px;width: 400px;" name="informar_motivo_{{$solicitacao_visitante->id}}" id="informar_motivo_{{$solicitacao_visitante->id}}" class="form-control" placeholder="Informar Motivo"></textarea>
+                                        </label>
+                                    @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                                        
+
+                            <div class="row" style="margin-top:20px;">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
+                                        <div class="custom-control custom-checkbox ">
                                             <input type="checkbox" class="custom-control-input" id="invalidCheck" required>
                                             <label class="custom-control-label" for="invalidCheck">Aceito os termos e condições acima</label>
                                             <div class="invalid-feedback">
@@ -309,6 +280,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                         <!-- Dados Ministeriais -- FIM -->
@@ -377,7 +349,7 @@
                     $('#end_uf').val('');
 
                     $.ajax({
-                        url: "{{route('ficha_cadastro.js_viacep')}}",
+                        url: "{{route('ficha_visitante.js_viacep')}}",
                         method: "POST",
                         data: {_token:_token, cep:cep},
                         success:function(result){

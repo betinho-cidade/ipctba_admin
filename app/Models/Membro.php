@@ -38,6 +38,11 @@ class Membro extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function visitante(){
+
+        return $this->hasOne('App\Models\Visitante');
+    }       
+
     public function status_participacao(){
 
         return $this->belongsTo('App\Models\StatusParticipacao');

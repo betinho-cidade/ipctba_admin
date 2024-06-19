@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Guest\Visitante;
+namespace App\Http\Requests\Guest\NovoMembro;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;

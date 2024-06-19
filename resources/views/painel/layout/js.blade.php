@@ -3,8 +3,8 @@
         <script src="{{asset('nazox/assets/libs/jquery/jquery.min.js')}}"></script>
         <script src="{{asset('nazox/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('nazox/assets/libs/metismenu/metisMenu.min.js')}}"></script>
-        {{-- <script src="{{asset('nazox/assets/libs/simplebar/simplebar.min.js')}}"></script>
-        <script src="{{asset('nazox/assets/libs/node-waves/waves.min.js')}}"></script> --}}
+        <script src="{{asset('nazox/assets/libs/simplebar/simplebar.min.js')}}"></script>
+        <script src="{{asset('nazox/assets/libs/node-waves/waves.min.js')}}"></script>
 
         <!-- apexcharts -->
         {{-- <script src="{{asset('nazox/assets/libs/apexcharts/apexcharts.min.js')}}"></script> --}}
