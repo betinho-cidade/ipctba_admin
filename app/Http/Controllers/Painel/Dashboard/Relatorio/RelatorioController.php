@@ -186,7 +186,7 @@ class RelatorioController extends Controller
                             if ($excel_params['is_ativo'] == 'ativo') {
                                 $query->where('status', 'A');
                             } elseif ($excel_params['is_ativo'] == 'inativo') {
-                                $query->where('stadus', 'I');
+                                $query->where('status', 'I');
                             }
                         }
                         if ($excel_params['is_disciplina']) {
