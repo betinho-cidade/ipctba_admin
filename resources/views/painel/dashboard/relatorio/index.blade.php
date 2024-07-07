@@ -46,9 +46,7 @@
                     <!-- FILTROS DE PESQUISA - INI -->
                     <form name="search_membro" method="GET" action="{{route('relatorio.search')}}"  class="needs-validation" novalidate>
                     @csrf
-                            <h4 class="card-title">Selecione o filtro desejado
-
-                            </h4>
+                            <h4 class="card-title">Selecione o filtro desejado</h4>
 
                             <div class="progress progress-sm animated-progess" style="height: 1px;    margin-bottom: 15px;  ">
                                 <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
@@ -56,49 +54,43 @@
 
                             <!-- CAMPOS DE BUSCA - INI -->
                             <div class="row espacamento">
-                                <div class="col-12 espaco-ativo-mobile" style="padding:0;padding-top: 6px;">
-                                    <span style="margin-left: 20px;">
-                                    <label style="font-size:'8px;'">
-                                    <input class="form-check-input float-left" type="checkbox" id="is_visitante" name="is_visitante">
-                                    Origem Visitante</label>
-                                    </span>
-                                </div>
-                                <div class="col-2 espaco-ativo-mobile" style="padding:0;padding-top: 6px;">
-                                    <div class="form-check mb-1 float-left">
-                                        <input class="form-check-input float-right" type="radio" checked id="ativo" name="is_ativo" value="ativo">
-                                        <label class="form-check-label float-right" for="ativo" style="margin-left: -3px;">
-                                            Ativo
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-2"  style="padding:0;     padding-top: 6px;">
-                                    <div class="form-check mb-1 float-right">
-                                        <input class="form-check-input float-right" type="radio" id="inativo" name="is_ativo" value="inativo">
-                                        <label class="form-check-label float-right" for="inativo" style="margin-left: -3px;">
-                                            Inativo
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <select id="order_field" name="order_field" class="form-control" style="font-size: 12px">
                                         <option value="nome">Ordenar por Nome</option>
                                         <option value="numero_rol">Ordenar por Rol</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <select id="order_type" name="order_type" class="form-control" style="font-size: 12px">
-                                        <option value="asc">ASC</option>
-                                        <option value="desc">DESC</option>
+                                        <option value="asc">ascendente</option>
+                                        <option value="desc">descendente</option>
                                     </select>
                                 </div>
-                                {{-- <div class="col-md-8">
-                                    <div class="form-check mb-1 float-right">
-                                        <input class="form-check-input float-right" type="checkbox" id="is_disciplina" name="is_disciplina">
-                                        <label class="form-check-label float-right" for="is_disciplina">
-                                            Em Disciplina
+                            </div>
+
+                            <div class="row espacamento">
+                                <div class="col-2 espaco-ativo-mobile" style="padding:0;padding-top: 6px;">
+                                    <div class="form-check mb-1 float-left">
+                                        <input class="form-check-input float-right" type="radio" checked id="ativo" name="is_ativo" value="ativo">
+                                        <label class="form-check-label float-right" for="ativo" style="margin-left: -6px;">
+                                            Membro
                                         </label>
                                     </div>
-                                </div> --}}
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="javascript:em_processo();" style="margin-left:10px;">Em processo</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{{ route('membro_ficha.index') }}">Visitantes</a>
+                                </div>    
+                                <div class="col-2" style="padding:0;     padding-top: 6px;">
+                                    <div class="form-check mb-1 float-right">
+                                        <input class="form-check-input float-right" type="radio" id="inativo" name="is_ativo" value="inativo">
+                                        <label class="form-check-label float-right" for="inativo" style="margin-left: -6px;">
+                                            Inativo
+                                        </label>
+                                    </div>
+                                </div>                                                            
                             </div>
 
                             <div class="row espacamento">
@@ -392,6 +384,7 @@
                         <div class="card-body">
 
                             <span class="float-right">
+
                                 @can('create_membro')
                                     <a href="{{route("membro.create")}}" class="btn btn-outline-secondary waves-effect">Novo Membro</a>
                                 @endcan
@@ -545,6 +538,14 @@
     <script src="{{asset('nazox/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
     <!-- Datatable init js -->
     <script src="{{asset('nazox/assets/js/pages/datatables.init.js')}}"></script>
+
+    <script>
+        function em_processo(){
+            document.getElementById('inativo').checked = true;
+            document.getElementById('tipo_membro').value = 'EP';
+            
+        }
+    </script>
 
     @if($membros && $membros->count() > 0)
     <script>

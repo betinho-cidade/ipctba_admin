@@ -351,7 +351,7 @@
                     <fieldset class="border p-3">
                         <legend class="w-auto" style="font-size: 18px">Igreja Anterior</legend>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="igreja_old_nome">Nome Igreja</label>
                                     <input type="text" class="form-control" id="igreja_old_nome" name="igreja_old_nome" value="{{old('igreja_old_nome')}}" placeholder="Nome Igreja Anterior">
@@ -359,30 +359,38 @@
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
-                             <div class="col-md-3">
+                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="igreja_old_cidade">Cidade/Estado</label>
-                                    <input type="text" class="form-control" id="igreja_old_cidade" name="igreja_old_cidade" value="{{old('igreja_old_cidade')}}" placeholder="Nome Igreja Anterior">
+                                    <input type="text" class="form-control" id="igreja_old_cidade" name="igreja_old_cidade" value="{{old('igreja_old_cidade')}}" placeholder="Cidade Anterior">
                                     <div class="valid-feedback">ok!</div>
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="igreja_old_pastor">Pastor</label>
-                                    <input type="text" class="form-control" id="igreja_old_pastor" name="igreja_old_pastor" value="{{old('igreja_old_pastor')}}" placeholder="Nome Igreja Anterior">
+                                    <input type="text" class="form-control" id="igreja_old_pastor" name="igreja_old_pastor" value="{{old('igreja_old_pastor')}}" placeholder="Pastor Anterior">
                                     <div class="valid-feedback">ok!</div>
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="igreja_old_pastor_email">E-mail Pastor</label>
-                                    <input type="email" class="form-control" id="igreja_old_pastor_email" name="igreja_old_pastor_email" value="{{old('igreja_old_pastor_email')}}" placeholder="Nome Igreja Anterior">
+                                    <input type="email" class="form-control" id="igreja_old_pastor_email" name="igreja_old_pastor_email" value="{{old('igreja_old_pastor_email')}}" placeholder="E-mail Pastor">
                                     <div class="valid-feedback">ok!</div>
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="igreja_old_pastor_fone">Telefone Pastor</label>
+                                    <input type="text" class="form-control mask_celular" id="igreja_old_pastor_fone" name="igreja_old_pastor_fone" value="{{old('igreja_old_pastor_fone')}}" placeholder="Telefone Pastor">
+                                    <div class="valid-feedback">ok!</div>
+                                    <div class="invalid-feedback">Inválido!</div>
+                                </div>
+                            </div>                            
                         </div>
                     </fieldset>
                     <p></p>

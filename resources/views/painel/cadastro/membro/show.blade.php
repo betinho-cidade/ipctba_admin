@@ -524,7 +524,7 @@
                     <fieldset class="border p-3">
                         <legend class="w-auto" style="font-size: 18px">Igreja Anterior</legend>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="igreja_old_nome">Nome Igreja</label>
                                     <input @if(!Gate::check('edit_membro')) disabled @endif type="text" class="form-control" id="igreja_old_nome" name="igreja_old_nome" value="{{$membro->igreja_old_nome}}">
@@ -532,7 +532,7 @@
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
-                             <div class="col-md-3">
+                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="igreja_old_cidade">Cidade/Estado</label>
                                     <input @if(!Gate::check('edit_membro')) disabled @endif type="text" class="form-control" id="igreja_old_cidade" name="igreja_old_cidade" value="{{$membro->igreja_old_cidade}}">
@@ -540,7 +540,7 @@
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="igreja_old_pastor">Pastor</label>
                                     <input @if(!Gate::check('edit_membro')) disabled @endif type="text" class="form-control" id="igreja_old_pastor" name="igreja_old_pastor" value="{{$membro->igreja_old_pastor}}">
@@ -548,7 +548,7 @@
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="igreja_old_pastor_email">E-mail Pastor</label>
                                     <input @if(!Gate::check('edit_membro')) disabled @endif type="email" class="form-control" id="igreja_old_pastor_email" name="igreja_old_pastor_email" value="{{$membro->igreja_old_pastor_email}}">
@@ -556,6 +556,14 @@
                                     <div class="invalid-feedback">Inválido!</div>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="igreja_old_pastor_fone">Tekefone Pastor</label>
+                                    <input @if(!Gate::check('edit_membro')) disabled @endif type="text" class="form-control mask_celular" id="igreja_old_pastor_fone" name="igreja_old_pastor_fone" value="{{$membro->igreja_old_pastor_fone}}">
+                                    <div class="valid-feedback">ok!</div>
+                                    <div class="invalid-feedback">Inválido!</div>
+                                </div>
+                            </div>                            
                         </div>
                     </fieldset>
                     <p></p>

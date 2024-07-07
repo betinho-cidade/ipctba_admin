@@ -68,6 +68,7 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings, WithCo
             'Cidade Igreja Anterior',
             'Pastor Igreja Anterior',
             'E-mail Pastor Igreja Anterior',
+            'Telefone Pastor Igreja Anterior',
             'Tipo Membro',
             'Número da Ata',
             'Data Admissão',
@@ -124,6 +125,7 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings, WithCo
             $membro->igreja_old_cidade,
             $membro->igreja_old_pastor,
             $membro->igreja_old_pastor_email,
+            $membro->igreja_old_pastor_fone,
             $membro->descricao_tipo_membro,
             $membro->numero_ata,
             Date::stringToExcel($membro->data_admissao),
@@ -266,8 +268,8 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings, WithCo
             'L' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'Y' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'AB' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'AK' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'AM' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'AL' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'AN' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         ];
     }    
 
@@ -319,6 +321,7 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings, WithCo
             'AU' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
             'AV' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                
             'AW' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                            
+            'AX' => ['alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]],                                                                                            
         ];
     }
 
@@ -366,20 +369,21 @@ class MembrosExport implements FromCollection, WithMapping, WithHeadings, WithCo
                 $event->sheet->getDelegate()->getColumnDimension('AI')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('AJ')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('AK')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('AL')->setWidth(40);
-                $event->sheet->getDelegate()->getColumnDimension('AM')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('AN')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AL')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AM')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AN')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('AO')->setWidth(40);
-                $event->sheet->getDelegate()->getColumnDimension('AP')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AP')->setWidth(40);
                 $event->sheet->getDelegate()->getColumnDimension('AQ')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('AR')->setWidth(80);
-                $event->sheet->getDelegate()->getColumnDimension('AS')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AR')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AS')->setWidth(80);
                 $event->sheet->getDelegate()->getColumnDimension('AT')->setWidth(40);
-                $event->sheet->getDelegate()->getColumnDimension('AU')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('AV')->setWidth(80);
-                $event->sheet->getDelegate()->getColumnDimension('AW')->setWidth(40);                
+                $event->sheet->getDelegate()->getColumnDimension('AU')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('AV')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('AW')->setWidth(80);                
+                $event->sheet->getDelegate()->getColumnDimension('AX')->setWidth(20);  
 
-                $event->sheet->getDelegate()->getStyle('A1:AW1')
+                $event->sheet->getDelegate()->getStyle('A1:AX1')
                         ->getFill()
                         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                         ->getStartColor()

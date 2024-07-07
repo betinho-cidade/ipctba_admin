@@ -53,6 +53,7 @@ class CreateMembrosTable extends Migration
             $table->string('igreja_old_cidade', 200)->nullable();
             $table->string('igreja_old_pastor', 300)->nullable();
             $table->string('igreja_old_pastor_email', 191)->nullable();
+            $table->string('igreja_old_pastor_fone', 15)->nullable();
             $table->string('numero_ata', 50)->nullable();
             $table->date('data_admissao')->nullable();
             $table->date('data_demissao')->nullable();

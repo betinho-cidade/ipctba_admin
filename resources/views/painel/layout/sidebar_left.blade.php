@@ -21,9 +21,9 @@
                                     <span>Painel de Controle</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                     <li><a href="{{ route('indicador.index') }}">Indicadores</a></li>
                                     <li><a href="{{ route('agenda.index') }}">Agenda do Mês</a></li>
-                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                 </ul>
                             </li>
 
@@ -71,9 +71,9 @@
                                     <span>Painel de Controle</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                     <li><a href="{{ route('indicador.index') }}">Indicadores</a></li>
                                     <li><a href="{{ route('agenda.index') }}">Agenda do Mês</a></li>
-                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                 </ul>
                             </li>
 
@@ -102,9 +102,9 @@
                                     <span>Painel de Controle</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                     <li><a href="{{ route('indicador.index') }}">Indicadores</a></li>
                                     <li><a href="{{ route('agenda.index') }}">Agenda do Mês</a></li>
-                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                 </ul>
                             </li>
 
@@ -131,9 +131,9 @@
                                     <span>Painel de Controle</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                     <li><a href="{{ route('indicador.index') }}">Indicadores</a></li>
                                     <li><a href="{{ route('agenda.index') }}">Agenda do Mês</a></li>
-                                    <li><a href="{{ route('relatorio.index') }}">Filtro de Membros</a></li>
                                 </ul>
                             </li>
 

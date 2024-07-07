@@ -125,6 +125,7 @@ class MembroController extends Controller
             $membro->igreja_old_cidade = $request->igreja_old_cidade;
             $membro->igreja_old_pastor = $request->igreja_old_pastor;
             $membro->igreja_old_pastor_email = $request->igreja_old_pastor_email;
+            $membro->igreja_old_pastor_fone = $request->igreja_old_pastor_fone;            
             $membro->numero_ata = $request->numero_ata;
             $membro->data_admissao = $request->data_admissao;
             $membro->data_demissao = $request->data_demissao;
@@ -323,6 +324,7 @@ class MembroController extends Controller
             $membro->igreja_old_cidade = $request->igreja_old_cidade;
             $membro->igreja_old_pastor = $request->igreja_old_pastor;
             $membro->igreja_old_pastor_email = $request->igreja_old_pastor_email;
+            $membro->igreja_old_pastor_fone = $request->igreja_old_pastor_fone;
             $membro->numero_ata = $request->numero_ata;
             $membro->data_admissao = $request->data_admissao;
             $membro->data_demissao = $request->data_demissao;

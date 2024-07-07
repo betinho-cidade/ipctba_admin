@@ -247,6 +247,11 @@
                     <b>E-mail Pastor Igreja Anterior: </b>{{ $membro->igreja_old_pastor_email}}<br>
                 </div>
             @endif
+            @if($membro->igreja_old_pastor_fone)
+                <div class="bg-soft-primary">
+                    <b>Telefone Pastor Igreja Anterior: </b>{{ $membro->igreja_old_pastor_fone}}<br>
+                </div>
+            @endif            
             @if($membro->numero_ata)
                 <div class="bg-soft-primary">
                     <b>Número da Ata: </b>{{ $membro->numero_ata}}<br>

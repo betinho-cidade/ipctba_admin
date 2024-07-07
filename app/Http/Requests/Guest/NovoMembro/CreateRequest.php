@@ -62,6 +62,7 @@ class CreateRequest extends FormRequest
             'igreja_old_cidade' => 'max:200',
             'igreja_old_pastor' => 'max:300',
             'igreja_old_pastor_email' => 'max:300',
+            'igreja_old_pastor_fone' => 'max:15',
         ];
     }
 
@@ -109,6 +110,7 @@ class CreateRequest extends FormRequest
             'igreja_old_cidade.max' => 'O tamanho permitido para a Cidade/Estado da Igreja Anterior é de 200 caracteres',
             'igreja_old_pastor.max' => 'O tamanho permitido para o Nome do Pastor da Igreja Anterior é de 300 caracteres',
             'igreja_old_pastor_email.max' => 'O tamanho permitido para o E-mail do Pastor da Igreja Anterior é de 300 caracteres',
+            'igreja_old_pastor_fone.max' => 'O tamanho permitido para o Telefone do Pastor da Igreja Anterior é de 15 digitos',
         ];
     }
 }
